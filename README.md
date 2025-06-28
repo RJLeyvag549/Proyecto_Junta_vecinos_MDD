@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🚀 Plantilla de Proyecto Metodología del Desarrollo IECI 2025-1
 
 Este repositorio contiene el backend de la plantilla base para el proyecto semestral de Metodología del Desarrollo usando Node.js, Express y PostgreSQL. Sigue estos pasos para clonar, configurar y ejecutar el servidor localmente.
@@ -49,3 +50,7 @@ npm start
 ```
 
 El backend se ejecutará en http://localhost:3000.
+=======
+# Proyecto_Junta_vecinos_MDD
+![hippo](https://media.tenor.com/o4qOyy5R8ScAAAAd/meme.gif)
+>>>>>>> b9fb89ae90bd4241b06889da1b9dd22ef07ab068
