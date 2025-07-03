@@ -42,8 +42,13 @@ export const MeetingEntity = new EntitySchema({
       target: "Attendance",
       type: "one-to-many",
       inverseSide: "reunion"
-    }
-  }
+    },
+    acta: {
+     target: "Act",         // Nombre que usaste en ActaEntity
+     type: "one-to-one",
+     inverseSide: "reunion", // Debe coincidir con el nombre del campo en ActaEntity
+    },
+  },
 });
 
 export default MeetingEntity;

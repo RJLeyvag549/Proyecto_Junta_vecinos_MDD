@@ -1,15 +1,18 @@
 "use strict";
 import Meeting from "../entity/meeting.entity.js";
+import Attendance from "../entity/attendance.entity.js";
+import Act from "../entity/meeting_act.entity.js";
 import { AppDataSource } from "../config/configDb.js";
 import { generateAttendanceForMeeting } from "./attendance.controller.js";
+import { createMeetingValidation, updateMeetingValidation, getMeetingByIdValidation } from "../validations/meeting.validation.js";
 
 export async function createMeeting(req, res) {
   try {
-    // Obtener el repositorio de reuniones y validar los datos de entrada
     const meetingRepository = AppDataSource.getRepository(Meeting);
     const { lugar, fecha, hora, modalidad } = req.body;
+    const { error } = createMeetingValidation.validate(req.body);
+    if (error) return res.status(400).json({ message: error.message });
 
-    // Verificar si el usuario ya existe verificando email, rut y username
     const existingFechaMeeting = await meetingRepository.findOne({
       where: { fecha },
     });
@@ -25,9 +28,7 @@ export async function createMeeting(req, res) {
     await meetingRepository.save(newMeeting);
     await generateAttendanceForMeeting(newMeeting.id);
 
-    res
-      .status(201)
-      .json({ message: "Reunion creada exitosamente!", data: newMeeting });
+    res.status(201).json({ message: "Reunion creada exitosamente!", data: newMeeting });
   } catch (error) {
     console.error("Error en meeting.controller.js -> create(): ", error);
     return res.status(500).json({ message: "Error al crear la reunion" });
@@ -36,7 +37,6 @@ export async function createMeeting(req, res) {
 
 export async function getMeetings(req, res) {
   try {
-    // Obtener el repositorio de reuniones y buscar todas las reuniones
     const meetingRepository = AppDataSource.getRepository(Meeting);
     const meetings = await meetingRepository.find();
 
@@ -49,12 +49,13 @@ export async function getMeetings(req, res) {
 
 export async function getMeetingById(req, res) {
   try {
-    // Obtener el repositorio de reuniones y buscar una reunion por ID
     const meetingRepository = AppDataSource.getRepository(Meeting);
     const { id } = req.params;
+    const { error } = getMeetingByIdValidation.validate(req.params);
+    if (error) return res.status(400).json({ message: error.message });
+
     const meeting = await meetingRepository.findOne({ where: { id } });
 
-    // Si no se encuentra la reunion, devolver un error 404
     if (!meeting) {
       return res.status(404).json({ message: "Reunion no encontrada." });
     }
@@ -68,24 +69,23 @@ export async function getMeetingById(req, res) {
 
 export async function updateMeetingById(req, res) {
   try {
-    // Obtener el repositorio de reuniones y buscar una reunion por ID
     const meetingRepository = AppDataSource.getRepository(Meeting);
     const { id } = req.params;
     const { lugar, fecha, hora, modalidad} = req.body;
+    const { error } = updateMeetingValidation.validate(req.body);
+    if (error) return res.status(400).json({ message: error.message });
+
     const meeting = await meetingRepository.findOne({ where: { id } });
 
-    // Si no se encuentra la reunion, devolver un error 404
     if (!meeting) {
       return res.status(404).json({ message: "Reunion no encontrada." });
     }
 
-    // Validar que al menos uno de los campos a actualizar esté presente
     meeting.lugar = lugar || meeting.lugar;
     meeting.fecha = fecha || meeting.fecha;
     meeting.hora = hora || meeting.hora;
     meeting.modalidad = modalidad || meeting.modalidad;
 
-    // Guardar los cambios en la base de datos
     await meetingRepository.save(meeting);
 
     res
@@ -99,17 +99,21 @@ export async function updateMeetingById(req, res) {
 
 export async function deleteMeetingById(req, res) {
   try {
-    // Obtener el repositorio de reuniones y buscar la reunion por ID
     const meetingRepository = AppDataSource.getRepository(Meeting);
     const { id } = req.params;
+    const { error } = getMeetingByIdValidation.validate(req.params);
+    if (error) return res.status(400).json({ message: error.message });
+  
     const meeting = await meetingRepository.findOne({ where: { id } });
 
-    // Si no se encuentra la reunion, devolver un error 404
     if (!meeting) {
       return res.status(404).json({ message: "Reunion no encontrado." });
     }
 
-    // Eliminar la Reunion de la base de datos
+    const attendanceRepository = AppDataSource.getRepository(Attendance);
+    await attendanceRepository.delete({ reunion: { id } });
+    const actRepository = AppDataSource.getRepository(Act);
+    await actRepository.delete({ reunion: { id } });
     await meetingRepository.remove(meeting);
 
     res.status(200).json({ message: "Reunion eliminada exitosamente." });
@@ -121,17 +125,14 @@ export async function deleteMeetingById(req, res) {
 
 export async function getMeeting(req, res) {
   try {
-    // Obtener el repositorio de reuniones y buscar la reunion
     const meetingRepository = AppDataSource.getRepository(Meeting);
     const meetingFecha = req.Meeting.fecha;
     const meeting = await meetingRepository.findOne({ where: { fecha: meetingFecha } });
     
-    // Si no se encuentra la reunion, devolver un error 404
     if (!meeting) {
       return res.status(404).json({ message: "Reunion no encontrada." });
     }
 
-    // Formatear la respuesta excluyendo la fecha de creacion y actualizacion en el sistema
     const formattedMeeting = {
       id: meeting.id,
       lugar: meeting.lugar,
