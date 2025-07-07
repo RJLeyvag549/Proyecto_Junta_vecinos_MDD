@@ -32,8 +32,7 @@ export async function createAct(req, res) {
     const newAct = actRepository.create({
       titulo,
       contenido,
-      reunion: meeting,
-      firma: false,
+      reunion: meeting
     });
 
     await actRepository.save(newAct);

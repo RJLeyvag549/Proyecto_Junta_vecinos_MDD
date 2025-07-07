@@ -8,7 +8,7 @@ const router = Router();
 
 router.use(authenticateJwt);
 // Rutas públicas
-router.get("/meeting", getMeeting);
+router.get("/calendar", getMeeting);
 router.use(isAdmin);
 
 // Rutas para obtener usuarios

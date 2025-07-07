@@ -25,7 +25,7 @@ export const MeetingEntity = new EntitySchema({
     },
     modalidad: {
       type: String,
-      default: "Presencial",
+      default: "presencial",
     },
     createdAt: {
       type: "timestamp",

@@ -122,13 +122,18 @@ export async function deleteMeetingById(req, res) {
     res.status(500).json({ message: "Error interno del servidor." });
   }
 }
-
+//aun falta terminar, ingresar año y mes de busqueda
 export async function getMeeting(req, res) {
   try {
     const meetingRepository = AppDataSource.getRepository(Meeting);
-    const meetingFecha = req.Meeting.fecha;
-    const meeting = await meetingRepository.findOne({ where: { fecha: meetingFecha } });
-    
+    const { fecha } = req.query;
+
+    if (!fecha) {
+      return res.status(400).json({ message: "Fecha requerida en la consulta." });
+    }
+
+    const meeting = await meetingRepository.findOne({ where: { fecha } });
+
     if (!meeting) {
       return res.status(404).json({ message: "Reunion no encontrada." });
     }
@@ -141,9 +146,9 @@ export async function getMeeting(req, res) {
       modalidad: meeting.modalidad
     };
 
-    res.status(200).json({ message: "Reunion encontrado: ", data: formattedMeeting });
+    res.status(200).json({ message: "Reunion encontrada: ", data: formattedMeeting });
   } catch (error) {
     console.error("Error en meeting.controller -> getMeeting(): ", error);
-    res.status(500).json({ message: "Error interno del servidor"})
+    res.status(500).json({ message: "Error interno del servidor" });
   }
 }
