@@ -4,6 +4,7 @@ import { getUsers, getUserById, getProfile, updateUserById, deleteUserById } fro
 import { authenticateJwt } from "../middleware/authentication.middleware.js";
 import { isAdmin } from "../middleware/authorization.middleware.js";
 
+
 const router = Router();
 
 // Middleware para autenticar el JWT
