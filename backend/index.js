@@ -7,7 +7,6 @@ import { PORT, HOST } from "./src/config/configEnv.js";
 import { connectDB } from "./src/config/configDb.js";
 import { createUsers } from "./src/config/initDb.js";
 
-
 async function setupServer() {
   // Crea la instancia de Express
   const app = express();
@@ -54,4 +53,3 @@ async function setupAPI() {
 setupAPI()
   .then(() => console.log("=> API Iniciada exitosamente"))
   .catch((error) => console.log("Error en index.js -> setupAPI(): ", error));
-
