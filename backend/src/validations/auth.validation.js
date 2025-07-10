@@ -20,7 +20,7 @@ export const registerValidation = Joi.object({
     .pattern(/^[a-zA-Z0-9_]+$/)
     .messages({
       "string.pattern.base":
-      "El nombre de usuario solo puede contener letras, números y guiones bajos.",
+        "El nombre de usuario solo puede contener letras, números y guiones bajos.",
       "string.min": "El nombre de usuario debe tener al menos 3 caracteres.",
       "string.max": "El nombre de usuario no puede exceder los 30 caracteres.",
       "string.empty": "El nombre de usuario es obligatorio.",
@@ -28,7 +28,6 @@ export const registerValidation = Joi.object({
   rut: Joi.string()
     .required()
     .pattern(/^\d{2}\.\d{3}\.\d{3}-[\dkK]$/)
-    //.pattern(/^(?:(?:[1-9]\d{0}|[1-2]\d{1})(\.\d{3}){2}|[1-9]\d{6}|[1-2]\d{7}|29\.999\.999|29999999)-[\dkK]$/) // Regex para validar el formato del RUT chileno con o sin puntos y guion
     .messages({
       "string.empty": "El rut no puede estar vacío.",
       "string.base": "El rut debe ser de tipo string.",

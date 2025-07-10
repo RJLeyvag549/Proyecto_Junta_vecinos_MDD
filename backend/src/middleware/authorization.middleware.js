@@ -30,5 +30,3 @@ export async function isAdmin(req, res, next) {
     res.status(500).json({ message: "Error interno del servidor", error });
   }
 }
-
-
