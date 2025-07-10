@@ -13,8 +13,11 @@ const meetingIdParam = Joi.object({
       "number.integer": "El ID de la reunión debe ser un número entero.",
       "number.min": "El ID de la reunión debe ser mayor o igual a 1.",
     }),
-}).unknown(false).messages({
+})
+  .or("meetingId")
+  .unknown(false).messages({
   "object.unknown": "No se permiten parámetros adicionales.",
+  "object.missing": "Debes ingresar el ID"
 });
 
 const actaBody = Joi.object({

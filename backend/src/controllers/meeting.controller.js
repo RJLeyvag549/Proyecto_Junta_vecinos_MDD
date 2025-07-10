@@ -2,9 +2,10 @@
 import Meeting from "../entity/meeting.entity.js";
 import Attendance from "../entity/attendance.entity.js";
 import Act from "../entity/meeting_act.entity.js";
+import { Between } from "typeorm";
 import { AppDataSource } from "../config/configDb.js";
 import { generateAttendanceForMeeting } from "./attendance.controller.js";
-import { createMeetingValidation, updateMeetingValidation, getMeetingByIdValidation } from "../validations/meeting.validation.js";
+import { createMeetingValidation, updateMeetingValidation, getMeetingByIdValidation, rangeDateSchema } from "../validations/meeting.validation.js";
 
 export async function createMeeting(req, res) {
   try {
@@ -126,27 +127,33 @@ export async function deleteMeetingById(req, res) {
 export async function getMeeting(req, res) {
   try {
     const meetingRepository = AppDataSource.getRepository(Meeting);
-    const { fecha } = req.query;
+    const { error, value } = rangeDateSchema.validate(req.query);
 
-    if (!fecha) {
-      return res.status(400).json({ message: "Fecha requerida en la consulta." });
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
     }
 
-    const meeting = await meetingRepository.findOne({ where: { fecha } });
+    const { anio, mes } = value;
+    const fechaInicio = new Date(anio, mes - 1, 1);
+    const fechaFin = new Date(anio, mes, 0, 23, 59, 59, 999);
+    
+    const meetings = await meetingRepository.find({
+      where: { fecha: Between(fechaInicio, fechaFin )}
+    });
 
-    if (!meeting) {
-      return res.status(404).json({ message: "Reunion no encontrada." });
+    if (meetings.length === 0) {
+      return res.status(404).json({ message: "No se encontraron reuniones en ese mes." });
     }
 
-    const formattedMeeting = {
+    const formattedMeetings = meetings.map(meeting => ({
       id: meeting.id,
       lugar: meeting.lugar,
       fecha: meeting.fecha,
       hora: meeting.hora,
       modalidad: meeting.modalidad
-    };
+    }));
 
-    res.status(200).json({ message: "Reunion encontrada: ", data: formattedMeeting });
+    res.status(200).json({ message: "Reuniones encontradas: ", data: formattedMeetings });
   } catch (error) {
     console.error("Error en meeting.controller -> getMeeting(): ", error);
     res.status(500).json({ message: "Error interno del servidor" });

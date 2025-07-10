@@ -63,8 +63,24 @@ export const getMeetingByIdValidation = Joi.object({
     .min(1)
     .required()
     .messages({
+      "number.min": "El ID tiene que ser 1 o mayor",
       "number.base": "El ID debe ser un número.",
       "any.required": "El ID es obligatorio.",
     }),
 });
-    
+
+export const rangeDateSchema = Joi.object({
+  anio: Joi.number().integer().min(2000).required().messages({
+    'number.min': 'La reunion no deberia ser creada antes del año 2000',
+    'any.required': 'El año es obligatorio.',
+    'number.base': 'El año debe ser un número.',
+    'number.integer': 'El año debe ser un numero entero'
+  }),
+  mes: Joi.number().integer().min(1).max(12).required().messages({
+    'number.min': 'El mes debe estar en el rango entre 1 y 12',
+    'number.max': 'El mes debe estar en el rango entre 1 y 12',
+    'any.required': 'El mes es obligatorio.',
+    'number.base': 'El mes debe ser un número',
+    'number.integer': 'El mes debe ser un numero entero'
+  }),
+});
