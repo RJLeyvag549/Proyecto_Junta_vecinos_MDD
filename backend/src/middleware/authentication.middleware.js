@@ -24,3 +24,4 @@ export function authenticateJwt(req, res, next) {
     return res.status(403).json({ message: "Token inválido o expirado" });
   }
 }
+
