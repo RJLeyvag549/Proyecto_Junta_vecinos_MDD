@@ -15,6 +15,7 @@ export async function getUsers(req, res) {
   }
 }
 
+
 export async function getUserById(req, res) {
   try {
     // Obtener el repositorio de usuarios y buscar un usuario por ID
@@ -38,7 +39,7 @@ export async function updateUserById(req, res) {
   try {
     // Obtener el repositorio de usuarios y buscar un usuario por ID
     const userRepository = AppDataSource.getRepository(User);
-    const { id } = req.params;
+    const { id } = req.query;
     const { username, email, rut } = req.body;
     const user = await userRepository.findOne({ where: { id } });
 
