@@ -2,37 +2,30 @@
 
 import { EntitySchema } from "typeorm";
 
-export const UserEntity = new EntitySchema({
-    name: "User",
-    tableName: "users",
+export const FundingEntity = new EntitySchema({
+    name: "Funding",
+    tableName: "fundings",
     columns: {
         id: {
             type: Number,
             primary: true,
             generated: true,
         },
-        username: {
-            type: String,
-            unique: true,
-            nullable: false,
-        },
-        rut: {
-            type: String,
-            unique: true,
-            nullable: false,
-        },
-        email: {
-            type: String,
-            unique: true,
-            nullable: false,
-        },
-        password: {
+        name: {
             type: String,
             nullable: false,
         },
-        role: {
+        amount: {
+            type: "decimal",
+            nullable: false,
+        },
+        date: {
             type: String,
-            default: "user",
+            nullable: false,
+        },
+        status: {
+            type: String,
+            default: "pendiente", // o el estado que prefieras
         },
         createdAt: {
             type: "timestamp",
@@ -44,13 +37,6 @@ export const UserEntity = new EntitySchema({
             onUpdate: () => "CURRENT_TIMESTAMP",
         },
     },
-    relations: {
-        asistencias: {
-            target: "Attendance",
-            type: "one-to-many",
-            inverseSide: "usuario", // ← esto conecta con el campo "usuario" en attendance.entity.js
-        },
-    },
 });
 
-export default UserEntity;
+export default FundingEntity;
