@@ -19,8 +19,10 @@ export async function getUsers(req, res) {
     res.status(500).json({ message: "Error interno del servidor." });
   }
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* Busca y devuelve un usuario específico según su id (incluyendo grupo familiar en caso de que tenga).
+
 export async function getUserById(req, res) {
   try {
     // Obtener el repositorio de usuarios y buscar un usuario por ID
@@ -65,9 +67,15 @@ export async function updateUserById(req, res) {
   try {
     // Obtener el repositorio de usuarios y buscar un usuario por ID
     const userRepository = AppDataSource.getRepository(User);
+
     const { id } = req.params;
     const { firstName, lastName, email, contact, homeAddress, requestStatus, familyGroup } = req.body;
     const user = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
+
+    const { id } = req.query;
+    const { username, email, rut } = req.body;
+    const user = await userRepository.findOne({ where: { id } });
+
 
     // Si no se encuentra el usuario, devolver un error 404
     if (!user) {

@@ -91,6 +91,7 @@ export async function login(req, res) {
     //* Crea un token JWT con los datos del usuario
     const payload = {
       id: userFound.id,
+     // username: userFound.username,
       email: userFound.email,
       role: userFound.role,
     };
@@ -98,6 +99,10 @@ export async function login(req, res) {
 
     //* Envía token como respuesta
     res.status(200).json({ message: "Inicio de sesión exitoso", accessToken });
+
+    res.status(200).json({ 
+      message: "Inicio de sesión exitoso", accessToken });
+
   } catch (error) {
     console.error("Error en auth.controller.js -> login(): ", error);
     return res.status(500).json({ message: "Error al iniciar sesión" });
