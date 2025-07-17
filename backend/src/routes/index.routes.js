@@ -3,16 +3,10 @@
 import { Router } from "express";
 import authRoutes from "./auth.routes.js";
 import userRoutes from "./user.routes.js";
+import TransactionRoutes from "./transaction.routes.js";
+import InventoryRoutes from "./inventory.routes.js";
 import familyGroupRoutes from "./familyGroup.routes.js";
 import pdfRoutes from "./pdf.routes.js";
-
-const router = Router();
-
-router.use("/auth", authRoutes);
-router.use("/users", userRoutes);
-router.use("/family", familyGroupRoutes);
-router.use("/certificate", pdfRoutes);
-
 import votacionRoutes from "./votacion.routes.js";
 // import votoRoutes from "./voto.routes.js";
 import meetingRoutes from "./meeting.routes.js"
@@ -22,10 +16,17 @@ import publicacionesRoutes from "./publicaciones.routes.js"
 import comentariosRoutes from "./comentarios.routes.js";
 import fundingRoutes from "./funding.routes.js";
 
-const router = new Router();  
+const router = Router();
 
 router.use("/auth", authRoutes);
 router.use("/users", userRoutes);
+
+router.use("/transaction", TransactionRoutes);
+router.use("/inventory", InventoryRoutes);
+
+router.use("/family", familyGroupRoutes);
+router.use("/certificate", pdfRoutes);
+ 
 router.use("/votacion", votacionRoutes);
 // router.use("/voto", votoRoutes);
     
