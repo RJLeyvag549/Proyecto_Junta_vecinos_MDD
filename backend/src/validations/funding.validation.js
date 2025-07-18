@@ -1,7 +1,6 @@
 "use strict";
 import Joi from "joi";
 
-// Esquema de validación para la acreditación de fondos públicos
 export const fundingValidation = Joi.object({
   name: Joi.string()
   .min(3)
@@ -29,7 +28,7 @@ export const fundingValidation = Joi.object({
   }),
   status: Joi.string()
   .valid("pendiente", "acreditado", "rechazado")
-  .required()
+  .default("pendiente")
   .messages({
     "any.only": "El estado debe ser 'pendiente', 'acreditado' o 'rechazado'.",
     "string.empty": "El estado es obligatorio.",
