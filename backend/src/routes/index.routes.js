@@ -1,15 +1,32 @@
 "use strict";
 import { Router } from "express";
-import authRoutes from "./auth.routes.js"
+import authRoutes from "./auth.routes.js";
 import userRoutes from "./user.routes.js";
 import votacionRoutes from "./votacion.routes.js";
+<<<<<<< HEAD
 import votoRoutes from "./voto.routes.js";
+=======
+// import votoRoutes from "./voto.routes.js";
+import meetingRoutes from "./meeting.routes.js"
+import attendanceRoutes from "./attendance.routes.js"
+import ActRoutes from "./meeting_act.routes.js"
+import publicacionesRoutes from "./publicaciones.routes.js"
+import comentariosRoutes from "./comentarios.routes.js";
+import fundingRoutes from "./funding.routes.js";
+>>>>>>> 56ae4ef674a34c92d39688638a7614f3974296e1
 
-const router = new Router();
+const router = new Router();  
 
 router.use("/auth", authRoutes);
 router.use("/users", userRoutes);
 router.use("/votacion", votacionRoutes);
 router.use("/voto", votoRoutes);
     
+router.use("/meetings", meetingRoutes);
+router.use("/meetings", attendanceRoutes);
+router.use("/meetings", ActRoutes);
+router.use("/publicaciones", publicacionesRoutes);
+router.use("/comentarios", comentariosRoutes);
+router.use("/funding", fundingRoutes);
+
 export default router;

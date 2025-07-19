@@ -29,6 +29,7 @@ async function setupServer() {
   // Configura las rutas de la API
   app.use("/api", indexRoutes);
 
+
   // Enciende el servidor
   app.listen(PORT, () => {
     console.log(`Servidor corriendo en ${HOST}:${PORT}`);
