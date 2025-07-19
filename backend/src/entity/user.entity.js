@@ -76,8 +76,6 @@ export const UserEntity = new EntitySchema({
         inverseSide: "mainUser",
         //cascade: true, // Permite que las operaciones de inserción, actualización y eliminación se propaguen a los grupos familiares asociados
       },
-    }
-
         asistencias: {
             target: "Attendance",
             type: "one-to-many",

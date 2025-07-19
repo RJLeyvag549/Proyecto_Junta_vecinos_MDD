@@ -72,11 +72,6 @@ export async function updateUserById(req, res) {
     const { firstName, lastName, email, contact, homeAddress, requestStatus, familyGroup } = req.body;
     const user = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
 
-    const { id } = req.query;
-    const { username, email, rut } = req.body;
-    const user = await userRepository.findOne({ where: { id } });
-
-
     // Si no se encuentra el usuario, devolver un error 404
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado." });
