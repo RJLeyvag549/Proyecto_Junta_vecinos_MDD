@@ -13,8 +13,9 @@ import {
 //* FUNCIÓN PARA REGISTRAR UN NUEVO USUARIO
 export async function register(req, res) {
   try {
-    console.log("BODY:", req.body);
-    console.log("FILES:", req.files);
+    
+    //console.log("BODY:", req.body);
+    //console.log("FILES:", req.files);
 
     const userRepository = AppDataSource.getRepository(User);    
 
