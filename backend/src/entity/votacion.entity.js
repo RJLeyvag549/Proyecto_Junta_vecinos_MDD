@@ -34,9 +34,9 @@ export const VotacionEntity = new EntitySchema({
             type: "simple-array", // almacena como texto separado por comas
             nullable: false,
         },
-        fue_editada: { // ver si la votación fue editada o no
-            type: Boolean,
-            default: false,
+        editada_en: { // fecha en la que se editó la votación
+        type: "timestamp",
+        nullable: true, // puede ser nulo si no ha sido editada aún
         },
         creada_en: { // fecha en la que se creo la votación
             type: "timestamp",
@@ -47,17 +47,6 @@ export const VotacionEntity = new EntitySchema({
         nullable: false,
         },
     },
-    /* Se definen relaciones entre tablas
-    relations: {
-        creada_por: { 
-            type: "many-to-one", // muchos registros de votaciones pueden ser creados por el mismo usuario
-            target: "User", // se conecta con la entidad UserEntity
-            joinColumn: { name: "creada_por"}, /*se hace un join con la tabla usuarios y 
-            se crea una nueva columna en la tabla votaciones llamada "creada_por" 
-            nullable: false, // la votación debe ser creada por alguien
-        }
-    }
-    */
 
 });
 export default VotacionEntity;
