@@ -5,16 +5,18 @@ import { createValidation } from "../validations/publicaciones.validation.js";
 import { updateValidation } from "../validations/publicaciones.validation.js";
 
 
-export async function getPublicaciones(req,res) {
-//&
-    try{
-        const publicacionesRepository = AppDataSource.getRepository(publicacionesEntity);
-        const publicaciones = await publicacionesRepository.find();
 
+export async function getPublicaciones(req,res) { //Declara una función asíncrona que será exportada para ser usada en los routes
+//& req: la solicitud del cliente
+    try{
+        const publicacionesRepository = AppDataSource.getRepository(publicacionesEntity); // TypeORM para obtener el repositorio de la entidad publicacionesEntity
+        const publicaciones = await publicacionesRepository.find();//Espera a que la base de datos termine de buscar todas las publicaciones, y guarda el resultado en la variable publicaciones
+
+//& res: la respuesta del servidor
         res.status(200).json({ message: "Publicaciones encontradas: ", data: publicaciones})
     }catch (error) {
-        console.error(" Error al crear la publicación: ", error);
-        res.status(500).json({ message: "Error al crear la publicación."});
+        console.error(" Error al obtener la publicación: ", error);
+        res.status(500).json({ message: "Error al obtener la publicación."}); //Error interno (500)
     }
     
   }
@@ -54,28 +56,48 @@ export async function createPublicaciones(req, res) {
   }
 }
 
-// Editar
+
+// Editar contenido de una publicación
 export async function updatePublicacion(req, res) {
   try {
     const { id_publicacion } = req.params;
+    const { contenido, titulo } = req.body; // ← ahora también recibe título
+
     const repo = AppDataSource.getRepository(publicacionesEntity);
+    const publicacion = await repo.findOneBy({ id_publicacion: Number(id_publicacion) });
 
-    const publicacion = await repo.findOneBy({ id_publicacion });
-    if (!publicacion)
+    if (!publicacion) {
       return res.status(404).json({ message: "Publicación no encontrada" });
+    }
 
-    const { error } = updatePublicacionValidation.validate(req.body);
-    if (error)
-      return res.status(400).json({ message: "Error de validación", detalle: error.details });
+    // Validar solo si hay algo que actualizar
+    const { error } = updateValidation.validate({ contenido, titulo });
+    if (error) {
+      return res.status(400).json({
+        message: "Error de validación",
+        detalle: error.details[0]?.message,
+        campo: error.details[0]?.context?.key,
+      });
+    }
 
-    repo.merge(publicacion, req.body);
+    // Solo actualiza si el campo viene en el body
+    if (contenido !== undefined) publicacion.contenido = contenido;
+    if (titulo !== undefined) publicacion.titulo = titulo;
+
     await repo.save(publicacion);
 
-    res.status(200).json({ message: "Publicación actualizada", data: publicacion });
+    res.status(200).json({
+      message: "Publicación actualizada",
+      data: publicacion,
+    });
+
   } catch (error) {
+    console.error("Error al actualizar publicación:", error);
     res.status(500).json({ message: "Error al actualizar", error: error.message });
   }
 }
+
+
 
 export async function getPublicacionConComentarios(req, res) {
   try {

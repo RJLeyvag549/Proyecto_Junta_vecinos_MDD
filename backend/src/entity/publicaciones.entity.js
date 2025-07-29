@@ -34,7 +34,7 @@ export const publicacionesEntity = new EntitySchema({
         },
     },
 
-    // AQUÍ DEBE IR RELATIONS
+    // Aqui debe ir
     relations: {
         comentarios: {
             type: "one-to-many",

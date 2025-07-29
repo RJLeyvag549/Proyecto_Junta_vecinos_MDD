@@ -4,16 +4,15 @@ import { UserEntity } from "../entity/user.entity.js";
 import { ComentariosEntity } from "../entity/comentarios.entity.js";
 import { publicacionesEntity } from "../entity/publicaciones.entity.js";
 import { AppDataSource } from "../config/configDb.js";
-import { createComentarioValidation } from "../validations/comentarios.validation.js";
-import { idParamValidation } from "../validations/comentarios.validation.js";
-import { updateComentarioValidation } from "../validations/comentarios.validation.js";
-import { idComentarioValidation } from "../validations/comentarios.validation.js";
-
+import {
+  createComentarioValidation,
+  updateComentarioValidation
+} from "../validations/comentarios.validation.js";
 
 export async function createComentario(req, res) {
   try {
     const { id_publicacion } = req.params;
-    const { comentario } = req.body;
+    const { contenido } = req.body; // ← ahora usamos "contenido"
     const id_usuario = req.user?.id;
 
     if (!id_usuario) {
@@ -51,7 +50,7 @@ export async function createComentario(req, res) {
     }
 
     const nuevoComentario = comentarioRepo.create({
-      comentario,
+      contenido,
       publicacion,
       user: usuario,
     });
@@ -68,14 +67,30 @@ export async function createComentario(req, res) {
     res.status(500).json({ message: "Error interno", error: error.message });
   }
 }
-export async function deleteComentario(req, res) {
+
+export async function deleteComentario(req, res) { // solo el usuario puede eliminar SUS comentarios, no los de otros
   try {
     const { id_comentario } = req.params;
+    const id_usuario = req.user?.id;
+
+    if (!id_usuario) {
+      return res.status(401).json({ message: "No autenticado" });
+    }
+
     const comentarioRepo = AppDataSource.getRepository(ComentariosEntity);
 
-    const comentario = await comentarioRepo.findOneBy({ id_comentario });
+    const comentario = await comentarioRepo.findOne({
+      where: { id_comentario: parseInt(id_comentario) },
+      relations: ["user"]
+    });
+
     if (!comentario) {
       return res.status(404).json({ message: "Comentario no encontrado" });
+    }
+
+    // Solo el dueño puede eliminar su comentario
+    if (comentario.user.id !== id_usuario) {
+      return res.status(403).json({ message: "No autorizado para eliminar este comentario" });
     }
 
     await comentarioRepo.remove(comentario);
@@ -86,6 +101,7 @@ export async function deleteComentario(req, res) {
     res.status(500).json({ message: "Error interno", error: error.message });
   }
 }
+
 
 export async function getComentariosByPublicacion(req, res) {
   try {
@@ -104,13 +120,14 @@ export async function getComentariosByPublicacion(req, res) {
     res.status(500).json({ message: "Error interno del servidor" });
   }
 }
+
 export async function getComentarioById(req, res) {
   try {
     const { id_comentario } = req.params;
     const comentarioRepo = AppDataSource.getRepository(ComentariosEntity);
 
     const comentario = await comentarioRepo.findOne({
-      where: { id_comentario: Number(id_comentario) },
+      where: { id_comentario: Number(id_comentario) }, //Busca los comentarios donde la publicación asociada tenga el id igual al recibido
       relations: ["user"]
     });
 
@@ -142,8 +159,11 @@ export async function updateComentario(req, res) {
       relations: ["user"]
     });
 
-    if (!comentario) return res.status(404).json({ message: "Comentario no encontrado" });
-    if (comentario.user.id !== id_usuario) return res.status(403).json({ message: "No autorizado para editar este comentario" });
+    if (!comentario)
+      return res.status(404).json({ message: "Comentario no encontrado" });
+
+    if (comentario.user.id !== id_usuario)
+      return res.status(403).json({ message: "No autorizado para editar este comentario" });
 
     comentario.contenido = contenido;
     await comentarioRepo.save(comentario);
