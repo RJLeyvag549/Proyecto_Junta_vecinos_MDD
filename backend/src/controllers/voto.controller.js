@@ -5,10 +5,15 @@ import Voto, { VotoEntity } from "../entity/voto.entity.js";
 import VotacionEntity from "../entity/votacion.entity.js";
 import { Equal } from "typeorm";
 import UserEntity from "../entity/user.entity.js";
-
+import { votoValidation } from "../validations/voto.validation.js";
+import { validarOpcionElegida } from "../helpers/voto.helper.js";
 //Emitir voto (usuario autenticado)
 export async function emitirVoto(req, res) {
     try {
+        const { error } = votoValidation.validate(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.details[0].message });
+        }
         // Repositorios de las entidades
         const votoRepo = AppDataSource.getRepository(VotoEntity);
         const votacionRepo = AppDataSource.getRepository(VotacionEntity);
@@ -37,6 +42,16 @@ export async function emitirVoto(req, res) {
         if (ahora < votacion.fecha_inicio || ahora > votacion.fecha_fin) { 
             return res.status(400).json({ message: "La votación no está activa" });
         }
+
+        //Validar opción válida
+        const resultadoValidacion = validarOpcionElegida(votacion, opcion_elegida);
+        if (!resultadoValidacion.esValido) {
+            return res.status(400).json({
+                message: resultadoValidacion.mensaje,
+                opciones_validas: resultadoValidacion.opciones_validas,
+            });
+        }
+
 
         // Verifica si el usuario ya votó en esta votación
         const yaVoto = await votoRepo.findOne({ // Busca en la tabla de votos
