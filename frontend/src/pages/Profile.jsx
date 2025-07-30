@@ -1,4 +1,4 @@
-/* import Form from "../components/Form";
+import Form from "../components/Formulario.jsx";
 import Navbar from "../components/Navbar";
 import { profile } from "../services/auth.service";
 import { useState, useEffect } from "react";
@@ -70,4 +70,3 @@ const Profile = () => {
 };
 
 export default Profile;
-*/

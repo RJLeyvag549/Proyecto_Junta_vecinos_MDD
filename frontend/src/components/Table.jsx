@@ -1,4 +1,4 @@
-/* import deleteIcon from '../assets/deleteIcon.svg';
+import deleteIcon from '../assets/deleteIcon.svg';
 import updateIcon from '../assets/updateIcon.svg';
 
 const Table = ({ columns, data, onDelete, onEdit }) => {
@@ -62,4 +62,3 @@ const Table = ({ columns, data, onDelete, onEdit }) => {
 };
 
 export default Table;
-*/

@@ -1,4 +1,4 @@
-/*const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundColor }) => {
+const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundColor }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -35,4 +35,3 @@
 
 
 export default Form;
-*/

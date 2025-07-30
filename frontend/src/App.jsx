@@ -1,9 +1,12 @@
+import AppRouter from "./AppRouter";
+
 function App() {
   return (
-    <div>
-      <h1>Mi Proyecto</h1>
-    </div>
+    <>
+      <AppRouter />
+    </>
   );
 }
 
 export default App;
+
