@@ -1,4 +1,4 @@
-import Form from "../components/Form.jsx";
+import Form from "../components/Formulario.jsx";
 import Navbar from "../components/Navbar.jsx";
 import { updateUser } from "../services/user.service.js";
 import { useLocation, useNavigate } from "react-router-dom";

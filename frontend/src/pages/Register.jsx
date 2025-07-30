@@ -1,7 +1,6 @@
-/*import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { register } from '../services/auth.service.js';
-import Form from "../components/Form";
-import ImgLogo from "../components/ImgLogo";
+import Form from "../components/Formulario.jsx";
 
 const Register = () => {
 
@@ -15,7 +14,6 @@ const Register = () => {
 
 	return (
 		<main className="container">
-			<ImgLogo />
 			<Form
 				title="Crea tu cuenta"
 				fields={[
@@ -57,4 +55,3 @@ const Register = () => {
 };
 
 export default Register;
-*/
