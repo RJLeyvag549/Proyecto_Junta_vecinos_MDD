@@ -1,9 +1,12 @@
+//* ESTE ARCHIVO ES PARA PROTEGER LAS RUTAS 
+
 "use strict";
 
 import { SESSION_SECRET } from "../config/configEnv.js";
 import jwt from "jsonwebtoken";
 
 export function authenticateJwt(req, res, next) {
+
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer "))

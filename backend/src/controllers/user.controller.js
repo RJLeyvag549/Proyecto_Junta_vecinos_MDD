@@ -9,7 +9,6 @@ import { AppDataSource } from "../config/configDb.js";
 //* Busca y devuelve todos los usuarios registrados en la base de datos (no incluye grupo familiar).
 export async function getUsers(req, res) {
   try {
-    // Obtener el repositorio de usuarios y buscar todos los usuarios
     const userRepository = AppDataSource.getRepository(User);
     const users = await userRepository.find();
 
@@ -19,18 +18,14 @@ export async function getUsers(req, res) {
     res.status(500).json({ message: "Error interno del servidor." });
   }
 }
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* Busca y devuelve un usuario específico según su id (incluyendo grupo familiar en caso de que tenga).
-
 export async function getUserById(req, res) {
   try {
-    // Obtener el repositorio de usuarios y buscar un usuario por ID
     const userRepository = AppDataSource.getRepository(User);
     const { id } = req.params;
     const user = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
 
-    // Si no se encuentra el usuario, devolver un error 404
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado." });
     }
@@ -49,11 +44,26 @@ export async function getUsersByFilters(req, res) {
 
     const { role, requestStatus } = req.query;
 
+    const validRoles = ["administrator", "user"];
+    const validStatuses = ["aprobado", "rechazado", "pendiente"];
+
+    if (role && !validRoles.includes(role)) {
+      return res.status(400).json({ message: "Rol no válido" });
+    }
+
+    if (requestStatus && !validStatuses.includes(requestStatus)) {
+      return res.status(400).json({ message: "Estado de solicitud no válido" });
+    }
+
     const filters = {};
     if (role) filters.role = role;
     if (requestStatus) filters.requestStatus = requestStatus;
 
-    const users = await userRepository.find({ where: filters, relations: ["familyGroup"], order: { createdAt: "DESC" } });
+    const users = await userRepository.find({
+      where: filters,
+      relations: ["familyGroup"],
+      order: { createdAt: "DESC" }
+    });
 
     res.status(200).json({ message: "Usuarios filtrados!", data: users });
   } catch (error) {
@@ -65,24 +75,15 @@ export async function getUsersByFilters(req, res) {
 //* Actualiza un usuario específico según su id.
 export async function updateUserById(req, res) {
   try {
-    // Obtener el repositorio de usuarios y buscar un usuario por ID
     const userRepository = AppDataSource.getRepository(User);
-
     const { id } = req.params;
     const { firstName, lastName, email, contact, homeAddress, requestStatus, familyGroup } = req.body;
     const user = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
 
-    const { id } = req.query;
-    const { username, email, rut } = req.body;
-    const user = await userRepository.findOne({ where: { id } });
-
-
-    // Si no se encuentra el usuario, devolver un error 404
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado." });
     }
 
-    // Validar que al menos uno de los campos a actualizar esté presente
     user.firstName = firstName || user.firstName;
     user.lastName = lastName || user.lastName;
     user.email = email || user.email;
@@ -90,10 +91,8 @@ export async function updateUserById(req, res) {
     user.homeAddress = homeAddress || user.homeAddress;
     user.requestStatus = requestStatus || user.requestStatus;
 
-    // Guardar los cambios en la base de datos
     await userRepository.save(user);
 
-    // Actualizar los miembros del grupo familiar EN CASO DE QUE VENGAN EN EL BODY
     if (Array.isArray(familyGroup)) {
       const familyGroupRepository = AppDataSource.getRepository(FamilyGroup);
 
@@ -125,17 +124,14 @@ export async function updateUserById(req, res) {
 //* Elimina un usuario específico según su id.
 export async function deleteUserById(req, res) {
   try {
-    // Obtener el repositorio de usuarios y buscar el usuario por ID
     const userRepository = AppDataSource.getRepository(User);
     const { id } = req.params;
     const user = await userRepository.findOne({ where: { id } });
 
-    // Si no se encuentra el usuario, devolver un error 404
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado." });
     }
 
-    // Eliminar el usuario de la base de datos
     await userRepository.remove(user);
 
     res.status(200).json({ message: "Usuario eliminado exitosamente." });
@@ -152,19 +148,16 @@ export async function updateRequestStatus(req, res) {
     const { id } = req.params;
     const { requestStatus } = req.body;
 
-    // Validar estado permitido
     const allowedStatus = ["aprobado", "rechazado", "pendiente"];
     if (!allowedStatus.includes(requestStatus)) {
       return res.status(400).json({ message: "Estado inválido! Debe ser: aprobado, rechazado o pendiente." });
     }
 
-    // Buscar usuario
     const user = await userRepository.findOne({ where: { id } });
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado." });
     }
 
-    // Actualizar el estado
     user.requestStatus = requestStatus;
     await userRepository.save(user);
 
@@ -174,3 +167,4 @@ export async function updateRequestStatus(req, res) {
     res.status(500).json({ message: "Error interno del servidor." });
   }
 }
+

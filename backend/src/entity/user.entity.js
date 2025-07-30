@@ -69,7 +69,6 @@ export const UserEntity = new EntitySchema({
         },
     },
     relations: {
-
       familyGroup: {
         type: "one-to-many",
         target: "FamilyGroup",
@@ -77,14 +76,9 @@ export const UserEntity = new EntitySchema({
         //cascade: true, // Permite que las operaciones de inserción, actualización y eliminación se propaguen a los grupos familiares asociados
       },
     }
-
-        asistencias: {
-            target: "Attendance",
-            type: "one-to-many",
-            inverseSide: "usuario", // ← esto conecta con el campo "usuario" en attendance.entity.js
-        },
-    },
-
 });
 
 export default UserEntity;
+
+
+

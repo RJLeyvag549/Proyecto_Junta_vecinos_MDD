@@ -1,6 +1,8 @@
+//* ESTE ARCHIVO PERMITE QUE USUARIOS SUBAN ARCHIVOS AL BACKEND
+
 import multer from "multer";
 
-// Configuración del almacenamiento
+//* CONFIGURACIÓN DEL ALMACENAMIENTO 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./src/upload/");
@@ -11,7 +13,7 @@ const storage = multer.diskStorage({
   },
 });
 
-// Filtro para aceptar solo PDF o imágenes
+//* FILTRO: ACPTA ARCHIVOS PDF, JPEG O PNG 
 const fileFilter = (req, file, cb) => {
   const allowedMimeTypes = ["application/pdf", "image/jpeg", "image/png"];
   if (allowedMimeTypes.includes(file.mimetype)) {
@@ -21,27 +23,27 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// Middleware de Multer
+//* ESTABLECE LÍMITE DE TAMAÑO (5MB)
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5 MB de límite de tamaño de archivo
+    fileSize: 5 * 1024 * 1024, 
   },
   fileFilter: fileFilter,
 });
 
-// Este middleware acepta múltiples campos
+//* ACEPTA MÁXIMO 1 ARCHIVO POR CAMPO
 const uploadDocuments = upload.fields([
   { name: "docIdentity", maxCount: 1 },
   { name: "docResidence", maxCount: 1 },
 ]);
 
-// Manejo de errores de límite de tamaño de archiv
+//* MANEJO DE ERRORES PARA EL TAMAÑO DEL ARCHIVO
 const handleFileSizeLimit = (err, req, res, next) => {
   if (err instanceof multer.MulterError) {
     return res.status(400).json({ message: "El archivo excede el límite de 5MB" });
   } else if (err) {
-		// Manejar errores de validación de tipo de archivo
+		//* MANEJO ERRORES PARA EL TIPO DE ARCHIVO
     return res.status(400).json({ message: err.message });
   }
   next();
