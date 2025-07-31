@@ -6,6 +6,7 @@ import { createComentario } from "../controllers/comentarios.controller.js";
 import { deletePublicacion } from "../controllers/publicaciones.controller.js";
 import { getComentariosByPublicacion } from "../controllers/comentarios.controller.js";
 import { updateComentario } from "../controllers/comentarios.controller.js";
+import { deleteComentario } from "../controllers/comentarios.controller.js";
 
 
 const router = Router();
@@ -13,7 +14,8 @@ const router = Router();
 // Ruta para crear comentario: solo requiere usuario autenticado
     router.post("/:id_publicacion",authenticateJwt,createComentario);
     // Ruta para eliminar publicación: solo admins
-    router.delete("/:id_publicacion",authenticateJwt,isAdmin,deletePublicacion);
+    router.delete("/:id_comentario/:id_publicacion",authenticateJwt,isAdmin, deleteComentario);
+    router.delete("/:id_comentario", authenticateJwt, deleteComentario);
     //Ver los comentarios de una publicacion
     router.get("/publicacion/:id_publicacion", authenticateJwt, getComentariosByPublicacion);
     router.put("/:id_comentario", authenticateJwt, updateComentario);

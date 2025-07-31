@@ -6,13 +6,18 @@ import { fundingValidation } from "../validations/funding.validation.js";
 export async function createFunding(req, res) {
   try {
     const fundingRepository = AppDataSource.getRepository(Funding);
-    const { name, amount, date, status, comprobante } = req.body;
+    const { name, amount, date, status } = req.body;
     const { error } = fundingValidation.validate(req.body);
     if (error) {
       return res.status(400).json({ message: error.message });
     }
     
-    const newFunding = fundingRepository.create({ name, amount, date, status, comprobante });
+    const comprobante = req.file ? `upload/${req.file.filename}` : null;
+    const newFunding = fundingRepository.create({name, amount, date, status, comprobante});
+    if (!req.file) {
+      return res.status(400).json({ message: "Debe adjuntar un comprobante de la acreditación aceptada." });
+    }
+    console.log("Datos a guardar:", { name, amount, date, status, comprobante });
     await fundingRepository.save(newFunding);
 
     res.status(201).json({ message: "Acreditación creada exitosamente", data: newFunding });
@@ -44,7 +49,6 @@ export async function updateFunding(req, res) {
       return res.status(404).json({ message: "Acreditación no encontrada" });
     }
 
-    // Validar los datos recibidos
     const { error, value } = fundingValidation.validate(req.body);
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
@@ -84,3 +88,4 @@ export async function deleteFunding(req, res) {
     res.status(500).json({ message: "Error al eliminar la acreditación" });
   }
 }
+

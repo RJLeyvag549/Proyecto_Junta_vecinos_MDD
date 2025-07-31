@@ -23,9 +23,9 @@ export const AttendanceEntity = new EntitySchema({
       joinColumn: true,
     },
     usuario: {
-      target: "User",        
+      target: "User",
       type: "many-to-one",
-      joinColumn: true,        
+      joinColumn: true,
       nullable: false,
     },
   }

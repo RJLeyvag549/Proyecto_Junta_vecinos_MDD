@@ -3,54 +3,87 @@
 import { EntitySchema } from "typeorm";
 
 export const UserEntity = new EntitySchema({
-    name: "User",
-    tableName: "users",
-    columns: {
-        id: {
-            type: Number,
-            primary: true,
-            generated: true,
+  name: "User",
+  tableName: "users",
+  columns: {
+    id: {
+      type: Number,
+      primary: true,
+      generated: true,
         },
-        username: {
-            type: String,
-            unique: true,
-            nullable: false,
+    role: {
+      type: String,
+      default: "user",
         },
-        rut: {
-            type: String,
-            unique: true,
-            nullable: false,
+    firstName: {
+      type: String,
+      nullable: false,
         },
-        email: {
-            type: String,
-            unique: true,
-            nullable: false,
+    lastName: {
+      type: String,
+      nullable: false,
         },
-        password: {
-            type: String,
-            nullable: false,
+    rut: {
+      type: String,
+      unique: true,
+      nullable: false,
         },
-        role: {
-            type: String,
-            default: "user",
+    email: {
+      type: String,
+      unique: true,
+      nullable: false,
         },
-        createdAt: {
-            type: "timestamp",
-            default: () => "CURRENT_TIMESTAMP",
+    password: {
+      type: String,
+      nullable: false,
         },
-        updatedAt: {
-            type: "timestamp",
-            default: () => "CURRENT_TIMESTAMP",
-            onUpdate: () => "CURRENT_TIMESTAMP",
+    contact: {
+      type: String,
+      nullable: false,
+        },
+    homeAddress: {
+      type: String,
+      nullable: false,
+            },
+    docIdentity: {
+      type: String,
+      nullable: false,
+        },
+    docResidence: {
+      type: String,
+      nullable: false,
+        },
+    createdAt: {
+      type: "timestamp",
+      default: () => "CURRENT_TIMESTAMP",
+        },
+    updatedAt: {
+      type: "timestamp",
+      default: () => "CURRENT_TIMESTAMP",
+      onUpdate: () => "CURRENT_TIMESTAMP",
+        },
+    requestStatus: {
+      type: String,
+      default: "pendiente",
+      nullable: false,
         },
     },
     relations: {
-        asistencias: {
-            target: "Attendance",
-            type: "one-to-many",
-            inverseSide: "usuario", // ← esto conecta con el campo "usuario" en attendance.entity.js
+      familyGroup: {
+        type: "one-to-many",
+        target: "FamilyGroup",
+        inverseSide: "mainUser",
+        //cascade: true, // Permite que las operaciones de inserción, actualización y eliminación se propaguen a los grupos familiares asociados
+      },
+    asistencias: {
+        target: "Attendance",
+        type: "one-to-many",
+        inverseSide: "usuario", // ← esto conecta con el campo "usuario" en attendance.entity.js
         },
     },
 });
 
 export default UserEntity;
+
+
+
