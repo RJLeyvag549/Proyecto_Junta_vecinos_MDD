@@ -6,12 +6,18 @@ import indexRoutes from "./src/routes/index.routes.js";
 import { PORT, HOST } from "./src/config/configEnv.js";
 import { connectDB } from "./src/config/configDb.js";
 import { createUsers } from "./src/config/initDb.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 async function setupServer() {
   // Crea la instancia de Express
   const app = express();
   app.disable("x-powered-by");
 
+
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  
   // Habilita el CORS para permitir solicitudes desde otros dominios (frontend)
   app.use(
     cors({
@@ -19,15 +25,18 @@ async function setupServer() {
       origin: true,
     })
   );
-
   // Avisa a express que use JSON
   app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use('/upload', express.static(path.join(__dirname, 'src', 'upload')));
 
   // Configura el middleware de morgan para registrar las peticiones HTTP
   app.use(morgan("dev"));
 
   // Configura las rutas de la API
   app.use("/api", indexRoutes);
+
+  
 
   // Enciende el servidor
   app.listen(PORT, () => {

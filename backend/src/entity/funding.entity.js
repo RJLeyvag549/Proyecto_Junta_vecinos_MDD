@@ -25,7 +25,11 @@ export const FundingEntity = new EntitySchema({
         },
         status: {
             type: String,
-            default: "pendiente", // o el estado que prefieras
+            default: "pendiente",
+        },
+        comprobante: {
+            type: String,
+            nullable: true,
         },
         createdAt: {
             type: "timestamp",
