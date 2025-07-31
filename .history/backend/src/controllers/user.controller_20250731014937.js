@@ -135,7 +135,7 @@ export async function updateUserById(req, res) {
           await familyGroupRepository.save(familyMember);
         }
       }
-    } */
+    }
 
     const updateUser = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
 

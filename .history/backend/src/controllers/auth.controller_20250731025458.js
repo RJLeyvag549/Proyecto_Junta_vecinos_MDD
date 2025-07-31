@@ -51,7 +51,7 @@ export async function register(req, res) {
 
     const existingRut = await userRepository.findOne({ where: { rut } });
     if (existingRut) {
-      deleteUploadedFiles(req.files);
+       deleteUploadedFiles(req.files);
       return res.status(409).json({ message: "RUT ya registrado" });
     }
 
@@ -72,10 +72,7 @@ export async function register(req, res) {
       docResidence: docResidenceUrl,
     });
 
-    if (creationError) {
-      deleteUploadedFiles(req.files);
-      return res.status(500).json({ message: creationError });
-    }
+    if (creationError) return res.status(500).json({ message: creationError });
 
     const { password: _, ...safeUser } = newUser;
 
@@ -86,7 +83,6 @@ export async function register(req, res) {
 
   } catch (error) {
     console.error("Error en auth.controller.js -> register():", error);
-    deleteUploadedFiles(req.files);
     return res.status(500).json({ message: "Error interno del servidor." });
   }
 }

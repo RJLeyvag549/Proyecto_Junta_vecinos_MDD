@@ -4,6 +4,6 @@ import { addFamilyMember, deleteFamilyMemberById } from "../controllers/familyGr
 const router = Router();
 
 router.post("/add/:userId", addFamilyMember);
-router.delete("/:id,", deleteFamilyMemberById)
+router.delete
 
 export default router;

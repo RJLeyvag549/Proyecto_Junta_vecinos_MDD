@@ -63,6 +63,8 @@ if (Object.keys(erroresRut).length > 0) {
 }
 
 //* FUNCIÓN QUE ELIMINA MIEMBRO DE GRUPO FAMILIAR
+
+//* ELIMINAR UN MIEMBRO DEL GRUPO FAMILIAR
 export async function deleteFamilyMemberById(req, res) {
   try {
     const { memberId } = req.params;

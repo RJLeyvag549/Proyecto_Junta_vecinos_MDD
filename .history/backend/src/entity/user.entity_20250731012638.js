@@ -53,6 +53,15 @@ export const UserEntity = new EntitySchema({
       type: String,
       nullable: false,
         },
+    createdAt: {
+      type: "timestamp",
+      default: () => "CURRENT_TIMESTAMP",
+        },
+    updatedAt: {
+      type: "timestamp",
+      default: () => "CURRENT_TIMESTAMP",
+      onUpdate: () => "CURRENT_TIMESTAMP",
+        },
     requestStatus: {
       type: String,
       default: "pendiente",

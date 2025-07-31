@@ -73,7 +73,7 @@ export async function register(req, res) {
     });
 
     if (creationError) {
-      deleteUploadedFiles(req.files);
+       deleteUploadedFiles(req.files);
       return res.status(500).json({ message: creationError });
     }
 
@@ -86,7 +86,6 @@ export async function register(req, res) {
 
   } catch (error) {
     console.error("Error en auth.controller.js -> register():", error);
-    deleteUploadedFiles(req.files);
     return res.status(500).json({ message: "Error interno del servidor." });
   }
 }

@@ -61,22 +61,3 @@ if (Object.keys(erroresRut).length > 0) {
     return res.status(500).json({ message: "Error interno del servidor." });
   }
 }
-
-//* FUNCIÓN QUE ELIMINA MIEMBRO DE GRUPO FAMILIAR
-export async function deleteFamilyMemberById(req, res) {
-  try {
-    const { memberId } = req.params;
-    const familyRepository = AppDataSource.getRepository(FamilyGroup);
-
-    const member = await familyRepository.findOneBy({ id: memberId });
-    if (!member) {
-      return res.status(404).json({ message: "Miembro no encontrado" });
-    }
-
-    await familyRepository.remove(member);
-    return res.status(200).json({ message: "Miembro eliminado exitosamente" });
-  } catch (error) {
-    console.error("Error en deleteFamilyMemberById:", error);
-    return res.status(500).json({ message: "Error interno del servidor" });
-  }
-}

@@ -120,7 +120,7 @@ export async function updateUserById(req, res) {
 
     await userRepository.save(user);
 
-   /* if (Array.isArray(familyGroup)) {
+    if (Array.isArray(familyGroup)) {
       const familyGroupRepository = AppDataSource.getRepository(FamilyGroup);
 
       for (const member of familyGroup) {
@@ -135,7 +135,7 @@ export async function updateUserById(req, res) {
           await familyGroupRepository.save(familyMember);
         }
       }
-    } */
+    }
 
     const updateUser = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
 

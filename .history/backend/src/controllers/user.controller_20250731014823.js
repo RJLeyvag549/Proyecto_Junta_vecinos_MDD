@@ -107,20 +107,22 @@ export async function updateUserById(req, res) {
     const userRepository = AppDataSource.getRepository(User);
     const { id } = req.params;
     const { email, contact, homeAddress } = req.body;
-
     const user = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
 
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado." });
     }
 
+    user.firstName = firstName || user.firstName;
+    user.lastName = lastName || user.lastName;
     user.email = email || user.email;
     user.contact = contact || user.contact;
     user.homeAddress = homeAddress || user.homeAddress;
+    user.requestStatus = requestStatus || user.requestStatus;
 
     await userRepository.save(user);
 
-   /* if (Array.isArray(familyGroup)) {
+    if (Array.isArray(familyGroup)) {
       const familyGroupRepository = AppDataSource.getRepository(FamilyGroup);
 
       for (const member of familyGroup) {
@@ -135,7 +137,7 @@ export async function updateUserById(req, res) {
           await familyGroupRepository.save(familyMember);
         }
       }
-    } */
+    }
 
     const updateUser = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
 
