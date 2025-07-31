@@ -39,7 +39,6 @@ const AppRouter = () => {
             <Profile />
           </ProtectedRoute>
         } 
-        
       />
       <Route 
         path="/edit-user/:rut" 
@@ -49,6 +48,7 @@ const AppRouter = () => {
           </ProtectedRoute>
         } 
       />
+
       <Route path="/planilla" element={<FundingPage />} />
       <Route 
         path="/funding" 
