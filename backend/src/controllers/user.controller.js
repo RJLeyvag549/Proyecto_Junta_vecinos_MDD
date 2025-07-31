@@ -170,7 +170,7 @@ export async function deleteUserById(req, res) {
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* Cambia el estado de solicitud del usuario (aprobado, rechazado, pendiente...)
+//* Cambia el estado de solicitud del usuario (aprobado, rechazado)
 export async function updateRequestStatus(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
