@@ -7,7 +7,7 @@ import TransactionRoutes from "./transaction.routes.js";
 import InventoryRoutes from "./inventory.routes.js";
 import familyGroupRoutes from "./familyGroup.routes.js";
 import pdfRoutes from "./pdf.routes.js";
-import votacionRoutes from "./votacion.routes.js";
+import votacionRoutes from "./voto.routes.js";
 import votoRoutes from "./voto.routes.js";
 import meetingRoutes from "./meeting.routes.js"
 import attendanceRoutes from "./attendance.routes.js"
@@ -15,6 +15,7 @@ import ActRoutes from "./meeting_act.routes.js"
 import publicacionesRoutes from "./publicaciones.routes.js"
 import comentariosRoutes from "./comentarios.routes.js";
 import fundingRoutes from "./funding.routes.js";
+
 
 const router = Router();
 

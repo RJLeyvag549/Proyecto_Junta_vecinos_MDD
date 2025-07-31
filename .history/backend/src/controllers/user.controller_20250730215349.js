@@ -8,16 +8,14 @@ import { AppDataSource } from "../config/configDb.js";
 import { sendEmail } from "../services/email.service.js";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* ESTA FUNCIÓN LA PLANEO USAR PARA LISTAR A TODOS LOS USUARIOS REGISTRADOS (APROBADOS)
+//* UN ADMIN PODRÁ SELECCIONAR A L
 //* Busca y devuelve todos los usuarios registrados en la base de datos (no incluye grupo familiar).
 export async function getUsers(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
-    
-    const approvedUsers = await userRepository.find({
-      where: { requestStatus: "aprobado" },
-    });
+    const users = await userRepository.find();
 
-    const filteredUsers = approvedUsers.map(user => ({
+    const filteredUsers = users.map(user => ({
       role: user.role,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -42,24 +40,7 @@ export async function getUserById(req, res) {
       return res.status(404).json({ message: "Usuario no encontrado." });
     }
 
-      const filteredUser = {
-      role: user.role,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      rut: user.rut,
-      email: user.email,
-      contact: user.contact,
-      homeAddress: user.homeAddress,
-      docIdentity: user.docIdentity,
-      docResidence: user.docResidence,
-      familyGroup: user.familyGroup.map((member) => ({
-        firstName: member.firstName,
-        lastName: member.lastName,
-        rut: member.rut,
-      })),
-    };
-
-    res.status(200).json({ message: "Usuario encontrado: ", data: filteredUser });
+    res.status(200).json({ message: "Usuario encontrado: ", data: user });
   } catch (error) {
     console.error("Error en user.controller.js -> getUserById(): ", error);
     res.status(500).json({ message: "Error interno del servidor." });

@@ -5,26 +5,14 @@
 import User from "../entity/user.entity.js";
 import FamilyGroup from "../entity/family.group.entity.js";
 import { AppDataSource } from "../config/configDb.js";
-import { sendEmail } from "../services/email.service.js";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* ESTA FUNCIÓN LA PLANEO USAR PARA LISTAR A TODOS LOS USUARIOS REGISTRADOS (APROBADOS)
 //* Busca y devuelve todos los usuarios registrados en la base de datos (no incluye grupo familiar).
 export async function getUsers(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
-    
-    const approvedUsers = await userRepository.find({
-      where: { requestStatus: "aprobado" },
-    });
+    const users = await userRepository.find();
 
-    const filteredUsers = approvedUsers.map(user => ({
-      role: user.role,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      rut: user.rut,
-    }));
-
-    res.status(200).json({ message: "Usuarios encontrados: ", data: filteredUsers });
+    res.status(200).json({ message: "Usuarios encontrados: ", data: users });
   } catch (error) {
     console.error("Error en user.controller.js -> getUsers(): ", error);
     res.status(500).json({ message: "Error interno del servidor." });
@@ -42,24 +30,7 @@ export async function getUserById(req, res) {
       return res.status(404).json({ message: "Usuario no encontrado." });
     }
 
-      const filteredUser = {
-      role: user.role,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      rut: user.rut,
-      email: user.email,
-      contact: user.contact,
-      homeAddress: user.homeAddress,
-      docIdentity: user.docIdentity,
-      docResidence: user.docResidence,
-      familyGroup: user.familyGroup.map((member) => ({
-        firstName: member.firstName,
-        lastName: member.lastName,
-        rut: member.rut,
-      })),
-    };
-
-    res.status(200).json({ message: "Usuario encontrado: ", data: filteredUser });
+    res.status(200).json({ message: "Usuario encontrado: ", data: user });
   } catch (error) {
     console.error("Error en user.controller.js -> getUserById(): ", error);
     res.status(500).json({ message: "Error interno del servidor." });
@@ -187,25 +158,8 @@ export async function updateRequestStatus(req, res) {
       return res.status(404).json({ message: "Usuario no encontrado." });
     }
 
-    if (user.requestStatus !== "pendiente") {
-      return res.status(400).json({ message: `La solicitud ya fue procesada (${user.requestStatus}).` });
-    }
-
     user.requestStatus = requestStatus;
     await userRepository.save(user);
-
-    //* CORREO AUTOMATIZADO
-    const subject =
-      requestStatus === "aprobado"
-        ? "¡Tu solicitud fue aprobada!"
-        : "Tu solicitud fue rechazada";
-
-    const message =
-      requestStatus === "aprobado"
-        ? `Hola ${user.firstName}, tu solicitud ha sido aprobada. Ya puedes ingresar al sistema.`
-        : `Hola ${user.firstName}, lamentamos informarte que tu solicitud fue rechazada.`;
-
-    await sendEmail(user.email, subject, message, `<p>${message}</p>`);
 
     res.status(200).json({ message: `Solicitud actualizada a: ${requestStatus}`, data: user });
   } catch (error) {
@@ -213,9 +167,6 @@ export async function updateRequestStatus(req, res) {
     res.status(500).json({ message: "Error interno del servidor." });
   }
 }
-
-
-
 
 
 

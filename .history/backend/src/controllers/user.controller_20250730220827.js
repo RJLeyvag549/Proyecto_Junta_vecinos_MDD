@@ -53,13 +53,14 @@ export async function getUserById(req, res) {
       docIdentity: user.docIdentity,
       docResidence: user.docResidence,
       familyGroup: user.familyGroup.map((member) => ({
+        id: member.id, // puedes omitir esto si no quieres mostrarlo
         firstName: member.firstName,
         lastName: member.lastName,
         rut: member.rut,
       })),
     };
-
-    res.status(200).json({ message: "Usuario encontrado: ", data: filteredUser });
+    
+    res.status(200).json({ message: "Usuario encontrado: ", data: user });
   } catch (error) {
     console.error("Error en user.controller.js -> getUserById(): ", error);
     res.status(500).json({ message: "Error interno del servidor." });

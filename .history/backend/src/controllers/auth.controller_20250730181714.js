@@ -128,11 +128,7 @@ export async function login(req, res) {
     const accessToken = jwt.sign(payload, SESSION_SECRET, { expiresIn: "1d" });
 
     //* ENVÍA TOKEN COMO RESPUESTA
-res.status(200).json({
-  message: "Inicio de sesión exitoso",
-  token: accessToken, // 👈 así lo espera tu frontend
-});
-
+    res.status(200).json({ message: "Inicio de sesión exitoso", accessToken });
   } catch (error) {
     console.error("Error en auth.controller.js -> login(): ", error);
     return res.status(500).json({ message: "Error al iniciar sesión" });
@@ -150,7 +146,7 @@ export async function logout(req, res) {
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* FUNCIÓN QUE OBTIENE EL PERFIL DEL USUARIO AUTENTICADO - VER SI USAR ESTO, POR QUE SIRVE PARA QUE EL PROPIO USUARIO VEA SU PERFIIL
+//* FUNCIÓN QUE OBTIENE EL PERFIL DEL USUARIO AUTENTICADO 
 export async function getProfile(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
@@ -175,8 +171,3 @@ export async function getProfile(req, res) {
     res.status(500).json({ message: "Error interno del servidor"})
   }
 }
-
-
-
-
-
