@@ -1,0 +1,52 @@
+.votaciones-container {
+font-family: sans-serif;
+padding: 20px;
+background: url('login.png');
+min-height: 100vh;
+background-position: center;
+background-repeat: no-repeat;
+font-family: "Nunito", sans-serif;
+}
+
+.votaciones-banner {
+background: linear-gradient(135deg, #2d381b, #6f8e4e);
+color: white;
+padding: 30px;
+text-align: center;
+font-size: 2rem;
+border-radius: 8px;
+margin-bottom: 20px;
+}
+
+.votaciones-cards-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 20px;
+}
+
+.votaciones-card {
+background: #e9f5db;
+border-radius: 8px;
+padding: 20px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+transition: transform 0.2s;
+}
+
+.votaciones-card:hover {
+transform: translateY(-4px);
+}
+
+.votaciones-card button {
+background: #445528;
+color: white;
+border: none;
+padding: 10px 16px;
+border-radius: 4px;
+margin-top: 10px;
+cursor: pointer;
+transition: background 0.3s;
+}
+
+.votaciones-card button:hover {
+background: #6f8e4e;
+}

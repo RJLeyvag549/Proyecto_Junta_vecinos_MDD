@@ -7,6 +7,7 @@ import Error404 from './pages/Error404';
 import EditUser from './pages/EditUser';
 import ProtectedRoute from './components/ProtectedRoute';
 import Users from './pages/Users';
+import Votacion from './pages/Votacion';
 
 const AppRouter = () => {
   return (
@@ -49,6 +50,8 @@ const AppRouter = () => {
       />
       
       <Route path="*" element={<Error404 />} />
+
+      <Route path="/votaciones" element={<Votacion />} /> /* Agregar autentificacion*/
     </Routes>
   );
 };
