@@ -32,7 +32,13 @@ const Login = () => {
         <main className="container">
             <LoginIcon />
             <Form
-                title="Iniciar sesión"
+             title={
+    <h1>
+      JUNTA VECINAL<br />
+      PARQUE ECUADOR
+    </h1>
+  }
+                
                 fields={[
                     {
                         label: "Correo electrónico",
