@@ -128,7 +128,11 @@ export async function login(req, res) {
     const accessToken = jwt.sign(payload, SESSION_SECRET, { expiresIn: "1d" });
 
     //* ENVÍA TOKEN COMO RESPUESTA
-    res.status(200).json({ message: "Inicio de sesión exitoso", accessToken });
+res.status(200).json({
+  message: "Inicio de sesión exitoso",
+  token: accessToken, // 👈 así lo espera tu frontend
+});
+
   } catch (error) {
     console.error("Error en auth.controller.js -> login(): ", error);
     return res.status(500).json({ message: "Error al iniciar sesión" });
