@@ -1,7 +1,7 @@
 "use strict";
 
 import { Router } from "express";
-import authRoutes from "./auth.routes.js";
+import authRoutes from "./auth.routes.js"
 import userRoutes from "./user.routes.js";
 import TransactionRoutes from "./transaction.routes.js";
 import InventoryRoutes from "./inventory.routes.js";
@@ -26,7 +26,7 @@ router.use("/inventory", InventoryRoutes);
 
 router.use("/family", familyGroupRoutes);
 router.use("/certificate", pdfRoutes);
- 
+
 router.use("/votacion", votacionRoutes);
 router.use("/voto", votoRoutes);
     
@@ -36,6 +36,5 @@ router.use("/meetings", ActRoutes);
 router.use("/publicaciones", publicacionesRoutes);
 router.use("/comentarios", comentariosRoutes);
 router.use("/funding", fundingRoutes);
-
 
 export default router;
