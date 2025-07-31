@@ -146,7 +146,7 @@ export async function logout(req, res) {
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* FUNCIÓN QUE OBTIENE EL PERFIL DEL USUARIO AUTENTICADO - VER SI USAR ESTO, POR QUE SIRVE PARA QUE EL PROPIO USUARIO VEA SU PERFIIL
+//* FUNCIÓN QUE OBTIENE EL PERFIL DEL USUARIO AUTENTICADO 
 export async function getProfile(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
@@ -171,8 +171,3 @@ export async function getProfile(req, res) {
     res.status(500).json({ message: "Error interno del servidor"})
   }
 }
-
-
-
-
-
