@@ -1,3 +1,5 @@
+//* ESTE ARCHIVO ES PARA EL CERTIFICADO DE RESIDENCIA
+
 "use strict";
 
 import { AppDataSource } from "../config/configDb.js";
@@ -8,7 +10,6 @@ export async function getResidenceCertificate(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
 
-    // El usuario ya viene del token JWT
     const userEmail = req.user?.email;
 
     if (!userEmail) {
@@ -29,7 +30,6 @@ export async function getResidenceCertificate(req, res) {
       return res.status(500).json({ message: "Error al generar certificado" });
     }
 
-    // Configura la respuesta como archivo PDF
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", "inline; filename=certificado_residencia.pdf");
     res.send(pdfBuffer);
