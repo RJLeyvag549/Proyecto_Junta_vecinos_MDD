@@ -35,11 +35,7 @@ export const fundingValidation = Joi.object({
     "any.required": "Debe seleccionar un estado para la acreditación.",
   }),
   comprobante: Joi.string()
-  .required()
-  .messages({
-    "string.empty": "El comprobante es obligatorio.",
-    "any.required": "Debe adjuntar un comprobante de la acreditación aceptada.",
-  }),
+  .optional()
 })
   .unknown(false)
   .messages({

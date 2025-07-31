@@ -6,6 +6,7 @@ import LoginIcon from "../components/LoginIcon.jsx";
 const Login = () => {
     const navigate = useNavigate();
 
+
 const loginSubmit = async (data) => {
     try {
         const res = await login(data);
@@ -36,6 +37,7 @@ const loginSubmit = async (data) => {
     PARQUE ECUADOR
     </h1>
 }
+
                 
                 fields={[
                     {
