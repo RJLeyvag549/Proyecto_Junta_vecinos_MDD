@@ -1,41 +1,20 @@
 "use strict";
+
 import { Router } from "express";
-import { getUsers, getUserById, getUsersByFilters, updateUserById, deleteUserById } from "../controllers/user.controller.js";
-//import { authenticateJwt } from "../middleware/authentication.middleware.js";
-//import { isAdmin } from "../middleware/authorization.middleware.js";
+import { getUsers, getUserById, getUsersByFilters, updateUserById, deleteUserById, updateRequestStatus } from "../controllers/user.controller.js";
+import { authenticateJwt } from "../middleware/authentication.middleware.js";
+import { isAdmin } from "../middleware/authorization.middleware.js";
 
-    const router = Router();
+const router = Router();
 
+router.use(authenticateJwt);
+router.use(isAdmin);
 
-// Middleware para autenticar el JWT
-//router.use(authenticateJwt);
-
-
-
-// Middleware para verificar si el usuario es administrador
-//router.use(isAdmin);
-
-
-// Rutas para obtener usuarios
 router.get("/filtered", getUsersByFilters);
 router.get("/", getUsers);
 router.get("/:id", getUserById);
 router.put("/:id", updateUserById);
 router.delete("/:id", deleteUserById);
-
-    // Middleware para autenticar el JWT
-    router.use(authenticateJwt);
-
-    // Rutas públicas
-    router.get("/profile", getProfile);
-
-    // Middleware para verificar si el usuario es administrador
-    router.use(isAdmin);
-
-    // Rutas para obtener usuarios
-    router.get("/", getUsers);
-    router.get("/:id", getUserById);
-    router.put("/:id", updateUserById);
-    router.delete("/:id", deleteUserById);
+router.patch("/:id", updateRequestStatus);
 
 export default router;

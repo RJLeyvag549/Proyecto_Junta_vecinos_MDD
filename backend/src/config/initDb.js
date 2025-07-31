@@ -12,34 +12,35 @@ export async function createUsers() {
     const userRepository = AppDataSource.getRepository(User);
     //const familyRepository = AppDataSource.getRepository(FamilyGroup);
 
+    //* AGREGAAR 1 ADMIN Y 3 USUARIOS
     const count = await userRepository.count();
     if (count > 0) return;
     const users = [
       {
         role: "administrator",
-        firstName: "toreto",
-        lastName: "yumilda",
-        rut: "77777777-7",
+        firstName: "Silvana Monserrat",
+        lastName: "Araya Retamal",
+        rut: "19.157.881-3",
         email: "toreto@gmail.com",
         password: await encryptPassword("toretoteamo"),
-        contact: "977777777",
-        homeAddress: "avenida tori 34",
+        contact: "20690318",
+        homeAddress: "Avenida Tori #34, Concepción",
         docIdentity: "uploads/doc-admin-identity1.pdf", 
         docResidence: "uploads/doc-admin-residence1.pdf",
-        requestStatus: "Aprobado"
+        requestStatus: "aprobado"
       },
       {
         role: "user",
-        firstName: "moise",
-        lastName: "pirito",
-        rut: "19157881-3",
+        firstName: "Moises Pirito",
+        lastName: "Araya Retamal",
+        rut: "77.777.777-k",
         email: "moisepirito@gmail.com",
         password: await encryptPassword("blancateamo"),
-        contact: "977777771",
-        homeAddress: "avenida pirito 34",
+        contact: "82205439",
+        homeAddress: "Avenida Pirito #23, Concepción",
         docIdentity: "uploads/doc-admin-identity2.pdf", 
         docResidence: "uploads/doc-admin-residence2.pdf",
-        requestStatus: "Aprobado"
+        requestStatus: "aprobado"
       }
     ];
 

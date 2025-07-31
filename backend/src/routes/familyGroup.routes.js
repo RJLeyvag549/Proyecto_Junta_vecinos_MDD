@@ -3,6 +3,6 @@ import { addFamilyMember } from "../controllers/familyGroup.controller.js";
 
 const router = Router();
 
-router.post("/add", addFamilyMember);
+router.post("/add/:userId", addFamilyMember);
 
 export default router;

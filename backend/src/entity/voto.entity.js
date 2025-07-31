@@ -33,7 +33,7 @@ export const VotoEntity = new EntitySchema({
         votante: { // el vecino que emitió el voto
             type: "many-to-one", // un vecino puede ser votante de diversas votaciones
             target: "User",
-            joinColumn: { name: "rut_vecino"}, // JOIN con tabla User, se crea columna rut_vecino
+            joinColumn: { name: "id_vecino"}, // JOIN con tabla User, se crea columna id_vecino
             nullable: false
         }
     },

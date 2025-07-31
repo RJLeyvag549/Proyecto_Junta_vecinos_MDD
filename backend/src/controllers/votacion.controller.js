@@ -2,10 +2,16 @@
 import Votacion, { VotacionEntity } from "../entity/votacion.entity.js";
 import { AppDataSource } from "../config/configDb.js";
 import { LessThanOrEqual, MoreThanOrEqual } from "typeorm"; // para ver votación actualmente disponible
+import { votacionValidation, votacionUpdateValidation} from "../validations/votacion.validation.js";
 
 // Crear Votación
 export const createVotacion = async (req, res) => {
     try {
+    const { error } = votacionValidation.validate(req.body);
+    if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+    }
+    
     const {
         titulo,
         descripcion,
@@ -68,6 +74,11 @@ export async function getVotacionesDisp(req, res) {
 // Actualizar Votación
 export async function updateVotacionById(req, res){
     try {
+        const { error } = votacionUpdateValidation.validate(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.details[0].message });
+        }
+        const ahora = new Date();
         // Obtener repositorio de votaciones y buscar votacion por ID
         const votacionRepo = AppDataSource.getRepository(Votacion);
         const { id } = req.params;
@@ -76,15 +87,27 @@ export async function updateVotacionById(req, res){
 
         // Si no encuentra la votacion, devolver error 404
         if(!votacion){
-            return res.status(404).json({ message: "Usuario no encontrado."});
+            return res.status(404).json({ message: "Votación no encontrada."});
         }
-
+        // Si ya finalizó, no permitir editar
+        if (new Date(votacion.fecha_fin) < ahora) {
+            return res.status(400).json({ message: "No se puede editar una votación que ya finalizó." });
+        }
         // Validar que al menos uno de los campos a actualizar esté presente
         votacion.titulo = titulo || votacion.titulo;
         votacion.descripcion = descripcion || votacion.descripcion;
-        votacion.fecha_inicio = fecha_inicio || votacion.fecha_inicio;
+        // Permitir cambiar fecha_inicio solo si aún no ha comenzado
+        if (fecha_inicio && new Date(votacion.fecha_inicio) > ahora) {
+            votacion.fecha_inicio = fecha_inicio;
+        }
         votacion.fecha_fin = fecha_fin || votacion.fecha_fin;
         votacion.opciones = opciones || votacion.opciones;
+        votacion.editada_en = new Date(); // Establece la fecha actual
+
+        // Validar que fecha_inicio < fecha_fin
+        if (new Date(votacion.fecha_inicio) >= new Date(votacion.fecha_fin)) {
+            return res.status(400).json({ message: "La fecha de inicio debe ser anterior a la fecha de fin." });
+        }
 
         //Guardar los cambios en la base de datos
         await votacionRepo.save(votacion);

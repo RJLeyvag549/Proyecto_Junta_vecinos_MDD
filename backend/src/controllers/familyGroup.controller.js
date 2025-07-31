@@ -3,37 +3,52 @@
 import { AppDataSource } from "../config/configDb.js";
 import User from "../entity/user.entity.js";
 import FamilyGroup from "../entity/family.group.entity.js";
+import { familyGroupArrayValidation } from "../validations/familyGroup.validation.js";
+import { groupErrorsByField } from "../helpers/errorFormatter.helper.js";
+import { validateRutsUniqueness } from "../helpers/exists.helper.js";
 
 //* FUNCIÓN PARA AÑADIR MIEMBROS AL GRUPO FAMILIAR
 export async function addFamilyMember(req, res) {
   try {
-		//* DEL BODY SE EXTRAE: userId = ID del usuario que se está registrando, members = array de objetos con los datos de los miembros a registrar
-    const { userId, members } = req.body;
-
-		//* VALIDACIÓN: si no se proporciona un userId o si members no es un array o está vacío, se devuelve un error
-    if (!userId || !Array.isArray(members) || members.length === 0) {
-      return res.status(400).json({ message: "Datos incompletos o inválidos!" });
-    }
+    const { userId } = req.params;
+    const { members } = req.body;
+    
+const { error } = familyGroupArrayValidation.validate(
+  { members },
+  { abortEarly: false }
+);
+if (error) {
+  const erroresAgrupados = groupErrorsByField(error.details);
+  return res.status(400).json({
+    message: "Errores de validación",
+    details: erroresAgrupados,
+  });
+}
 
     const userRepository = AppDataSource.getRepository(User);
     const familyRepository = AppDataSource.getRepository(FamilyGroup);
 
-		//* Se busca a userId en la base
     const user = await userRepository.findOneBy({ id: userId });
     if (!user) return res.status(404).json({ message: "Usuario no encontrado!" });
+  
+//* VERIFICAR RUT (exists.helper.js)
+const erroresRut = await validateRutsUniqueness(members, userRepository, familyRepository);
 
-		//* Se recorre el array de miembros y se extrae el nombre, apellido y rut 
+if (Object.keys(erroresRut).length > 0) {
+  return res.status(400).json({
+    message: "Errores de validación",
+    details: erroresRut,
+  });
+}
+
     for (const member of members) {
       const { firstName, lastName, rut } = member;
-			//* si falta alguno de esos campos se omite a ese miembro
-      if (!firstName || !lastName || !rut) continue;
 
-			//* se crea objeto nuevo para el miembro del grupo familiar 
       const newMember = familyRepository.create({
         firstName,
         lastName,
         rut,
-        mainUser: user, //* establece la relación entre el miembro del grupo y el usuario que lo registra
+        mainUser: user, 
       });
 
       await familyRepository.save(newMember);
