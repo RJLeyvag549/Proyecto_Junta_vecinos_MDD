@@ -6,7 +6,7 @@ export const createComentarioValidation = Joi.object({
     .min(3)
     .max(300)
     .required()
-    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9.,;:¡!¿?'"()\-\n\s]+$/)
+    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9.,;:¡!¿?'"()\n\s-]+$/)
     .messages({
       "string.pattern.base": "El comentario solo puede contener texto y signos de puntuación válidos",
       "string.min": "El comentario debe tener al menos 3 caracteres",
@@ -19,7 +19,7 @@ export const updateComentarioValidation = Joi.object({
     .min(3)
     .max(300)
     .required()
-    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9.,;:¡!¿?'"()\-\n\s]+$/)
+    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9.,;:¡!¿?'"()\n\s-]+$/)
     .messages({
       "string.pattern.base": "El comentario solo puede contener texto y signos de puntuación válidos",
       "string.min": "El comentario debe tener al menos 3 caracteres",

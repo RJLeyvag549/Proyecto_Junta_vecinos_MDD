@@ -8,7 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon ./backend/index.js"
   },
   "keywords": [],
   "license": "ISC",
@@ -22,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "multer": "^2.0.1",
+    "nodemailer": "^7.0.5",
     "pdfkit": "^0.17.1",
     "pg": "^8.16.0",
     "typeorm": "^0.3.24"

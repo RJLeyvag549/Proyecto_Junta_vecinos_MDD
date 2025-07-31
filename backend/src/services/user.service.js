@@ -1,10 +1,11 @@
+//* ESTE ARCHIVO CREA EL USUARIO QUE ESTÁ TRATANDO DE REGISTRARSE
+
 "use strict";
 
 import { AppDataSource } from "../config/configDb.js";
 import User from "../entity/user.entity.js";
 import { encryptPassword } from "../helpers/bcrypt.helper.js";
 
-//* Esta función crea el usuario que se está tratando de registrar
 export async function createUserService(data) {
 try {
   const userRepository = AppDataSource.getRepository(User);
@@ -22,7 +23,7 @@ try {
     homeAddress,
     docIdentity,
     docResidence,
-    requestStatus: "pendiente", //* Esto es porque está pendiente de aprobación
+    requestStatus: "pendiente", //* PORQUE ESTÁ PENDIENTE DE APROBACIÓN
     });
 
     const savedUser = await userRepository.save(newUser);
