@@ -15,20 +15,24 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <ul>
-                <li>
-                    <img
-                        src="/family.png"
-                        alt="Logo metodología de desarrollo"
-                    />
-                    <h1 color='white'>Junta de Vecinos</h1>
-                </li>
-                
-                <li className={location.pathname === "/" ? "active" : ""}>
-                    <NavLink to="/" onClick={logoutSubmit} className="boton-cerrar">Cerrar</NavLink>
-                </li>
-            </ul>
-        </nav>
+  <ul>
+    <li className="logo-section">
+      <img
+        src="/family.png"
+        alt="Logo metodología de desarrollo"
+      />
+      <h1>
+        Junta Vecinal Parque Ecuador
+      </h1>
+    </li>
+
+    <li className={location.pathname === "/" ? "active" : ""}>
+      <NavLink to="/" onClick={logoutSubmit} className="boton-cerrar">
+        Cerrar Sesión
+      </NavLink>
+    </li>
+  </ul>
+</nav>
     );
 };
 

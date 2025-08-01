@@ -33,10 +33,14 @@ const loginSubmit = async (data) => {
             <Form
             title={
     <h1>
-    JUNTA VECINAL<br />
-    PARQUE ECUADOR
+      JUNTA VECINAL<br />
+      PARQUE ECUADOR
     </h1>
-}
+
+  }
+
+
+
 
                 
                 fields={[
