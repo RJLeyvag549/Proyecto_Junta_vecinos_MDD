@@ -1,21 +1,23 @@
 import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-    const storedUser = JSON.parse(sessionStorage.getItem('usuario'));
-    const userRole = storedUser?.data?.rolName;
+  const storedUser = JSON.parse(sessionStorage.getItem('usuario'));
+  const userRole = storedUser?.data?.rolName;
 
-    const isAuthenticated = !!storedUser;
-    const isAuthorized = allowedRoles ? allowedRoles.includes(userRole) : true;
+  const isAuthenticated = !!storedUser;
+  const isAuthorized = allowedRoles ? allowedRoles.includes(userRole) : true;
 
-    if (!isAuthenticated) {
-        return <Navigate to="/" />;
-    }
+  // 👉 Redirige al login si no está autenticado
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
 
-    if (!isAuthorized) {
-        return <Navigate to="/home"/>;
-    }
+  // 👉 Si el rol no está permitido, lo manda a /home
+  if (!isAuthorized) {
+    return <Navigate to="/home" />;
+  }
 
-    return children;
+  return children;
 };
 
 export default ProtectedRoute;

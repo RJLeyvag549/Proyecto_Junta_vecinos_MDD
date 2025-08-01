@@ -1,56 +1,28 @@
-import { Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Home from './pages/Home';
-import Profile from './pages/Profile';
-import Error404 from './pages/Error404';
-import EditUser from './pages/EditUser';
-import ProtectedRoute from './components/ProtectedRoute';
-import Users from './pages/Users';
+import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
-const AppRouter = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      
-      {/* Rutas protegidas */}
-      <Route 
-        path="/home" 
-        element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/users" 
-        element={
-          <ProtectedRoute allowedRoles={['administrador']}>
-            <Users />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/profile" 
-        element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/edit-user/:rut" 
-        element={
-          <ProtectedRoute>
-            <EditUser />
-          </ProtectedRoute>
-        } 
-      />
-      
-      <Route path="*" element={<Error404 />} />
-    </Routes>
-  );
+const HomeRedirect = () => {
+  const [redirectTo, setRedirectTo] = useState(null);
+  const user = JSON.parse(sessionStorage.getItem("usuario"));
+
+  useEffect(() => {
+    if (!user) {
+      setRedirectTo("/login");
+    } else {
+      const rol = user?.data?.rolName;
+      if (rol === "administrador") {
+        setRedirectTo("/home/admin");
+      } else {
+        setRedirectTo("/home/usuario");
+      }
+    }
+  }, []);
+
+  if (redirectTo) {
+    return <Navigate to={redirectTo} />;
+  }
+
+  return null; // Mientras calcula redirección
 };
 
-export default AppRouter;
+export default HomeRedirect;
