@@ -11,6 +11,7 @@ const Sidebar = () => {
 
       <nav className="sidebar-nav">
         <NavLink to="/home">Inicio</NavLink>
+        <NavLink to="/votaciones">Votaciones</NavLink>
         {/* Agrega más links aquí */}
       </nav>
     </aside>

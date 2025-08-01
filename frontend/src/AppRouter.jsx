@@ -51,7 +51,15 @@ const AppRouter = () => {
       
       <Route path="*" element={<Error404 />} />
 
-      <Route path="/votaciones" element={<Votacion />} /> /* Agregar autentificacion*/
+      <Route 
+        path="/votaciones" 
+        element={
+          <ProtectedRoute>
+            <Votacion />
+          </ProtectedRoute>
+        } 
+      />
+
     </Routes>
   );
 };

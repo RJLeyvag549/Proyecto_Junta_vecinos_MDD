@@ -54,7 +54,6 @@ export async function getAllVotaciones(req, res){
 export async function getVotacionesDisp(req, res) {
     try {
         const ahora = new Date();
-        console.log("Fecha y hora actual:", ahora.toISOString());
         const votacionRepo = AppDataSource.getRepository(VotacionEntity);
 
         const disponibles = await votacionRepo.find({
