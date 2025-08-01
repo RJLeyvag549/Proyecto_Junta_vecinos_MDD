@@ -24,34 +24,54 @@
 }
 
 .votaciones-cards-grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(250px, 380px)); /* Ancho mínimo y máximo para las columnas */
+  gap: 60px; /* menos espacio entre tarjetas */
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px; /* menos padding general */ 
+  justify-content: center; /* Centramos las tarjetas horizontalmente */
 }
 
 .votaciones-card {
   background: #e9f5db;
-  border-radius: 12px;
-  padding: 24px;
+  border-radius: 10px;
+  padding: 16px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.15);
   transition: transform 0.2s;
   width: 100%;
-  max-width: 600px;
+  min-height: 200px; /* Reducimos la altura mínima */
+  max-height: 260px; /* Agregamos una altura máxima */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.95rem;
 }
 
 .votaciones-card:hover {
   transform: translateY(-4px);
 }
 
+.votaciones-card p {
+  margin: 4px 0; /* reduce espacio entre líneas */
+}
+
+.votaciones-card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
 .votaciones-card button {
   background: #445528;
   color: white;
   border: none;
-  padding: 10px 16px;
-  border-radius: 4px;
-  margin-top: 16px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-top: 10px;
   cursor: pointer;
   transition: background 0.3s;
+  align-self: flex-start;
 }
 
 .votaciones-card button:hover {

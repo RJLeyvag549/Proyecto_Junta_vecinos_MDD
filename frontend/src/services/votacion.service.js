@@ -10,3 +10,14 @@ export async function getVotacionesDisp() {
   }
 };
 
+export async function emitirVoto(id_votacion, opcion_elegida) {
+  try {
+    const response = await api.post('/voto', {
+      id_votacion,
+      opcion_elegida
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Error al emitir voto' };
+  }
+};

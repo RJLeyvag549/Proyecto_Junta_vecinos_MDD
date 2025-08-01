@@ -9,7 +9,6 @@ import jwt from "jsonwebtoken";
 export async function authenticateJwt(req, res, next) {
   // Conseguir el token del encabezado Authorization
   const authHeader = req.headers.authorization;
-
   if (!authHeader || !authHeader.startsWith("Bearer "))
     return res.status(401).json({ message: "Token no proporcionado" });
 

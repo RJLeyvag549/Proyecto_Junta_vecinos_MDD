@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getVotacionesDisp } from '../services/votacion.service.js';
 import '../styles/votacion.css';
 import Navbar from '../components/Navbar'
@@ -6,6 +7,7 @@ import Sidebar from '../components/Sidebar'
 
 function Votacion() {
   const [votaciones, setVotaciones] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
   const fetchVotaciones = async () => {
@@ -20,6 +22,10 @@ function Votacion() {
 
   fetchVotaciones();
 }, []);
+
+  const irAVoto = (idVotacion) => {
+    navigate(`/votacion/${idVotacion}`); // Redirigir con el ID de la votación
+  };
 
   return (
     <div className="votacion-layout">
@@ -37,7 +43,7 @@ function Votacion() {
                 <p>{v.descripcion}</p>
                 <p><strong>Fecha Inicio:</strong> {new Date(v.fecha_inicio).toLocaleString('es-CL')}</p>
                 <p><strong>Fecha Fin:</strong> {new Date(v.fecha_fin).toLocaleString('es-CL')}</p>
-                <button><strong>VOTA AQUÍ</strong></button>
+                <button onClick={() => irAVoto(v.id)}><strong>VOTA AQUÍ</strong></button>
               </div>
             ))}
           </main>

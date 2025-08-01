@@ -8,6 +8,7 @@ import EditUser from './pages/EditUser';
 import ProtectedRoute from './components/ProtectedRoute';
 import Users from './pages/Users';
 import Votacion from './pages/Votacion';
+import Voto from './pages/Voto';
 
 const AppRouter = () => {
   return (
@@ -60,6 +61,15 @@ const AppRouter = () => {
         } 
       />
 
+      <Route 
+        path="/votacion/:id" 
+        element={
+          <ProtectedRoute>
+            <Voto />
+          </ProtectedRoute>
+        }
+      />
+      
     </Routes>
   );
 };
