@@ -1,110 +1,102 @@
-import path from "path";
-import { AppDataSource } from "../config/configDb.js";
-import jwt from "jsonwebtoken";
+"use strict";
+
 import User from "../entity/user.entity.js";
-import { comparePassword } from "../helpers/bcrypt.helper.js";
-import { HOST, PORT, SESSION_SECRET } from "../config/configEnv.js";
-import { createUserService } from "../services/user.service.js";
+import jwt from "jsonwebtoken";
+import { encryptPassword, comparePassword } from "../helpers/bcrypt.helper.js";
+import { AppDataSource } from "../config/configDb.js";
+import { SESSION_SECRET } from "../config/configEnv.js";
 import {
   registerValidation,
   loginValidation,
 } from "../validations/auth.validation.js";
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* FUNCIÓN PARA REGISTRAR UN NUEVO USUARIO
+
+// Controlador de autenticación
+
 export async function register(req, res) {
   try {
-    console.log("BODY:", req.body);
-    console.log("FILES:", req.files);
+    // Obtener el repositorio de usuarios y validar los datos de entrada
+    const userRepository = AppDataSource.getRepository(User);
+    const { username, rut, email, password } = req.body;
+    const { error } = registerValidation.validate(req.body);
+    if (error) return res.status(400).json({ message: error.message });
 
-    const userRepository = AppDataSource.getRepository(User);    
+    // Verificar si el usuario ya existe verificando email, rut y username
+    const existingEmailUser = await userRepository.findOne({
+      where: { email },
+    });
+    if (existingEmailUser)
+      return res.status(409).json({ message: "Correo ya registrado." });
 
-		//* Extraer datos del body
-    const { firstName, lastName, rut, email, password, contact, homeAddress } = req.body;
+    const existingRutUser = await userRepository.findOne({ where: { rut } });
+    if (existingRutUser)
+      return res.status(409).json({ message: "Rut ya registrado." });
 
-    const docIdentityFile = req.files?.docIdentity?.[0];
-    const docResidenceFile = req.files?.docResidence?.[0];
+    const existingUsernameUser = await userRepository.findOne({
+      where: { username },
+    });
+    if (existingUsernameUser)
+      return res
+        .status(409)
+        .json({ message: "Nombre de usuario ya registrado." });
 
-		if (!firstName || !lastName || !rut || !email || !password || !contact || !homeAddress || !docIdentityFile || !docResidenceFile) {
-      return res.status(400).json({ message: "Faltan campos obligatorios o documentos :V" });
-    }
-
-		//* Validación para ver si está duplicado el email o rut
-    const existingEmail = await userRepository.findOne({ where: { email } });
-    if (existingEmail) return res.status(409).json({ message: "Correo ya registrado" });
-
-    const existingRut = await userRepository.findOne({ where: { rut } });
-    if (existingRut) return res.status(409).json({ message: "RUT ya registrado" });
-
-		//* Esto es para construir las URL de los documentos 
-    const baseUrl = `http://${HOST}:${PORT}/api/src/upload/`;  //* Ruta base
-    const docIdentityUrl = baseUrl + path.basename(docIdentityFile.path);
-    const docResidenceUrl = baseUrl + path.basename(docResidenceFile.path);
-
-    const [newUser, error] = await createUserService({
-      firstName,
-      lastName,
-      rut,
+    // Crear un nuevo usuario y guardar en la base de datos
+    const newUser = userRepository.create({
+      username,
       email,
-      password,
-      contact,
-      homeAddress,
-      docIdentity: docIdentityUrl,
-      docResidence: docResidenceUrl,
+      rut,
+      password: await encryptPassword(password),
     });
+    await userRepository.save(newUser);
 
-    if (error) return res.status(500).json({ message: error });
+    // Excluir la contraseña del objeto de respuesta
+    const { contraseña, ...dataUser } = newUser;
 
-			//devuelve como respuesta un objeto pero sin la contraseña
-			const { password: _, ...safeUser } = newUser;
-
-			return res.status(201).json({
-      message: "Solicitud de registro enviada con éxito. En espera de aprobación!",
-      user: safeUser
-    });
-
-    } catch (error) {
-		console.error("Error en auth.controller.js -> register():", error);
-    return res.status(500).json({ message: "Error interno del servidor." });
+    res
+      .status(201)
+      .json({ message: "Usuario registrado exitosamente!", data: dataUser });
+  } catch (error) {
+    console.error("Error en auth.controller.js -> register(): ", error);
+    return res.status(500).json({ message: "Error al registrar el usuario" });
   }
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* FUNCIÓN PARA INICIAR SESIÓN
+
 export async function login(req, res) {
   try {
     // Obtener el repositorio de usuarios y validar los datos de entrada
     const userRepository = AppDataSource.getRepository(User);
-    //* Extrae email y contraseña del body
     const { email, password } = req.body;
     const { error } = loginValidation.validate(req.body);
     if (error) return res.status(400).json({ message: error.message });
 
-    //* busca al usuario en la DB por email
+    // Verificar si el usuario existe y si la contraseña es correcta
     const userFound = await userRepository.findOne({ where: { email } });
     if (!userFound)
-      return res.status(404).json({ message: "El correo electrónico no está registrado" });
+      return res
+        .status(404)
+        .json({ message: "El correo electrónico no está registrado" });
 
-    //* Compara la contraseña ingresada con la almacenada en la DB (encriptada)
     const isMatch = await comparePassword(password, userFound.password);
     if (!isMatch)
-      return res.status(401).json({ message: "La contraseña ingresada no es correcta" });
-    //* Crea un token JWT con los datos del usuario
+      return res
+        .status(401)
+        .json({ message: "La contraseña ingresada no es correcta" });
+
+    // Generar un token JWT y enviarlo al cliente
     const payload = {
-      id: userFound.id,
-     // username: userFound.username,
+      username: userFound.username,
       email: userFound.email,
-      role: userFound.role,
+      rut: userFound.rut,
+      rol: userFound.role,
     };
     const accessToken = jwt.sign(payload, SESSION_SECRET, { expiresIn: "1d" });
-    //* Envía token como respuesta
-    res.status(200).json({message: "Inicio de sesión exitoso", token: accessToken});
 
+    res.status(200).json({ message: "Inicio de sesión exitoso", accessToken });
   } catch (error) {
     console.error("Error en auth.controller.js -> login(): ", error);
     return res.status(500).json({ message: "Error al iniciar sesión" });
   }
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* FUNCIÓN PARA CERRAR SESIÓN
+
 export async function logout(req, res) {
   // Eliminar la cookie de sesión del cliente
   try {
@@ -112,34 +104,5 @@ export async function logout(req, res) {
     res.status(200).json({ message: "Sesión cerrada exitosamente" });
   } catch (error) {
     return res.status(500).json({ message: "Error al cerrar sesión" });
-  }
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* FUNCIÓN QUE OBTIENE EL PERFIL DEL USUARIO AUTENTICADO 
-export async function getProfile(req, res) {
-  try {
-    // Obtener el repositorio de usuarios y buscar el perfil del usuario autenticado
-    const userRepository = AppDataSource.getRepository(User);
-    const userEmail = req.user.email;
-    const user = await userRepository.findOne({ where: { email: userEmail } });
-    
-    // Si no se encuentra el usuario, devolver un error 404
-    if (!user) {
-      return res.status(404).json({ message: "Perfil no encontrado." });
-    }
-
-    // Formatear la respuesta excluyendo la contraseña
-    const formattedUser = {
-      id: user.id,
-      username: user.firstName + " " + user.lastName,
-      email: user.email,
-      rut: user.rut,
-      role: user.role
-    };
-
-    res.status(200).json({ message: "Perfil encontrado: ", data: formattedUser });
-  } catch (error) {
-    console.error("Error en user.controller -> getProfile(): ", error);
-    res.status(500).json({ message: "Error interno del servidor"})
   }
 }
