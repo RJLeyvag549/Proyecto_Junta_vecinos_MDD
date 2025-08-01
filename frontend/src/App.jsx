@@ -1,51 +1,28 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import HomeRedirect from "./HomeRedirect";
-import HomeAdmin from "./pages/HomeAdmin";
-import HomeUsuario from "./pages/HomeUsuario";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Error404 from "./pages/Error404";
-import ProtectedRoute from "./components/ProtectedRoute";
 
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
-      {/* Ruta intermedia que redirige según el rol */}
-      <Route
-        path="/home"
-        element={
-          <ProtectedRoute>
-            <HomeRedirect />
-          </ProtectedRoute>
-        }
-      />
+const HomeRedirect = () => {
+  const [redirectTo, setRedirectTo] = useState(null);
+  const user = JSON.parse(sessionStorage.getItem("usuario"));
 
-      {/* Rutas según el rol */}
-      <Route
-        path="/home/admin"
-        element={
-          <ProtectedRoute>
-            <HomeAdmin />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/home/usuario"
-        element={
-          <ProtectedRoute>
-            <HomeUsuario />
-          </ProtectedRoute>
-        }
-      />
+  useEffect(() => {
+    if (!user) {
+      setRedirectTo("/login");
+    } else {
+      const rol = user?.data?.rolName;
+      if (rol === "administrador") {
+        setRedirectTo("/home/admin");
+      } else {
+        setRedirectTo("/home/usuario");
+      }
+    }
+  }, []);
 
-      {/* Página no encontrada */}
-      <Route path="*" element={<Error404 />} />
-    </Routes>
-  );
+  if (redirectTo) {
+    return <Navigate to={redirectTo} />;
+  }
+
+  return null; // Mientras calcula redirección
+// AppRouter.jsx
 }
-
-export default App;
