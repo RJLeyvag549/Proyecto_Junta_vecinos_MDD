@@ -87,7 +87,6 @@ export async function login(req, res) {
     const isMatch = await comparePassword(password, userFound.password);
     if (!isMatch)
       return res.status(401).json({ message: "La contraseña ingresada no es correcta" });
-    console.log("Usuario encontrado:", userFound);
     //* Crea un token JWT con los datos del usuario
     const payload = {
       id: userFound.id,
@@ -96,7 +95,6 @@ export async function login(req, res) {
       role: userFound.role,
     };
     const accessToken = jwt.sign(payload, SESSION_SECRET, { expiresIn: "1d" });
-    console.log("Token generado:", accessToken);
     //* Envía token como respuesta
     res.status(200).json({message: "Inicio de sesión exitoso", token: accessToken});
 

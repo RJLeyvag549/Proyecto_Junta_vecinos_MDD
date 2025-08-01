@@ -8,13 +8,13 @@ import { isAdmin } from "../middleware/authorization.middleware.js";
 const router = Router();
 
 // Proteger todas las rutas con JWT
-//router.use(authenticateJwt);
+router.use(authenticateJwt);
 
 // Ruta para vecinos: ver votaciones disponibles (no requiere ser admin)
 router.get("/disponibles", getVotacionesDisp);
 
 // Las rutas siguientes solo son accesibles para administradores
-//router.use(isAdmin);
+router.use(isAdmin);
 
 // Ruta: crear votación (solo admins)
 router.post("/", createVotacion);
