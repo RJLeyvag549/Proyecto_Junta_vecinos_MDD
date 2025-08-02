@@ -8,6 +8,7 @@ import EditUser from './pages/EditUser';
 import ProtectedRoute from './components/ProtectedRoute';
 import Users from './pages/Users';
 import FundingPage from './pages/FundingPage';
+import MeetingPage from './pages/MeetingPage';
 
 const AppRouter = () => {
   return (
@@ -48,6 +49,15 @@ const AppRouter = () => {
           </ProtectedRoute>
         } 
       />
+      <Route
+        path="/reuniones"
+        element={
+          <ProtectedRoute>
+            <MeetingPage />
+          </ProtectedRoute>
+        }
+      />
+
 
       <Route path="/planilla" element={<FundingPage />} />
       <Route 

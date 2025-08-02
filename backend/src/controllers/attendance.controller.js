@@ -47,9 +47,9 @@ export async function getAttendanceByMeetingId(req, res) {
     });
 
     const resultado = lista.map(a => ({
-      nombre: a.usuario.username,
-      rut: a.usuario.rut,
-      firma: a.firma
+      id: a.id,
+      firma: a.firma,
+      usuario: a.usuario  
     }));
 
     res.status(200).json({

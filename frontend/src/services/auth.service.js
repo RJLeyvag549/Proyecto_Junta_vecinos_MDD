@@ -2,11 +2,13 @@ import axios from './root.service.js';
 import cookies from 'js-cookie';
 
 export async function login(data) {
-    const response = await axios.post('/auth/login', data);
-    if (response.status === 200) {
-        sessionStorage.setItem('usuario', JSON.stringify(response.data));
-    }
-    return response.data;
+  const response = await axios.post('/auth/login', data);
+  if (!response.data.token) {
+    throw new Error("No se recibió token...");
+  }
+  localStorage.setItem("token", response.data.token);
+  sessionStorage.setItem("usuario", JSON.stringify(response.data.usuario || {}));
+  return response.data;
 }
 
 export async function register(data) {

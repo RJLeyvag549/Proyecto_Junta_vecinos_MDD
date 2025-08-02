@@ -123,7 +123,7 @@ h1 {
   position: fixed;
   top: 9vh; 
   left: 0;
-  width: 240px;
+  width: 15%;
   height: 100vh;
   background-color: #437415;
   padding: 20px;
@@ -456,3 +456,10 @@ h1 {
 	width: 100%;
 	max-width: 500px;
   }
+
+.main-content {
+  padding: 0;
+  height: calc(100vh - 9vh);
+  overflow-y: auto;
+}
+

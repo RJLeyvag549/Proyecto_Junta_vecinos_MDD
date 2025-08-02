@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useGetFundings from '../hooks/funding/useGetFundings.jsx';
 import useCreateFunding from '../hooks/funding/useCreateFunding.jsx';
 import useEditFunding from '../hooks/funding/useEditFunding.jsx';
@@ -28,7 +28,7 @@ function FundingPage() {
 
   useEffect(() => {
     fetchFundings();
-  }, []);
+  }, [fetchFundings]);
 
   const handleChange = e => {
     if (e.target.name === "comprobante") {

@@ -21,14 +21,16 @@ export const AttendanceEntity = new EntitySchema({
       target: "Meeting",
       type: "many-to-one",
       joinColumn: true,
+      inverseSide: "asistencias",
     },
     usuario: {
       target: "User",
       type: "many-to-one",
       joinColumn: true,
+      inverseSide: "asistencias",
       nullable: false,
     },
-  }
+  },
 });
 
 export default AttendanceEntity;

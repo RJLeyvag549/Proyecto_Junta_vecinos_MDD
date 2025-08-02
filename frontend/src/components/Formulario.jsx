@@ -12,7 +12,7 @@ const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundCo
 
     return (
         <form className="form" style={{ backgroundColor: backgroundColor }} onSubmit={handleSubmit}>
-            <h1>{title}</h1>
+            <div className="form-title">{title}</div>
             {fields.map((field, index) => (
                 <div className="container_inputs" key={index}>
                     {field.label && <label htmlFor={field.name}>{field.label}</label>}
