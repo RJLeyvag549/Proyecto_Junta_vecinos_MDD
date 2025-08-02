@@ -1,4 +1,4 @@
-import axios from './root.service.js';
+ import axios from './root.service.js';
 import cookies from 'js-cookie';
 
 export async function login(data) {
