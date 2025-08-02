@@ -1,0 +1,82 @@
+.fondo-voto {
+  background: url('/voto-fondo.png') center center / cover no-repeat fixed;
+  min-height: 100vh;
+}
+
+.voto-body {
+  font-family: "Nunito", sans-serif;  
+  display: flex;
+  padding: 60px;
+  padding-left: 250px;
+  min-height: 100vh;
+}
+
+.voto-content {
+  flex: 1;
+  padding: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.voto-card {
+  background-color: #e9f5db;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.voto-titulo {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #243504;
+}
+
+.voto-descripcion {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.voto-fecha {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.voto-opciones {
+  margin: 1.5rem 0;
+}
+
+.voto-opcion {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.voto-opcion input {
+  margin-right: 0.5rem;
+}
+
+.voto-boton {
+  background-color: #445528;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.voto-boton:disabled {
+  background-color: #92b986;
+  cursor: not-allowed;
+}
+
+.voto-boton:hover:not(:disabled) {
+  background-color: #6f8e4e;
+}

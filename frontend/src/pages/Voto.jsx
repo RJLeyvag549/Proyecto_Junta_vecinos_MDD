@@ -4,7 +4,7 @@ import api from '../services/root.service.js';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import { emitirVoto } from '../services/votacion.service.js';
-
+import '../styles/voto.css';
 
 function Voto() {
   const { id } = useParams();
@@ -38,21 +38,19 @@ function Voto() {
   if (!votacion) return <div>Cargando...</div>;
 
   return (
-    <div className="votacion-layout">
+    <div className="fondo-voto">
       <Navbar />
-      <div className="votacion-body">
+      <div className="voto-body flex">
         <Sidebar />
-        <div className="votaciones-container">
-          <div className="votaciones-banner">
-            <h2>{votacion.titulo}</h2>
-            <p>{votacion.descripcion}</p>
-            <p><strong>Fecha Inicio:</strong> {new Date(votacion.fecha_inicio).toLocaleString('es-CL')}</p>
-            <p><strong>Fecha Fin:</strong> {new Date(votacion.fecha_fin).toLocaleString('es-CL')}</p>
+        <div className="voto-content">
+          <div className="voto-card">
+            <h2 className="voto-titulo">{votacion.titulo}</h2>
+            <p className="voto-descripcion">{votacion.descripcion}</p>
 
-            <div>
+            <div className="voto-opciones">
               <h4>Elige una opción:</h4>
               {votacion.opciones.map((op, i) => (
-                <label key={i}>
+                <label key={i} className="voto-opcion">
                   <input
                     type="radio"
                     name="opcion"
@@ -60,12 +58,12 @@ function Voto() {
                     checked={opcionElegida === op}
                     onChange={(e) => setOpcionElegida(e.target.value)}
                   />
-                  {op}
+                  <span>{op}</span>
                 </label>
               ))}
             </div>
 
-            <button onClick={handleVotar} disabled={!opcionElegida}>
+            <button className="voto-boton" onClick={handleVotar} disabled={!opcionElegida}>
               Emitir voto
             </button>
           </div>
@@ -73,6 +71,7 @@ function Voto() {
       </div>
     </div>
   );
+
 }
 
 export default Voto;
