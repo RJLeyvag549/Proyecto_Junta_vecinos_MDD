@@ -12,6 +12,7 @@ router.use(authenticateJwt);
 
 // Rutas públicas
 router.post("/", emitirVoto);
+router.use(isAdmin);
 router.get("/:id", contarVotosPorOpcion);
 
 export default router;
