@@ -43,6 +43,7 @@ function Voto() {
       <div className="voto-body flex">
         <Sidebar />
         <div className="voto-content">
+          {/* <button className="boton-volver" onClick={() => navigate('/votaciones')}>←</button> */}
           <div className="voto-card">
             <h2 className="voto-titulo">{votacion.titulo}</h2>
             <p className="voto-descripcion">{votacion.descripcion}</p>

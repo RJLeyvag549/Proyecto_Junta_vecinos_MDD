@@ -12,7 +12,7 @@ const loginSubmit = async (data) => {
         const res = await login(data);
 
         // Si todo bien, navegar
-        if (res?.token) {
+        if (res?.accessToken) {
             navigate('/home');
         } else {
             alert("Credenciales incorrectas.");

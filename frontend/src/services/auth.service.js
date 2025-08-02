@@ -29,3 +29,8 @@ export async function logout() {
     sessionStorage.removeItem('usuario');
     cookies.remove('miCookie');
 }
+
+export function getUserRole() {
+  const usuario = JSON.parse(sessionStorage.getItem('usuario'));
+  return usuario?.rol || null;
+}

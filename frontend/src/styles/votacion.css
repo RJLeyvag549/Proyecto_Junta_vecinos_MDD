@@ -77,3 +77,14 @@
 .votaciones-card button:hover {
   background: #6f8e4e;
 }
+
+.mensaje-no-votaciones {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #333;
+  padding: 40px 20px;
+  background-color: #fff7f0;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+}

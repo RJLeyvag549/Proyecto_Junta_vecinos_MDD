@@ -5,9 +5,10 @@ import '../styles/votacion.css';
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 
+
 function Votacion() {
   const [votaciones, setVotaciones] = useState([]);
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
 
   useEffect(() => {
   const fetchVotaciones = async () => {
@@ -37,15 +38,19 @@ function Votacion() {
             <strong>VOTACIONES</strong>
           </header>
           <main className="votaciones-cards-grid">
-            {votaciones.map((v, i) => (
-              <div className="votaciones-card" key={i}>
-                <h2>{v.titulo}</h2>
-                <p>{v.descripcion}</p>
+            {votaciones.length === 0 ? (
+              <p className="mensaje-no-votaciones">No hay votaciones disponibles</p>
+            ) : (
+              votaciones.map((v, i) => (
+                <div className="votaciones-card" key={i}>
+                  <h2>{v.titulo}</h2>
+                  <p>{v.descripcion}</p>
                 <p><strong>Fecha Inicio:</strong> {new Date(v.fecha_inicio).toLocaleString('es-CL')}</p>
                 <p><strong>Fecha Fin:</strong> {new Date(v.fecha_fin).toLocaleString('es-CL')}</p>
                 <button onClick={() => irAVoto(v.id)}><strong>VOTA AQUÍ</strong></button>
               </div>
-            ))}
+              ))
+            )}
           </main>
         </div>
       </div>

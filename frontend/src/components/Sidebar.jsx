@@ -12,7 +12,7 @@ const Sidebar = () => {
         <NavLink to="/home" className={({ isActive }) => isActive ? 'active' : ''}>
           Inicio
         </NavLink>
-
+        <NavLink to="/votaciones">Votaciones</NavLink>
         {isAdmin && (
           <NavLink to="/planilla" className={({ isActive }) => isActive ? 'active' : ''}>
             <LiaFileAlt className="icon" /> Planilla
