@@ -18,8 +18,7 @@ export async function createUsers() {
     const users = [
       {
         role: "administrator",
-        firstName: "Silvana Monserrat",
-        lastName: "Araya Retamal",
+        fullName: "Silvana Monserrat Araya Retamal",
         rut: "19.157.881-3",
         email: "toreto@gmail.com",
         password: await encryptPassword("toretoteamo"),
@@ -31,8 +30,7 @@ export async function createUsers() {
       },
       {
         role: "user",
-        firstName: "Moises Pirito",
-        lastName: "Araya Retamal",
+        fullName: "Moises Pirito Araya Retamal",
         rut: "77.777.777-k",
         email: "moisepirito@gmail.com",
         password: await encryptPassword("blancateamo"),

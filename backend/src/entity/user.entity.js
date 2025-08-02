@@ -15,11 +15,7 @@ export const UserEntity = new EntitySchema({
       type: String,
       default: "user",
         },
-    firstName: {
-      type: String,
-      nullable: false,
-        },
-    lastName: {
+    fullName: {
       type: String,
       nullable: false,
         },
@@ -52,15 +48,6 @@ export const UserEntity = new EntitySchema({
     docResidence: {
       type: String,
       nullable: false,
-        },
-    createdAt: {
-      type: "timestamp",
-      default: () => "CURRENT_TIMESTAMP",
-        },
-    updatedAt: {
-      type: "timestamp",
-      default: () => "CURRENT_TIMESTAMP",
-      onUpdate: () => "CURRENT_TIMESTAMP",
         },
     requestStatus: {
       type: String,

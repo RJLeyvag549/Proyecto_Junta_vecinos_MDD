@@ -7,23 +7,23 @@ import { HOST, PORT, SESSION_SECRET } from "../config/configEnv.js";
 import { createUserService } from "../services/user.service.js";
 import { registerValidation, validateUploadedFiles, loginValidation} from "../validations/auth.validation.js";
 import { groupErrorsByField } from "../helpers/errorFormatter.helper.js"
+import { deleteUploadedFiles } from '../helpers/fileCleanup.helper.js';
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* FUNCIÓN PARA REGISTRAR UN NUEVO USUARIO
 export async function register(req, res) {
   try {
     
-    //console.log("BODY:", req.body);
-    //console.log("FILES:", req.files);
-
     //* VALIDACIÓN DOCUMENTOS (CÉDULA Y RESIDENCIA)
     const fileError = validateUploadedFiles(req.files);
     if (fileError) {
+      deleteUploadedFiles(req.files);
       return res.status(400).json({ message: fileError });
     }
 
     //*VALIDACIÓN DATOS DEL BODY (CON AHRUPACIÓN DE ERRORES)
     const { error } = registerValidation.validate(req.body, { abortEarly: false }); 
     if (error) {
+      deleteUploadedFiles(req.files);
       return res.status(400).json({
         message: "Hay errores en los datos enviados",
         errors: groupErrorsByField(error.details)
@@ -32,21 +32,28 @@ export async function register(req, res) {
 
     const userRepository = AppDataSource.getRepository(User);
 
-    const { firstName, lastName, rut, email, password, contact, homeAddress } = req.body;
+    const { fullName, rut, email, password, contact, homeAddress } = req.body;
 
     const docIdentityFile = req.files?.docIdentity?.[0];
     const docResidenceFile = req.files?.docResidence?.[0];
 
-    if (!firstName || !lastName || !rut || !email || !password || !contact || !homeAddress || !docIdentityFile || !docResidenceFile) {
-      return res.status(400).json({ message: "Faltan campos obligatorios o documentos :V" });
+    if (!fullName || !rut || !email || !password || !contact || !homeAddress || !docIdentityFile || !docResidenceFile) {
+      deleteUploadedFiles(req.files);
+      return res.status(400).json({ message: "Faltan campos obligatorios o documentos" });
     }
 
     //* VALIDACIÓN SI EXISTE EMAIL/RUT EN DB
     const existingEmail = await userRepository.findOne({ where: { email } });
-    if (existingEmail) return res.status(409).json({ message: "Correo ya registrado" });
+    if (existingEmail) {
+      deleteUploadedFiles(req.files);
+      return res.status(409).json({ message: "Correo ya registrado" });
+    }
 
     const existingRut = await userRepository.findOne({ where: { rut } });
-    if (existingRut) return res.status(409).json({ message: "RUT ya registrado" });
+    if (existingRut) {
+      deleteUploadedFiles(req.files);
+      return res.status(409).json({ message: "RUT ya registrado" });
+    }
 
     //* PARA CONSTRUIR LAS URL DE LOS DOCUMENTOS
     const baseUrl = `http://${HOST}:${PORT}/api/src/upload/`;  //* Ruta base
@@ -54,8 +61,7 @@ export async function register(req, res) {
     const docResidenceUrl = baseUrl + path.basename(docResidenceFile.path);
 
     const [newUser, creationError] = await createUserService({
-      firstName,
-      lastName,
+      fullName,
       rut,
       email,
       password,
@@ -65,7 +71,10 @@ export async function register(req, res) {
       docResidence: docResidenceUrl,
     });
 
-    if (creationError) return res.status(500).json({ message: creationError });
+    if (creationError) {
+      deleteUploadedFiles(req.files);
+      return res.status(500).json({ message: creationError });
+    }
 
     const { password: _, ...safeUser } = newUser;
 
@@ -76,6 +85,7 @@ export async function register(req, res) {
 
   } catch (error) {
     console.error("Error en auth.controller.js -> register():", error);
+    deleteUploadedFiles(req.files);
     return res.status(500).json({ message: "Error interno del servidor." });
   }
 }

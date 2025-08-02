@@ -1,57 +1,93 @@
-import { useNavigate } from 'react-router-dom';
-import { register } from '../services/auth.service.js';
-import Form from "../components/Formulario.jsx";
+// src/pages/Register.jsx
+import React, { useState } from "react";
+import { registerUser } from "../services/auth.service";
+import "../styles/register.css";
 
-const Register = () => {
+function Register() {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    rut: "",
+    email: "",
+    password: "",
+    contact: "",
+    homeAddress: "",
+    docIdentity: null,
+    docResidence: null,
+  });
 
-	const navigate = useNavigate();
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: files ? files[0] : value,
+    }));
+  };
 
-    const registerSubmit = (data) => {
-        register(data).then(() => {
-            navigate('/')
-        })
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await registerUser(formData);
+      alert("Registro enviado con éxito");
+      // Redireccionar o limpiar formulario si quieres
+    } catch (error) {
+      console.error(error);
+      alert("Error al registrar");
     }
+  };
 
-	return (
-		<main className="container">
-			<Form
-				title="Crea tu cuenta"
-				fields={[
-					{
-						label: "Nombre de usuario",
-						name: "username",
-						placeholder: "Didudo",
-						type: "text",
-					},
-                    {
-						label: "Correo electrónico",
-                        name: "email",
-                        placeholder: "example@gmail.com",
-                        type: "email",
-                    },
-                    {
-						label: "RUT",
-                        name: "rut",
-                        placeholder: "23.770.330-1",
-                        type: "text",
-                    },
-					{
-						label: "Contraseña",
-						name: "password",
-						placeholder: "*********",
-						type: "password",
-					},
-				]}
-				buttonText="Registrarse"
-				onSubmit={registerSubmit}
-				footerContent={
-					<p>
-						¿Ya tienes cuenta?, <a href="/">Inicia sesión aquí!</a>
-					</p>
-				}
-			/>
-		</main>
-	);
-};
+  return (
+    <div className="register-background">
+      <form className="register-container" onSubmit={handleSubmit}>
+        <h2 className="register-title">Solicitud de Registro</h2>
+
+        <label>NOMBRE COMPLETO</label>
+        <input type="text" name="fullName" onChange={handleChange} required />
+
+        <label>RUT</label>
+        <input type="text" name="rut" onChange={handleChange} required />
+
+        <label>CORREO ELECTRÓNICO</label>
+        <input type="email" name="email" onChange={handleChange} required />
+
+        <label>CONTRASEÑA</label>
+        <input type="password" name="password" onChange={handleChange} required />
+
+        <label>NÚMERO DE CONTACTO</label>
+        <input type="text" name="contact" onChange={handleChange} required />
+
+        <label>DIRECCIÓN</label>
+        <input type="text" name="homeAddress" onChange={handleChange} required />
+
+        <div className="documents-title">DOCUMENTOS</div>
+
+        <div className="documents-upload">
+          <div>
+            <label>CÉDULA IDENTIDAD</label>
+            <input
+              type="file"
+              name="docIdentity"
+              accept=".pdf,.jpg,.jpeg,.png"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>COMPROBANTE DOMICILIO</label>
+            <input
+              type="file"
+              name="docResidence"
+              accept=".pdf,.jpg,.jpeg,.png"
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+
+        <button type="submit">ENVIAR SOLICITUD</button>
+      </form>
+    </div>
+  );
+}
 
 export default Register;
