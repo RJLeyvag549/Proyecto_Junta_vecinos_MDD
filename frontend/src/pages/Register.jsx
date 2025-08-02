@@ -1,6 +1,6 @@
 // src/pages/Register.jsx
 import React, { useState } from "react";
-import { registerUser } from "../services/auth.service";
+import { register } from "../services/auth.service";
 import "../styles/register.css";
 
 function Register() {
@@ -27,7 +27,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      await registerUser(formData);
+      await register(formData);
       alert("Registro enviado con éxito");
       // Redireccionar o limpiar formulario si quieres
     } catch (error) {

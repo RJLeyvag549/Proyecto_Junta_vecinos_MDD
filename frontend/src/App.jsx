@@ -1,27 +1,7 @@
-import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import AppRouter from "./AppRouter.jsx";
 
-const HomeRedirect = () => {
-  const [redirectTo, setRedirectTo] = useState(null);
-  const user = JSON.parse(sessionStorage.getItem("usuario"));
+const App = () => {
+  return <AppRouter />;
+};
 
-  useEffect(() => {
-    if (!user) {
-      setRedirectTo("/login");
-    } else {
-      const rol = user?.data?.rolName;
-      if (rol === "administrador") {
-        setRedirectTo("/home/admin");
-      } else {
-        setRedirectTo("/home/usuario");
-      }
-    }
-  }, []);
-
-  if (redirectTo) {
-    return <Navigate to={redirectTo} />;
-  }
-
-  return null; // Mientras calcula redirección
-// AppRouter.jsx
-}
+export default App;
