@@ -119,6 +119,7 @@ h1 {
 	}
 }
 
+<<<<<<< HEAD
 .sidebar {
   position: fixed;
   top: 9vh; 
@@ -262,6 +263,8 @@ h1 {
 		}
 	}
 }
+=======
+>>>>>>> origin/Prueba
 
 .profile_page{
 	background-color: #eef7ff;

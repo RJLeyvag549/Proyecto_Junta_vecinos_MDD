@@ -1,0 +1,158 @@
+/* ---------- Sidebar Base ---------- */
+.sidebar {
+  position: fixed;
+  top: 9vh;
+  left: 0;
+  width: 60px;                          /* Solo íconos visibles al inicio */
+  height: 100vh;
+  background-color: #718355;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  z-index: 1000;
+  transition: width 0.3s ease;
+}
+
+/* Al pasar el mouse, se expande */
+.sidebar:hover {
+  width: 220px;
+}
+
+/* Mostrar contenido textual al hacer hover */
+.sidebar:hover .section-title span,
+.sidebar:hover .sub-links,
+.sidebar:hover .search-container input {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ---------- Íconos y estructura ---------- */
+.section-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.icon-circle {
+  min-width: 50px;
+  height: 50px;
+  background-color: #516433;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px; /* deja esto para separación vertical */
+}
+/* ---------- Secciones ---------- */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 0;
+  white-space: nowrap;
+  transition: color 0.2s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Texto oculto por defecto */
+.section-title span,
+.sub-links,
+.search-container input {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.section-title:hover {
+  color: #d0ffd0;
+}
+
+/* ---------- Submenús ---------- */
+.sub-links-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.sub-links-wrapper.open {
+  max-height: 500px;
+}
+
+.sub-links {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.sub-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.sub-links a:hover {
+  text-decoration: underline;
+}
+
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 180px;
+  overflow: hidden;
+  margin-left: 0;
+
+  /* 🔽 que se vea alineado igual que los otros íconos */
+  padding-left: 5px;
+  box-sizing: border-box;
+}
+
+/* Input oculto por defecto */
+.search-container input {
+  opacity: 0;
+  pointer-events: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background-color: white;
+  transition: opacity 0.3s ease;
+  width: 0;
+  margin-left: 10px;
+  min-width: 0;
+}
+
+.search-container .icon-circle {
+  min-width: 40px;
+  height: 40px;
+  background-color: #516433;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ícono lupa */
+.search-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Al hacer hover en el sidebar, aparece el input */
+.sidebar:hover .search-container input {
+  opacity: 1;
+  pointer-events: auto;
+  width: 140px;
+}
