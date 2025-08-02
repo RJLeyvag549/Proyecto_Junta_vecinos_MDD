@@ -4,7 +4,6 @@ import { uploadDocuments, handleFileSizeLimit } from "../middleware/uploadArchiv
 
 const router = Router();
 
-// Rutas públicas
 router.get("/profile", getProfile);
 
 router.post("/register", uploadDocuments, handleFileSizeLimit, register);

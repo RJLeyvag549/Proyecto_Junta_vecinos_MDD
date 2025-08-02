@@ -27,7 +27,7 @@ export const ComentariosEntity = new EntitySchema({
           },
           user: {
             type: "many-to-one",
-            target: "User", // Aquí coincide con name en UserEntity
+            target: "User", // AquÃ coincide con name en UserEntity
             joinColumn: { name: "userId" }, // La clave primaria de UserEntity es "id"
             onDelete: "CASCADE",
           },

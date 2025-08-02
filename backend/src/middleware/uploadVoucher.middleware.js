@@ -1,9 +1,7 @@
-//* ESTE ARCHIVO PERMITE QUE USUARIOS SUBAN ARCHIVOS AL BACKEND
-
 import multer from "multer";
 
-//* CONFIGURACIÓN DEL ALMACENAMIENTO 
-const storage = multer.diskStorage({
+
+const comprobanteStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./src/upload/");
   },
@@ -13,8 +11,8 @@ const storage = multer.diskStorage({
   },
 });
 
-//* FILTRO: ACPTA ARCHIVOS PDF, JPEG O PNG 
-const fileFilter = (req, file, cb) => {
+
+const comprobanteFilter = (req, file, cb) => {
   const allowedMimeTypes = ["application/pdf", "image/jpeg", "image/png"];
   if (allowedMimeTypes.includes(file.mimetype)) {
     cb(null, true);
@@ -23,30 +21,26 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-//* ESTABLECE LÍMITE DE TAMAÑO (5MB)
-const upload = multer({
-  storage: storage,
+
+const uploadComprobante = multer({
+  storage: comprobanteStorage,
   limits: {
-    fileSize: 5 * 1024 * 1024, 
+    fileSize: 5 * 1024 * 1024, // 5 MB
   },
-  fileFilter: fileFilter,
+  fileFilter: comprobanteFilter,
 });
 
-//* ACEPTA MÁXIMO 1 ARCHIVO POR CAMPO
-const uploadDocuments = upload.fields([
-  { name: "docIdentity", maxCount: 1 },
-  { name: "docResidence", maxCount: 1 },
-]);
 
-//* MANEJO DE ERRORES PARA EL TAMAÑO DEL ARCHIVO
+const uploadComprobanteSingle = uploadComprobante.single("comprobante");
+
+
 const handleFileSizeLimit = (err, req, res, next) => {
   if (err instanceof multer.MulterError) {
     return res.status(400).json({ message: "El archivo excede el límite de 5MB" });
   } else if (err) {
-		//* MANEJO ERRORES PARA EL TIPO DE ARCHIVO
     return res.status(400).json({ message: err.message });
   }
   next();
 };
 
-export { uploadDocuments, handleFileSizeLimit };
+export { uploadComprobanteSingle, handleFileSizeLimit };

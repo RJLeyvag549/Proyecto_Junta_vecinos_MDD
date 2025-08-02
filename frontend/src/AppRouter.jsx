@@ -7,8 +7,10 @@ import Error404 from './pages/Error404';
 import EditUser from './pages/EditUser';
 import ProtectedRoute from './components/ProtectedRoute';
 import Users from './pages/Users';
+
 import Votacion from './pages/Votacion';
 import Voto from './pages/Voto';
+import FundingPage from './pages/FundingPage';
 
 const AppRouter = () => {
   return (
@@ -46,6 +48,16 @@ const AppRouter = () => {
         element={
           <ProtectedRoute>
             <EditUser />
+          </ProtectedRoute>
+        } 
+      />
+
+      <Route path="/planilla" element={<FundingPage />} />
+      <Route 
+        path="/funding" 
+        element={
+          <ProtectedRoute allowedRoles={['administrador']}>
+            <FundingPage />
           </ProtectedRoute>
         } 
       />

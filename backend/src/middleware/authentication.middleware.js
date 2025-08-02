@@ -1,9 +1,10 @@
+//* ESTE ARCHIVO ES PARA PROTEGER LAS RUTAS 
+
 "use strict";
 
 import { SESSION_SECRET } from "../config/configEnv.js";
 import { AppDataSource } from "../config/configDb.js";
 import jwt from "jsonwebtoken";
-
 
 // Middleware para autenticar JWT
 export async function authenticateJwt(req, res, next) {

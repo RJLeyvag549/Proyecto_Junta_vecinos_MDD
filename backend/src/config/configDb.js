@@ -15,8 +15,8 @@ import Voto from "../entity/voto.entity.js"
 
 "use strict";
 
-
 export const AppDataSource = new DataSource({
+
     type: "postgres",
     host: HOST,
     port: 5432,
@@ -41,12 +41,13 @@ export const AppDataSource = new DataSource({
     ]
 });
 
+
     export async function connectDB() {
-     try {
-      await AppDataSource.initialize();
+    try {
+    await AppDataSource.initialize();
     console.log("=> Conexión con la base de datos exitosa!");
-      } catch (error) {
+    } catch (error) {
     console.error("Error al conectar con la base de datos:", error);
     process.exit(1);
-  }
+}
 }

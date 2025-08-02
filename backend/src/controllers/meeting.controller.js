@@ -123,7 +123,7 @@ export async function deleteMeetingById(req, res) {
     res.status(500).json({ message: "Error interno del servidor." });
   }
 }
-//aun falta terminar, ingresar año y mes de busqueda
+//aun falta terminar, ingresar aÃ±o y mes de busqueda
 export async function getMeeting(req, res) {
   try {
     const meetingRepository = AppDataSource.getRepository(Meeting);
