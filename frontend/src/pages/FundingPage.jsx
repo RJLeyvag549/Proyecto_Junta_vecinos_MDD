@@ -5,7 +5,7 @@ import useEditFunding from '../hooks/funding/useEditFunding.jsx';
 import useDeleteFunding from '../hooks/funding/useDeleteFunding.jsx';
 import useDownloadFundings from '../hooks/funding/useDownloadFundings.jsx';
 import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/SidebarUsuario.jsx";
 import "../styles/funding.css";
 
 function FundingPage() {
