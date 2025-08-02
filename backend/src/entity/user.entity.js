@@ -15,11 +15,7 @@ export const UserEntity = new EntitySchema({
       type: String,
       default: "user",
         },
-    firstName: {
-      type: String,
-      nullable: false,
-        },
-    lastName: {
+    fullName: {
       type: String,
       nullable: false,
         },

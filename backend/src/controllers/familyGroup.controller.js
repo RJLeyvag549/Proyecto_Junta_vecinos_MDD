@@ -42,11 +42,10 @@ if (Object.keys(erroresRut).length > 0) {
 }
 
     for (const member of members) {
-      const { firstName, lastName, rut } = member;
+      const { fullName, rut } = member;
 
       const newMember = familyRepository.create({
-        firstName,
-        lastName,
+        fullName,
         rut,
         mainUser: user, 
       });

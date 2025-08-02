@@ -32,12 +32,12 @@ export async function register(req, res) {
 
     const userRepository = AppDataSource.getRepository(User);
 
-    const { firstName, lastName, rut, email, password, contact, homeAddress } = req.body;
+    const { fullName, rut, email, password, contact, homeAddress } = req.body;
 
     const docIdentityFile = req.files?.docIdentity?.[0];
     const docResidenceFile = req.files?.docResidence?.[0];
 
-    if (!firstName || !lastName || !rut || !email || !password || !contact || !homeAddress || !docIdentityFile || !docResidenceFile) {
+    if (!fullName || !rut || !email || !password || !contact || !homeAddress || !docIdentityFile || !docResidenceFile) {
       deleteUploadedFiles(req.files);
       return res.status(400).json({ message: "Faltan campos obligatorios o documentos" });
     }
@@ -61,8 +61,7 @@ export async function register(req, res) {
     const docResidenceUrl = baseUrl + path.basename(docResidenceFile.path);
 
     const [newUser, creationError] = await createUserService({
-      firstName,
-      lastName,
+      fullName,
       rut,
       email,
       password,

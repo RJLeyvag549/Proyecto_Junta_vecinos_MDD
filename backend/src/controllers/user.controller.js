@@ -19,8 +19,7 @@ export async function getUsers(req, res) {
 
     const filteredUsers = approvedUsers.map(user => ({
       role: user.role,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      fullName: user.fullName,
       rut: user.rut,
     }));
 
@@ -44,8 +43,7 @@ export async function getUserById(req, res) {
 
       const filteredUser = {
       role: user.role,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      fullName: user.fullName,
       rut: user.rut,
       email: user.email,
       contact: user.contact,
@@ -53,8 +51,7 @@ export async function getUserById(req, res) {
       docIdentity: user.docIdentity,
       docResidence: user.docResidence,
       familyGroup: user.familyGroup.map((member) => ({
-        firstName: member.firstName,
-        lastName: member.lastName,
+        fullName: member.fullName,
         rut: member.rut,
       })),
     };
