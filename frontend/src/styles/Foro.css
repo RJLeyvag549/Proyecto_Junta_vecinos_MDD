@@ -1,0 +1,121 @@
+.foro-layout {
+  display: flex;
+  transition: all 0.3s ease;
+}
+
+.foro-sidebar {
+  width: 60px;
+  transition: width 0.3s ease;
+}
+
+.sidebar-expanded .foro-sidebar {
+  width: 50px;
+}
+
+.foro-container {
+  flex: 1;
+  padding: 2rem;
+  background-image: url('/fondoForo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  transition: transform 0.3s ease;
+}
+
+
+/* Mueve el contenido hacia la derecha al expandir sidebar */
+.sidebar-expanded .foro-container {
+  transform: translateX(190px); /* O margin-left: 190px si preferís */
+}
+
+
+/* ... resto del CSS que ya te pasé ... */
+
+.foro-titulo {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.publicacion {
+  background: rgba(255, 255, 255, 0.249);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.cabecera-publicacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tipo-publicacion {
+  font-size: 0.9rem;
+  color: white;
+  background-color: #1e90ff;
+  padding: 2px 8px;
+  border-radius: 5px;
+  text-transform: capitalize;
+}
+
+.info-publicacion {
+  font-size: 0.85rem;
+  color: gray;
+  margin-top: 0.5rem;
+}
+
+.acciones-admin {
+  margin-top: 1rem;
+}
+
+.acciones-admin button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  background: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.acciones-admin button:hover {
+  background: #cc4d38;
+}
+
+.comentarios {
+  margin-top: 1.2rem;
+}
+
+.comentario {
+  background: #f1f1f1;
+  padding: 8px 10px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+}
+
+.comentario-input {
+  width: 100%;
+  height: 60px;
+  margin-top: 10px;
+  padding: 10px;
+  resize: none;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.btn-comentar {
+  margin-top: 5px;
+  background-color: #2e8b57;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-comentar:hover {
+  background-color: #256d45;
+}
