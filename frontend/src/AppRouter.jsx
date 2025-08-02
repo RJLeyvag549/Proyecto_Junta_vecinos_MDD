@@ -38,19 +38,20 @@ const AppRouter = () => {
       <Route
         path="/home/admin"
         element={
-          <ProtectedRoute allowedRoles={['administrador']}>
+          <ProtectedRoute allowedRoles={['administrator']}>
             <HomeAdmin />
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/home/usuario"
-        element={
-          <ProtectedRoute allowedRoles={['usuario']}>
-            <HomeUsuario />
-          </ProtectedRoute>
-        }
-      />
+    <Route
+  path="/home/usuario"
+  element={
+    <ProtectedRoute allowedRoles={['user']}>
+      <HomeUsuario />
+    </ProtectedRoute>
+  }
+/>
+
 
       {/* Otras rutas protegidas */}
       <Route
