@@ -13,6 +13,7 @@ const loginSubmit = async (data) => {
 
         // Si todo bien, navegar
         if (res?.accessToken) {
+            localStorage.setItem("token", res.accessToken);
             navigate('/home');
         } else {
             alert("Credenciales incorrectas.");

@@ -7,22 +7,29 @@ import Sidebar from '../components/Sidebar'
 
 
 function Votacion() {
-  const [votaciones, setVotaciones] = useState([]);
+  const [votaciones, setVotaciones] = useState(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();  
 
   useEffect(() => {
-  const fetchVotaciones = async () => {
-    try {
-      const data = await getVotacionesDisp();
-      console.log("Datos recibidos:", data);
-      setVotaciones(data.data);
-    } catch (error) {
-      console.error('Error al obtener las votaciones:', error.message);
-    }
-  };
+    const fetchVotaciones = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("Usuario no autenticado");
+        return;
+      }
 
-  fetchVotaciones();
-}, []);
+      try {
+        const data = await getVotacionesDisp();
+        setVotaciones(data.data);
+      } catch (err) {
+        console.error("Error al obtener votaciones:", err.message);
+        setError("Error al obtener votaciones");
+      }
+    };
+
+    fetchVotaciones();
+  }, []);
 
   const irAVoto = (idVotacion) => {
     navigate(`/votacion/${idVotacion}`); // Redirigir con el ID de la votación
@@ -38,17 +45,21 @@ function Votacion() {
             <strong>VOTACIONES</strong>
           </header>
           <main className="votaciones-cards-grid">
-            {votaciones.length === 0 ? (
+            {error ? (
+              <p className="mensaje-error">{error}</p>
+            ) : votaciones === null ? (
+              <p className="mensaje-cargando">Cargando votaciones...</p>
+            ) : votaciones.length === 0 ? (
               <p className="mensaje-no-votaciones">No hay votaciones disponibles</p>
             ) : (
               votaciones.map((v, i) => (
                 <div className="votaciones-card" key={i}>
                   <h2>{v.titulo}</h2>
                   <p>{v.descripcion}</p>
-                <p><strong>Fecha Inicio:</strong> {new Date(v.fecha_inicio).toLocaleString('es-CL')}</p>
-                <p><strong>Fecha Fin:</strong> {new Date(v.fecha_fin).toLocaleString('es-CL')}</p>
-                <button onClick={() => irAVoto(v.id)}><strong>VOTA AQUÍ</strong></button>
-              </div>
+                  <p><strong>Fecha Inicio:</strong> {new Date(v.fecha_inicio).toLocaleString('es-CL')}</p>
+                  <p><strong>Fecha Fin:</strong> {new Date(v.fecha_fin).toLocaleString('es-CL')}</p>
+                  <button onClick={() => irAVoto(v.id)}><strong>VOTA AQUÍ</strong></button>
+                </div>
               ))
             )}
           </main>
