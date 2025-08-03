@@ -15,7 +15,6 @@ import Profile from "./pages/Profile";
 import EditUser from "./pages/EditUser";
 import Users from "./pages/Users";
 
-
 const AppRouter = () => {
   return (
     <Routes>
@@ -92,15 +91,6 @@ const AppRouter = () => {
         element={
           <ProtectedRoute allowedRoles={["administrator"]}>
             <Users />
-          </ProtectedRoute>
-        }
-      />
-      {/* Planilla */}
-      <Route
-        path="/planilla"
-        element={
-          <ProtectedRoute allowedRoles={["administrator"]}>
-            <FundingPage />
           </ProtectedRoute>
         }
       />
