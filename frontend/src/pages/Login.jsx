@@ -4,40 +4,46 @@ import Form from '../components/Formulario.jsx';
 import LoginIcon from "../components/LoginIcon.jsx";
 
 const Login = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const loginSubmit = async (data) => {
-        try {
-            await login(data);
-            navigate('/home');
-        } catch (error) {
-            const mensaje = error?.response?.data?.message || error.message || '';
+  const loginSubmit = async (data) => {
+    try {
+      const res = await login(data);
 
-            if (
-                mensaje.toLowerCase().includes('credenciales') ||
-                mensaje.toLowerCase().includes('contraseña') ||
-                mensaje.toLowerCase().includes('email') ||
-                error?.response?.status === 401
-            ) {
-                alert(mensaje); // Muestra el mensaje real del backend
-            } else {
-                alert('Error del servidor. Intenta más tarde.');
-            }
-        }
-    };
+      // ✅ Guarda usuario en sesión
+     if (res?.token) {
+  sessionStorage.setItem("user", JSON.stringify({
+    token: res.token,
+    data: res.user, // 👈 así queda: user.data.role
+  }));
 
+  navigate("/home"); // ✅ Dispara redirección que activa HomeRedirect
+      } else {
+        alert("Credenciales incorrectas.");
+      }
+
+    } catch (error) {
+      console.error("Error en login:", error);
+      alert("Ocurrió un error al iniciar sesión.");
+    }
+  };
 
 
     return (
         <main className="container">
             <LoginIcon />
             <Form
-             title={
+            title={
     <h1>
       JUNTA VECINAL<br />
       PARQUE ECUADOR
     </h1>
+
   }
+
+
+
+
                 
                 fields={[
                     {

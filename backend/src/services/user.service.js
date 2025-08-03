@@ -10,12 +10,11 @@ export async function createUserService(data) {
 try {
   const userRepository = AppDataSource.getRepository(User);
 
-  const { firstName, lastName, rut, email, password, contact, homeAddress, docIdentity, docResidence } = data;
+  const { fullName, rut, email, password, contact, homeAddress, docIdentity, docResidence } = data;
 
   const newUser = userRepository.create({
     role: "user",
-    firstName,
-    lastName,
+    fullName,
     rut,
     email,
     password: await encryptPassword(password),
