@@ -14,7 +14,7 @@ import Foro from "./pages/Foro";
 import Profile from "./pages/Profile";
 import EditUser from "./pages/EditUser";
 import Users from "./pages/Users";
-import FundingPage from "./pages/FundingPage";
+
 
 const AppRouter = () => {
   return (
@@ -95,17 +95,6 @@ const AppRouter = () => {
           </ProtectedRoute>
         }
       />
-
-      {/* Financiamiento */}
-      <Route
-        path="/funding"
-        element={
-          <ProtectedRoute allowedRoles={["administrator"]}>
-            <FundingPage />
-          </ProtectedRoute>
-        }
-      />
-
       {/* Planilla */}
       <Route
         path="/planilla"

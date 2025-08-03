@@ -7,8 +7,8 @@ const HomeRedirect = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("🔁 Redireccionando desde HomeRedirect...");
-    console.log("🧠 Usuario desde sessionStorage:", user);
+    console.log("Redireccionando desde HomeRedirect...");
+    console.log("Usuario desde sessionStorage:", user);
 
     if (!user) {
       console.warn("⚠️ No hay usuario, redirigiendo a login");
@@ -16,7 +16,7 @@ const HomeRedirect = () => {
       return;
     }
 
-    const role = user?.data?.role; // 👈 DEBE ser "data.role"
+    const role = user?.data?.role; 
     console.log("✅ Rol detectado:", role);
 
     if (role === "administrator") {
@@ -34,8 +34,8 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    sessionStorage.removeItem("user"); // 👈 Limpia la sesión
-    navigate("/login", { replace: true }); // 👈 Navega directo al login
+    sessionStorage.removeItem("user"); 
+    navigate("/login", { replace: true }); 
   };
 
   return (
