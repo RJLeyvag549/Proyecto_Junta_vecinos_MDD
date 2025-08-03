@@ -11,7 +11,7 @@ const Login = () => {
       const res = await login(data);
 
       // ✅ Guarda usuario en sesión
-     if (res?.token) {
+    if (res?.token) {
   sessionStorage.setItem("user", JSON.stringify({
     token: res.token,
     data: res.user, // 👈 así queda: user.data.role
