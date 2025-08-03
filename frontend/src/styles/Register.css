@@ -1,61 +1,66 @@
-/* register.css */
-body, html {
+/* estilos globales para toda la página */
+body,
+html {
   font-family: 'Nunito', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #eef7e9; /* Verde pastel temporal */
+  background-color: #eef7e9;
 }
 
+/* Fondo y layout de la pantalla de registro */
 .register-background {
   display: flex;
   height: 100vh;
   align-items: center;
   justify-content: flex-start;
-  padding-left: 50px;
+  padding-left: 80px;
+
+  background-image: url('/register.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
+/*contenedor principal del formulario*/
 .register-container {
-  background-color: rgba(70, 75, 70, 0.9);
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
-  padding: 30px;
-  border-radius: 30px;
-  width: 400px;
+  padding: 15px 40px 20px 40px;
+  border-radius: 40px;
+  width: 500px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 }
 
+/*título del formulario*/
 .register-title {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-transform: uppercase;
 }
 
+/*estilo de las etiquetas (etiquetas de campo: email, contraseña, etc)*/
 label {
   font-weight: bold;
-  font-size: 13px;
+  font-size: 15px;
   text-transform: uppercase;
 }
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="file"] {
-  border-radius: 15px;
+/*Estilos de los campos de entrada*/
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='file'] {
+  background-color: #e9f5db;
+  border-radius: 30px;
   border: none;
   padding: 10px;
   font-size: 14px;
 }
 
-.documents-title {
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
+/*Contenedor de subida de documentos*/
 .documents-upload {
   display: flex;
   gap: 10px;
@@ -68,14 +73,86 @@ input[type="file"] {
   flex-direction: column;
 }
 
-button[type="submit"] {
+/*Botón de envío del formulario*/
+button[type='submit'] {
+  font-size: 18px;
   margin-top: 20px;
-  background-color: #8aa569;
+  background-color: #87986a;
   color: white;
   font-weight: bold;
-  padding: 12px;
+  padding: 24px 28px;
   border: none;
-  border-radius: 20px;
+  border-radius: 40px;
   cursor: pointer;
   text-transform: uppercase;
+}
+
+/*Mensajes de error para las validaciones*/
+.error-message {
+  list-style-type: none;
+  padding-left: 0;
+  color: #f8d7da;
+  background-color: #721c24;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.error-message li {
+  margin-bottom: 2px;
+}
+
+/*Placeholder de inputs*/
+input::placeholder {
+  font-family: 'Nunito', sans-serif;
+  color: #87986a;
+  opacity: 1;
+}
+
+/*Ocultar el input de tipo archivo*/
+input[type='file'] {
+  display: none;
+}
+
+/*Botón personalizado para subir archivos*/
+.custom-file-button {
+  background-color: #e9f5db;
+  border-radius: 15px;
+  border: none;
+  padding: 8px;
+  font-size: 14px;
+  color: #87986a;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  text-align: center;
+}
+
+/*Inputs con íconos*/
+.custom-file-button:hover {
+  background-color: #d2e6c3;
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon input {
+  padding-left: 55px;
+  width: 100%;
+}
+
+.input-icon {
+  position: absolute;
+  left: 25px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+}
+
+.file-icon {
+  width: 20px;
+  height: 20px;
 }

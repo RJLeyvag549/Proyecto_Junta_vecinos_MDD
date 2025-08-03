@@ -29,7 +29,7 @@ const HomeUsuario = () => {
 
       <section className="contenido-extra">
   <div className="servicios-contenido">
-   <h2 className="titulo-beneficios">
+  <h2 className="titulo-beneficios">
   SERVICIOS EXCLUSIVOS AL ASOCIARSE<br />
   A LA JUNTA DE VECINOS
 </h2>
