@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import "../styles/Home.css";
-import comunicacionIcon from "../assets/comunicacion-icon.png";
-import tramitesIcon from "../assets/tramites-icon.png";
-import usuarioIcon from "../assets/usuario-icon.png";
-import lupaIcon from "../assets/lupa-icon.png";
+import {
+  FaComments,
+  FaCalendarAlt,
+  FaFileAlt,
+  FaClipboardCheck,
+  FaUsers,
+  FaVoteYea,
+  FaSearch
+} from "react-icons/fa";
+import "../styles/SidebarUsuario.css";
 
-const Sidebar = ({ isOpen }) => {
+const SidebarUsuario = ({ isOpen }) => {
   const [openSection, setOpenSection] = useState(null);
 
   const toggleSection = (section) => {
@@ -14,78 +19,51 @@ const Sidebar = ({ isOpen }) => {
   };
 
   return (
-    <aside className={`sidebar ${isOpen ? "open" : ""}`}
-     onMouseLeave={() => setOpenSection(null)}>
-      <nav className="sidebar-nav">
-
-        {/* Buscador */}
-        <div className="search-container">
-          <div className="icon-circle">
-            <img src={lupaIcon} alt="Buscar" className="section-icon" />
-          </div>
-          <input type="text" placeholder="Buscar..." />
+    <aside className={`sidebar-usuario ${isOpen ? "open" : ""}`} onMouseLeave={() => setOpenSection(null)}>
+    
+      {/* Comunicación y Participación */}
+      <div className="sidebar-usuario__section">
+        <div className="sidebar-usuario__section-title" onClick={() => toggleSection("comunicacion")}>
+          <div className="sidebar-usuario__icon-circle"><FaComments /></div>
+          <span>Comunicación y<br /> Participación</span>
         </div>
-
-        {/* Comunicación */}
-        <div className="section">
-          <div className="section-title" onClick={() => toggleSection("comunicacion")}>
-            <div className="icon-circle">
-              <img src={comunicacionIcon} alt="" className="section-icon" />
-            </div>
-            <span>
-              Comunicación y<br /> Participación
-            </span>
-          </div>
-
-          <div className={`sub-links-wrapper ${openSection === "comunicacion" ? "open" : ""}`}>
-            <div className="sub-links">
-              <NavLink to="/foro">Foro de Vecinos</NavLink>
-              <NavLink to="/calendario">Calendario</NavLink>
-            </div>
+        <div className={`sidebar-usuario__sub-links-wrapper ${openSection === "comunicacion" ? "open" : ""}`}>
+          <div className="sidebar-usuario__sub-links">
+            <NavLink to="/Foro">Foro de Vecinos</NavLink>
+            <NavLink to="/calendario">Calendario</NavLink>
           </div>
         </div>
+      </div>
 
-        {/* Trámites */}
-        <div className="section">
-          <div className="section-title" onClick={() => toggleSection("tramites")}>
-            <div className="icon-circle">
-              <img src={tramitesIcon} alt="" className="section-icon" />
-            </div>
-            <span>
-              Trámites y<br /> Solicitudes
-            </span>
-          </div>
-
-          <div className={`sub-links-wrapper ${openSection === "tramites" ? "open" : ""}`}>
-            <div className="sub-links">
-              <NavLink to="/certificado">Certificado de residencia</NavLink>
-              <NavLink to="/padron">Actualización de padrón</NavLink>
-            </div>
+      {/* Trámites y Solicitudes */}
+      <div className="sidebar-usuario__section">
+        <div className="sidebar-usuario__section-title" onClick={() => toggleSection("tramites")}>
+          <div className="sidebar-usuario__icon-circle"><FaFileAlt /></div>
+          <span>Trámites y<br /> Solicitudes</span>
+        </div>
+        <div className={`sidebar-usuario__sub-links-wrapper ${openSection === "tramites" ? "open" : ""}`}>
+          <div className="sidebar-usuario__sub-links">
+            <NavLink to="/certificado">Certificado de residencia</NavLink>
+            <NavLink to="/padron">Actualización de padrón</NavLink>
           </div>
         </div>
+      </div>
 
-        {/* Participación */}
-        <div className="section">
-          <div className="section-title" onClick={() => toggleSection("participacion")}>
-            <div className="icon-circle">
-              <img src={usuarioIcon} alt="" className="section-icon" />
-            </div>
-            <span>
-              Participación<br /> Comunitaria
-            </span>
-          </div>
-
-          <div className={`sub-links-wrapper ${openSection === "participacion" ? "open" : ""}`}>
-            <div className="sub-links">
-              <NavLink to="/actividades">Actividades comunitarias</NavLink>
-              <NavLink to="/votaciones">Votaciones vecinales</NavLink>
-            </div>
+      {/* Participación Comunitaria */}
+      <div className="sidebar-usuario__section">
+        <div className="sidebar-usuario__section-title" onClick={() => toggleSection("participacion")}>
+          <div className="sidebar-usuario__icon-circle"><FaVoteYea /></div>
+          <span>Participación<br /> Comunitaria</span>
+        </div>
+        <div className={`sidebar-usuario__sub-links-wrapper ${openSection === "participacion" ? "open" : ""}`}>
+          <div className="sidebar-usuario__sub-links">
+            <NavLink to="/actividades">Actividades comunitarias</NavLink>
+            <NavLink to="/votaciones">Votaciones vecinales</NavLink>
           </div>
         </div>
-
-      </nav>
+      </div>
     </aside>
   );
 };
 
-export default Sidebar;
+export default SidebarUsuario;

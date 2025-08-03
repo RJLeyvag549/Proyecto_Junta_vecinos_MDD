@@ -25,11 +25,7 @@
       padding: 0 15px;
       position: relative;
 
-      &.logo-section {
-        margin-right: auto;
-        padding-left: 1vw;
-        gap: 10px;
-      }
+    
 
       img {
         width: 40px;
@@ -66,6 +62,12 @@
         line-height: 9vh;
         margin: 0;
       }
+    &.logo-section {
+  margin-right: auto;
+  padding-left: 0.1rem; /* elimina cualquier separación */
+  gap: 9px;         /* pequeño espacio entre logo y texto */
+}
+
 
       .boton-cerrar {
         background-color: #2f570a;
