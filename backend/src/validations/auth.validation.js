@@ -14,7 +14,7 @@ const validateEmailStructure = (value, helpers) => {
     localPart.includes("..")
   ) {
     return helpers.message(
-      "La parte local del correo no puede comenzar o terminar con punto, ni contener dos puntos seguidos."
+      "El correo electrónico tiene un formato incorrecto en la parte local."
     );
   }
 
@@ -37,44 +37,39 @@ export const registerValidation = Joi.object({
     .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/)
     .messages({
       "string.pattern.base": "Solo se permiten letras, espacios y tildes.",
-      "string.min": "El Nombre completo debe tener al menos 10 caracteres.",
+      "string.min": "El Nombre completo debe tener al menos 5 caracteres.",
       "string.max": "El nombre completo no debe exceder los 100 caracteres.",
-      "string.empty": "El nombre completo es obligatorio.",
+      "string.empty": "Este campo es obligatorio.",
     }),
   rut: Joi.string()
     .required()
     .pattern(/^\d{2}\.\d{3}\.\d{3}-[\dkK]$/)
     .messages({
-      "string.empty": "El rut no puede estar vacío.",
+      "string.empty": "Este campo es obligatorio.",
       "string.base": "El rut debe ser de tipo string.",
-      "string.pattern.base": "Formato rut inválido. Debe ser xx.xxx.xxx-x.",
+      "string.pattern.base": "Formato de RUT inválido. Debe tener el formato XX.XXX.XXX-X.",
     }),
   email: Joi.string()
-    .email()
-    .required()
+    .email({ tlds: { allow: false } }) // esto ya valida el formato general
     .min(15)
     .max(50)
-    .pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+    .required()
+    .custom(validateEmailStructure)
     .messages({
-      "string.pattern.base": "El correo electrónico debe tener un formato válido.",
-      "string.email": "El correo electrónico debe ser válido.",
+      "string.email": "El correo electrónico no tiene un formato válido.",
       "string.min": "El correo electrónico debe tener al menos 15 caracteres.",
       "string.max": "El correo electrónico no puede exceder los 50 caracteres.",
-      "string.empty": "El correo electrónico es obligatorio.",
-    })
-    .custom(
-      validateEmailStructure,
-      "Validación de dominio de correo electrónico"
-    ),
+      "string.empty": "Este campo es obligatorio.",
+  }),
   password: Joi.string()
     .min(8)
     .max(26)
     .required()
     .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
     .messages({
-      "string.empty": "La contraseña no puede estar vacía.",
-      "any.required": "La contraseña es obligatorio.",
-      "string.pattern.base": "La contraseña debe tener al menos una mayúscula, una minúscula, un número y un carácter especial.",
+      "string.empty": "Este campo es obligatorio.",
+      "any.required": "La contraseña es obligatoria.",
+      "string.pattern.base": "Debe incluir una letra mayúscula, una minúscula, un número y un carácter especial (por ejemplo: @, #, $, etc.).",
       "string.min": "La contraseña debe tener al menos 8 caracteres.",
       "string.max": "La contraseña debe tener como máximo 26 caracteres.",
     }),
@@ -83,9 +78,8 @@ export const registerValidation = Joi.object({
   .required()
   .messages({
     "string.pattern.base": "El contacto debe contener exactamente 8 dígitos numéricos.",
-    "string.empty": "El contacto no puede estar vacío.",
+    "string.empty": "Este campo es obligatorio.",
     "any.required": "El contacto es obligatorio.",
-    "string.base": "Solo se permiten números en el contacto.",
   }),
   homeAddress: Joi.string()
   .pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\#\.\,\-º]+$/)
@@ -93,7 +87,7 @@ export const registerValidation = Joi.object({
   .max(100)
   .required()
   .messages({
-    "string.empty": "La dirección no puede estar vacía.",
+    "string.empty": "Este campo es obligatorio.",
     "any.required": "La dirección es obligatoria.",
     "string.min": "La dirección debe tener al menos 10 caracteres.",
     "string.max": "La dirección no puede exceder los 100 caracteres.",

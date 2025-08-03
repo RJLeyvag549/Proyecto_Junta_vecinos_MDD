@@ -13,6 +13,9 @@ import { deleteUploadedFiles } from '../helpers/fileCleanup.helper.js';
 export async function register(req, res) {
   try {
     
+    console.log("BODY:", req.body);
+    console.log("FILES:", req.files);
+
     //* VALIDACIÓN DOCUMENTOS (CÉDULA Y RESIDENCIA)
     const fileError = validateUploadedFiles(req.files);
     if (fileError) {
@@ -46,13 +49,13 @@ export async function register(req, res) {
     const existingEmail = await userRepository.findOne({ where: { email } });
     if (existingEmail) {
       deleteUploadedFiles(req.files);
-      return res.status(409).json({ message: "Correo ya registrado" });
+      return res.status(409).json({ message: "El correo ingresado ya está asociado a una cuenta existente!" });
     }
 
     const existingRut = await userRepository.findOne({ where: { rut } });
     if (existingRut) {
       deleteUploadedFiles(req.files);
-      return res.status(409).json({ message: "RUT ya registrado" });
+      return res.status(409).json({ message: "El RUT ingresado ya está asociado a una cuenta existente!" });
     }
 
     //* PARA CONSTRUIR LAS URL DE LOS DOCUMENTOS
