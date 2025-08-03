@@ -11,12 +11,16 @@ const loginSubmit = async (data) => {
     try {
         const res = await login(data);
 
-        // Si todo bien, navegar
         if (res?.accessToken) {
-            navigate('/home');
+          sessionStorage.setItem("user", JSON.stringify({
+            token: res.accessToken,
+            data: res.user,
+        }));
+        navigate('/home');
         } else {
-            alert("Credenciales incorrectas.");
-        }
+          alert("Credenciales incorrectas.");
+    }
+
 
     } catch (error) {
         console.error("Error en login:", error);
