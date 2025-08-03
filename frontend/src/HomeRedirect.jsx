@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const HomeRedirect = () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
@@ -28,6 +29,19 @@ const HomeRedirect = () => {
     }
   }, [navigate]);
 
+  
+const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("user"); // 👈 Limpia la sesión
+    navigate("/login", { replace: true }); // 👈 Navega directo al login
+  };
+
+  return (
+    <button onClick={handleLogout}>Cerrar sesión</button>
+  );
+};
   return null;
 };
 

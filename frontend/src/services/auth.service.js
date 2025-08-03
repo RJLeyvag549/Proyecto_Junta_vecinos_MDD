@@ -1,15 +1,16 @@
- import axios from './root.service.js';
+// src/services/auth.service.js
 import cookies from 'js-cookie';
+import axios from 'axios';
 
 export async function login(data) {
   const response = await axios.post('/auth/login', data);
- if (response.status === 200) {
-  const user = {
-    token: response.data.token,
-    data: response.data.user  // aquí debería estar el role
-  };
-  sessionStorage.setItem('usuario', JSON.stringify(user));
-}
+  if (response.status === 200) {
+    const user = {
+      token: response.data.token,
+      data: response.data.user // aquí viene el role
+    };
+    sessionStorage.setItem('user', JSON.stringify(user)); // 🔁 corregido: usar "user"
+  }
 
   return response.data;
 }
@@ -45,13 +46,12 @@ export async function profile() {
 }
 
 export async function logout() {
-  await axios.post('/auth/logout');
-  sessionStorage.removeItem('usuario');
+  try {
+    await axios.post('/auth/logout');
+  } catch (err) {
+    console.warn("⚠️ Logout falló en el backend (continuamos):", err.message);
+  }
+
+  sessionStorage.removeItem('user'); // 🔁 asegurarse que usamos "user"
   cookies.remove('miCookie');
 }
-
-
-
-
-
-

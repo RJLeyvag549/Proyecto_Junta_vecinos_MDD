@@ -20,14 +20,7 @@ const SidebarUsuario = ({ isOpen }) => {
 
   return (
     <aside className={`sidebar-usuario ${isOpen ? "open" : ""}`} onMouseLeave={() => setOpenSection(null)}>
-      {/* Buscador */}
-      <div className="sidebar-usuario__search-container">
-        <div className="sidebar-usuario__icon-circle">
-          <FaSearch className="sidebar-usuario__search-icon" />
-        </div>
-        <input type="text" placeholder="Buscar..." />
-      </div>
-
+    
       {/* Comunicación y Participación */}
       <div className="sidebar-usuario__section">
         <div className="sidebar-usuario__section-title" onClick={() => toggleSection("comunicacion")}>

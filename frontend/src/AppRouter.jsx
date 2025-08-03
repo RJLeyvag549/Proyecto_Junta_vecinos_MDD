@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import Login from "./pages/Login";
@@ -19,8 +19,8 @@ import FundingPage from "./pages/FundingPage";
 const AppRouter = () => {
   return (
     <Routes>
-      {/* Redirección por defecto al login */}
-      <Route path="/" element={<Navigate to="/login" />} />
+      {/* Ruta raíz: redirige según rol */}
+      <Route path="/" element={<HomeRedirect />} />
 
       {/* Rutas públicas */}
       <Route path="/login" element={<Login />} />
@@ -106,7 +106,7 @@ const AppRouter = () => {
         }
       />
 
-      {/* Planilla (si FundingPage es el mismo componente, ok) */}
+      {/* Planilla */}
       <Route
         path="/planilla"
         element={
