@@ -13,6 +13,9 @@ import Profile from "./pages/Profile";
 import EditUser from "./pages/EditUser";
 import Users from "./pages/Users";
 import FundingPage from "./pages/FundingPage";
+import Transactions from "./pages/Transactions";
+import Inventory from "./pages/Inventory";
+import FinancialCharts from "./pages/FinancialCharts";
 
 const AppRouter = () => {
   return (
@@ -65,7 +68,7 @@ const AppRouter = () => {
       <Route
         path="/edit-user/:rut"
         element={
-          <ProtectedRoute allowedRoles={['administrador']}>
+          <ProtectedRoute allowedRoles={['administrator']}>
             <EditUser />
           </ProtectedRoute>
         }
@@ -73,7 +76,7 @@ const AppRouter = () => {
       <Route
         path="/users"
         element={
-          <ProtectedRoute allowedRoles={['administrador']}>
+          <ProtectedRoute allowedRoles={['administrator']}>
             <Users />
           </ProtectedRoute>
         }
@@ -81,7 +84,15 @@ const AppRouter = () => {
       <Route
         path="/funding"
         element={
-          <ProtectedRoute allowedRoles={['administrador']}>
+          <ProtectedRoute allowedRoles={['administrator']}>
+            <FundingPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/fondos"
+        element={
+          <ProtectedRoute allowedRoles={['administrator']}>
             <FundingPage />
           </ProtectedRoute>
         }
@@ -89,8 +100,32 @@ const AppRouter = () => {
       <Route
         path="/planilla"
         element={
-          <ProtectedRoute allowedRoles={['administrador']}>
+          <ProtectedRoute allowedRoles={['administrator']}>
             <FundingPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/Transacciones"
+        element={
+          <ProtectedRoute allowedRoles={['administrator']}>
+            <Transactions />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inventario"
+        element={
+          <ProtectedRoute allowedRoles={['administrator']}>
+            <Inventory />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/graficos"
+        element={
+          <ProtectedRoute allowedRoles={['administrator']}>
+            <FinancialCharts />
           </ProtectedRoute>
         }
       />
