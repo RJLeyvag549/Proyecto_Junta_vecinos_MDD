@@ -3,3 +3,6 @@ node_modules
 
 #Ignora el archivo .env
 .env
+
+##Ignora el .history
+.history/

@@ -1,0 +1,279 @@
+@import url("animations.css");
+
+html,
+body {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	place-items: center;
+	min-width: 100%;
+	min-height: 100vh;
+	font-family: "Nunito", sans-serif;
+
+}
+
+#root {
+	min-width: 100%;
+	min-height: 100vh;
+	margin: 0 auto;
+}
+
+
+.container {
+	height: 100vh;
+	width: 100%;
+	background: 
+		url('login.png');
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+
+}
+
+.form {
+	position: relative;
+	padding-top: 50px;
+	background-color: #0000006e;
+	padding: 10vh;
+	display: flex;
+	flex-direction: column;
+	border-radius: 40px;
+	align-items: center;
+	width: 400px; 
+h1 {
+	color: #ffffff;
+	font-size: 36px;
+	text-align: center;
+	font-weight: bold;
+	margin: 20;
+	margin-bottom: 2vh;
+	line-height: 1.1; /* Puedes ajustar este valor según lo que necesites */
+}
+	div {
+		width: 100%;
+		display: flex;
+	}
+	label {
+		color: #ffffff;
+		font-weight: bold;
+		margin-bottom: 0.5vh;
+	} 
+	input {
+		display: flex;
+		border-radius: 40px;
+		padding: 8px 15px;
+		margin-bottom: 2vh;
+		background-color: #e9f5db;
+		font-weight: regular;
+		font-size: 18px;
+		
+		
+	}
+	input::placeholder {
+		color: rgba(3, 60, 13, 0.403);
+		font-weight: light;
+	}
+	input:focus {
+		background-color: #e9f5db;
+		font-weight: regular;
+	}
+	button {
+		padding: auto;
+		display: flex;
+		justify-content: center;
+		padding: 1.9vh 0;
+		border-radius: 50px;
+		border: none;
+		width: 90%;
+		background-color: #87986a;
+		color: #eef7ff;
+		font-weight: bold;
+		font-size: 16px;
+		margin-top: 20px;
+	}
+	button:hover{
+		
+		background-color: #12411e;
+
+
+		transition: .3s ease-out;
+	}
+	div {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		p {
+			color: rgb(255, 255, 255);
+			 text-align: center;
+			a {
+      		color: rgb(255, 255, 255);
+     		
+    		}
+			margin: 0;
+			padding: 5vh 0 0 0;
+		}
+	}
+}
+
+
+.profile_page{
+	background-color: #eef7ff;
+	display: block;
+	height: 90vh;
+	padding: 9vh 0 0 5vh;
+	.sections{
+		display: flex;
+		height: 100%;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		.profile_image{
+		height: 50vh;
+		width: auto;
+		}
+	}
+	.form {
+		width: 40%;
+	}
+}
+
+
+#users {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 18px;
+    text-align: left;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+	border: 2px solid #2c3e50;
+}
+
+#users thead tr {
+    background-color: #002651;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+#users th, #users td {
+    padding: 12px 15px;
+	text-align: center;
+  	vertical-align: middle; 
+}
+
+#users tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+#users tbody tr:nth-of-type(even) {
+    background-color: rgba(0, 51, 102, 0.15);
+}
+
+#users tbody tr:last-of-type {
+    border-bottom: 2px solid #2c3e50;
+}
+
+#users tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+#users .icon {
+    cursor: pointer;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 80%;
+}
+
+#users img {
+	width: 24px;
+	height: 24px;
+}
+
+#users .empty-row {
+    height: 20px;
+}
+
+#users .empty-row td {
+    border: none;
+	height: 24px;
+}
+
+#users .no-data {
+    text-align: center;
+    color: #666;
+    padding: 14px;
+    white-space: nowrap;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.search-container {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 10px;
+	margin-left: 22%;
+  }
+  
+  .search-input-wrapper {
+	position: relative;
+	width: 100%;
+	max-width: 200px;
+  }
+  
+  .search-input {
+	width: 100%;
+	padding: 8px 16px 8px 40px;
+	border-radius: 20px;
+	border: 1px solid #ccc;
+	font-size: 16px;
+	background-color: #002651;
+	color: white;
+	outline: none;
+  }
+  
+  .search-input::placeholder {
+	color: white;
+	font-family: "Montserrat", sans-serif;
+  }
+  
+  .search-icon {
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 20px;
+	height: 20px;
+	pointer-events: none;
+  }
+
+  .form-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: calc(100vh - 80px); /* Ajusta según el tamaño de tu navbar */
+  }
+  
+  .form-wrapper {
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 500px;
+  }
