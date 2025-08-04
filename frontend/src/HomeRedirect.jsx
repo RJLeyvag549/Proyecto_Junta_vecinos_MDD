@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const HomeRedirect = () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("🔁 Redireccionando desde HomeRedirect...");
-    console.log("🧠 Usuario desde sessionStorage:", user);
+    console.log("Redireccionando desde HomeRedirect...");
+    console.log("Usuario desde sessionStorage:", user);
 
     if (!user) {
       console.warn("⚠️ No hay usuario, redirigiendo a login");
@@ -15,7 +16,7 @@ const HomeRedirect = () => {
       return;
     }
 
-    const role = user?.data?.role; // 👈 DEBE ser "data.role"
+    const role = user?.data?.role; 
     console.log("✅ Rol detectado:", role);
 
     if (role === "administrator") {
@@ -28,6 +29,19 @@ const HomeRedirect = () => {
     }
   }, [navigate]);
 
+
+const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("user"); 
+    navigate("/login", { replace: true }); 
+  };
+
+  return (
+    <button onClick={handleLogout}>Cerrar sesión</button>
+  );
+};
   return null;
 };
 

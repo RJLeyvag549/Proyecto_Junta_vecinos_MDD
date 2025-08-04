@@ -12,13 +12,7 @@ const SidebarAdmin = ({ isOpen }) => {
 
   return (
     <aside className={`sidebar-admin ${isOpen ? 'open' : ''}`} onMouseLeave={() => setOpenSection(null)}>
-      {/* Buscador */}
-      <div className="sidebar-admin__search-container">
-        <div className="sidebar-admin__icon-circle">
-          <FaSearch className="sidebar-admin__search-icon" />
-        </div>
-        <input type="text" placeholder="Buscar..." />
-      </div>
+      
 
       {/* Comunicación y Participación */}
       <div className="sidebar-admin__section">
