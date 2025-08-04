@@ -303,8 +303,9 @@ return (
         <h1 className="foro-titulo">Foro Comunitario</h1>
 
         {role === 'administrator' && (
-          <button className="btn-crear-publicacion" onClick={abrirFormulario}>
-            Crear publicación
+          <button className="btn-flotante-crear" onClick={abrirFormulario}>
+             <img src="/src/assets/anadir.png" alt="Editar" style={{ width: '50px', height: '50px' }} />
+            
           </button>
         )}
 
@@ -319,19 +320,28 @@ return (
               <div key={id} className="publicacion">
                 <div className="cabecera-publicacion">
                   <h2>{pub.titulo}</h2>
-                  <span className="tipo-publicacion">
-                    {pub.tipo_de_publicacion || pub.tipo}
-                  </span>
+                  <span className="badge-tipo-publicacion">{pub.tipo_de_publicacion}</span>
+
                 </div>
 
-                <p>{pub.contenido}</p>
+              <div className="contenido-publicacion-externo">
+          <div className="contenido-publicacion-interno">
+            <p>{pub.contenido}</p>
+          </div>
+        </div>
+
+
                 <div className="info-publicacion">
-                  <small>Publicado por: {pub.autor}</small><br />
-                  <small>
+                  <small>Publicado por: Directiva
+
+                    <div className="fecha-publicacion">
                     Fecha:{' '}
                     {pub.fecha_publicacion
                       ? new Date(pub.fecha_publicacion).toLocaleDateString()
                       : 'Fecha no disponible'}
+
+                      
+                  </div>
                   </small>
                 </div>
 
@@ -441,9 +451,9 @@ return (
           </select>
 
           <div className="botones-formulario">
-            <button type="submit">Publicar</button>
-            <button type="button" onClick={cerrarFormulario}>Cancelar</button>
-          </div>
+          <button type="submit" className="btn-crear-publicacion">Publicar</button>
+          <button type="button" className="btn-cancelar-publicacion" onClick={cerrarFormulario}>Cancelar</button>
+        </div>
         </form>
       </div>
     )}

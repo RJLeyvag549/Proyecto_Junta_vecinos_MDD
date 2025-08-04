@@ -59,20 +59,59 @@ html, body {
 .foro-titulo {
   font-size: 4rem;
   margin-bottom: 1rem;
-  color: #ffffff;
+  color:#ffffff;
   text-align: center;
   font-family: 'Poppins';
 }
 
+.fecha-publicacion {
+  text-align: right;
+  width: 100%;
+  margin-bottom: 0.5rem; /* opcional */
+}
+
 /* PUBLICACION */
 .publicacion {
-  background: #718355bd;
+  background: #17472bbd;
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
   box-shadow: 0 6px 30px rgb(13, 43, 13);
   width: 100%;
   max-width: 1000px;
+}
+
+/* Cuadro externo */
+.contenido-publicacion-externo {
+  background-color: #5d8d7669;
+  padding: 10px;
+  border-radius: 15px;
+  margin: 15px 0;
+  width: 98%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+}
+
+/* Cuadro interno */
+.contenido-publicacion-interno {
+  background-color: rgb(242, 250, 244);
+   padding: 0.3rem 0.9rem; /* casi sin espacio */
+  border-radius: 10px;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+  box-sizing: border-box;
+   word-wrap: break-word;      /* permite cortar palabras largas */
+  overflow-wrap: break-word;  /* soporte para navegadores modernos */
+  white-space: normal;     
+ 
+    text-align: left;
+}
+
+.contenido-publicacion-interno p {
+  margin: 0;
+  padding: 0.2rem 0.4rem; /* opcional, para que no esté pegado al borde */
 }
 
 .cabecera-publicacion {
@@ -82,15 +121,38 @@ html, body {
   color: white;
 }
 
-.tipo-publicacion {
-  font-size: 0.9rem;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 5px;
-  text-transform: capitalize;
+.badge-tipo-publicacion {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  background-color: #18dbb1;    /* fondo suave verde */
+  color: #067568;               /* texto verde oscuro */
+  border: 1px solid #80cbc4;    /* borde verde medio */
+  border-radius: 6px;           /* esquinas redondeadas */
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
 }
 
-/* Colores por tipo */
+
+.contenido-publicacion {
+  color: #ffffff; /* o el color que prefieras */
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.cabecera-publicacion h2 {
+  background-color: #e2e2e23d; /* el color de fondo del cuadro */
+  color: white;              /* color del texto */
+  padding: 0.5rem 1rem;       /* espacio interior */
+  border-radius: 8px;         /* esquinas redondeadas */
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  margin: 0;
+  display: inline-block;     /* para que el fondo se ajuste al texto */
+}
+
+
+/* Colores por tipo 
 .tipo-bienestar-fisico {
   background-color: #28a745;
 }
@@ -110,11 +172,12 @@ html, body {
 .tipo-entretenimiento {
   background-color: #ff9800;
 }
-
+*/
 .info-publicacion {
-  font-size: 0.85rem;
-  color: #ccc;
-  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin-top: 1rem;
+  
 }
 
 .acciones-admin {
@@ -208,66 +271,115 @@ html, body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.4);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  backdrop-filter: blur(2px); /* efecto moderno */
 }
 
 .formulario-publicacion {
-  background-color: #fff;
+  background-color: #f8fff9; /* fondo verde muy claro */
   padding: 2rem;
-  border-radius: 10px;
-  width: 400px;
-  max-width: 90%;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 480px;
+  box-shadow: 0 8px 20px rgba(0, 128, 0, 0.15);
+  border: 1px solid #d1e7dd;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .formulario-publicacion h3 {
   margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #2e7d32;
+  text-align: center;
+  font-weight: 600;
 }
 
 .formulario-publicacion input,
 .formulario-publicacion textarea,
 .formulario-publicacion select {
-  width: 100%;
+  width: 96%;
   margin: 0.5rem 0 1rem;
-  padding: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid #b2d8b2;
+  border-radius: 6px;
+  background-color: #ffffff;
+  font-size: 1rem;
+  color: #2e7d32;
+  transition: border-color 0.3s ease;
+}
+
+.formulario-publicacion input:focus,
+.formulario-publicacion textarea:focus,
+.formulario-publicacion select:focus {
+  outline: none;
+  border-color: #81c784;
+  box-shadow: 0 0 5px rgba(129, 199, 132, 0.4);
 }
 
 .botones-formulario {
   display: flex;
   justify-content: space-between;
+  margin-top: 1rem;
 }
 
-.btn-crear-publicacion {
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
+.btn-crear-publicacion,
+.btn-cancelar-publicacion {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-.modal-formulario {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.6);
+
+.btn-flotante-crear {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;        /* lo baja */
+  margin-bottom: 2rem;
 }
 
-.formulario-publicacion {
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
+.btn-crear-publicacion:hover {
+  background-color: #388e3c;
+
+
 }
 
+.btn-cancelar-publicacion {
+  background-color: transparent;
+  color: #4caf50;
+  border: 2px solid #4caf50;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancelar-publicacion:hover {
+  background-color: #e8f5e9;
+  color: #388e3c;
+  border-color: #388e3c;
+}
+
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
 .btn-eliminar-comentario {
   background: none;
   border: none;
@@ -275,7 +387,15 @@ html, body {
   padding: 2px;
   margin-left: 8px;
   vertical-align: middle;
+  color: #d32f2f;
+  font-weight: bold;
+  transition: color 0.2s;
 }
+
+.btn-eliminar-comentario:hover {
+  color: #b71c1c;
+}
+
 
 /*???????????????????????????????????????????????????*/
 .icono-eliminar {
