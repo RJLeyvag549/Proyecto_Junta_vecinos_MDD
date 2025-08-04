@@ -1,0 +1,144 @@
+.fondo-voto {
+  background: url('/voto-fondo.png') center center / cover no-repeat fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.voto-body {
+  font-family: "Nunito", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.voto-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.voto-card {
+  background-color: #e9f5db;
+  border-radius: 1.5rem;
+  padding: 3rem;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.voto-card:hover {
+  transform: scale(1.015);    
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.voto-titulo {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #243504;
+}
+
+.voto-descripcion {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.voto-fecha {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.voto-opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0
+}
+
+.voto-opcion {
+  position: relative;
+  padding: 1rem 1.5rem;
+  border: 2px solid #c3d9ac;
+  border-radius: 0.8rem;
+  background-color: #f7fbe8;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #243504;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.voto-opcion:hover {
+  background-color: #e4f0c1;
+  border-color: #a6c36d;
+  transform: scale(1.02);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.voto-opcion input[type="radio"] {
+  display: none; 
+}
+
+.voto-opcion input[type="radio"]:checked + label {
+  background-color: #cde6a3;
+  border-color: #7fa73e;
+  color: #243504;
+  box-shadow: 0 0 0 3px rgba(127, 167, 62, 0.3);
+  transform: scale(1.03);
+}
+
+.voto-boton {
+  background-color: #445528;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.05rem;
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.voto-boton:disabled {
+  background-color: #92b986;
+  
+  cursor: not-allowed;
+}
+
+.voto-boton:hover:not(:disabled) {
+  background-color: #6f8e4e;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2)
+}
+
+/*
+.boton-volver {
+  position: absolute;
+  top: 30px;
+  left: 280px; 
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #445528;
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.boton-volver:hover {
+  background-color: #6f8e4e;
+}
+*/

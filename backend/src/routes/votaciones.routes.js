@@ -1,6 +1,6 @@
 "use strict";
 import { Router } from "express";
-import { createVotacion, getAllVotaciones, getVotacionesDisp, updateVotacionById, deleteVotacionById } from "../controllers/votacion.controller.js";
+import { createVotacion, getAllVotaciones, getVotacionesDisp, updateVotacionById, deleteVotacionById, getVotacionById } from "../controllers/votacion.controller.js";
 
 import { authenticateJwt } from "../middleware/authentication.middleware.js";
 import { isAdmin } from "../middleware/authorization.middleware.js";
@@ -12,6 +12,8 @@ router.use(authenticateJwt);
 
 // Ruta para vecinos: ver votaciones disponibles (no requiere ser admin)
 router.get("/disponibles", getVotacionesDisp);
+
+router.get("/:id", getVotacionById);
 
 // Las rutas siguientes solo son accesibles para administradores
 router.use(isAdmin);
@@ -28,3 +30,4 @@ router.put("/:id", updateVotacionById);
 // Ruta: eliminar una votación por ID
 router.delete("/:id", deleteVotacionById);
 
+export default router;

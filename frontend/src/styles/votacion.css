@@ -1,0 +1,90 @@
+.votaciones-container {
+  font-family: "Nunito", sans-serif;
+  padding-top: 120px;
+  padding-left: 250px;
+  background: url('login.png') center center / cover no-repeat fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.votaciones-banner {
+  background: linear-gradient(135deg, #2d381b, #6f8e4e);
+  color: white;
+  padding: 40px 30px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 12px;
+  margin: 40px auto 40px auto; 
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.votaciones-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(250px, 380px)); /* Ancho mínimo y máximo para las columnas */
+  gap: 60px; /* menos espacio entre tarjetas */
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px; /* menos padding general */ 
+  justify-content: center; /* Centramos las tarjetas horizontalmente */
+}
+
+.votaciones-card {
+  background: #e9f5db;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+  width: 100%;
+  min-height: 200px; /* Reducimos la altura mínima */
+  max-height: 260px; /* Agregamos una altura máxima */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}
+
+.votaciones-card:hover {
+  transform: translateY(-4px);
+}
+
+.votaciones-card p {
+  margin: 4px 0; /* reduce espacio entre líneas */
+}
+
+.votaciones-card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.votaciones-card button {
+  background: #445528;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+  align-self: flex-start;
+}
+
+.votaciones-card button:hover {
+  background: #6f8e4e;
+}
+
+.mensaje-no-votaciones {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #333;
+  padding: 40px 20px;
+  background-color: #fff7f0;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+}

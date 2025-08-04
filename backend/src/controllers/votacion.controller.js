@@ -1,5 +1,5 @@
 "use strict";
-import Votacion, { VotacionEntity } from "../entity/votacion.entity.js";
+import { VotacionEntity } from "../entity/votacion.entity.js";
 import { AppDataSource } from "../config/configDb.js";
 import { LessThanOrEqual, MoreThanOrEqual } from "typeorm"; // para ver votación actualmente disponible
 import { votacionValidation, votacionUpdateValidation} from "../validations/votacion.validation.js";
@@ -50,12 +50,14 @@ export async function getAllVotaciones(req, res){
     }
 }
 
-// Ver votaciones disponibles (para todos)
 export async function getVotacionesDisp(req, res) {
     try {
+        console.log('Iniciando getVotacionesDisp');
         const ahora = new Date();
-        console.log("Fecha y hora actual:", ahora.toISOString());
+        console.log('Fecha actual:', ahora);
+        
         const votacionRepo = AppDataSource.getRepository(VotacionEntity);
+        console.log('Repositorio obtenido');
 
         const disponibles = await votacionRepo.find({
             where: {
@@ -63,11 +65,15 @@ export async function getVotacionesDisp(req, res) {
                 fecha_fin: MoreThanOrEqual(ahora),
             },
         });
+        console.log('Votaciones encontradas:', disponibles);
 
-        res.status(200).json({ message: "Votaciones disponibles: ", data: disponibles });
+        return res.status(200).json({ 
+            message: "Votaciones disponibles", 
+            data: disponibles 
+        });
     } catch (error) {
-        console.error("Error en votaciones.controller.js -> getVotacionesDisp(): ", error);
-        
+        console.error("Error completo:", error);
+        return res.status(500).json({ message: "Error interno del servidor" });
     }
 }
 
@@ -80,7 +86,7 @@ export async function updateVotacionById(req, res){
         }
         const ahora = new Date();
         // Obtener repositorio de votaciones y buscar votacion por ID
-        const votacionRepo = AppDataSource.getRepository(Votacion);
+        const votacionRepo = AppDataSource.getRepository(VotacionEntity);
         const { id } = req.params;
         const { titulo, descripcion, fecha_inicio, fecha_fin, opciones } = req.body; // duda si puede cambiar fecha_inicio
         const votacion = await votacionRepo.findOne({ where: { id }});
@@ -122,7 +128,7 @@ export async function updateVotacionById(req, res){
 // Eliminar votación
 export async function deleteVotacionById(req, res) {
     try {
-        const votacionRepo = AppDataSource.getRepository(Votacion);
+        const votacionRepo = AppDataSource.getRepository(VotacionEntity);
         const { id } = req.params;
 
         // Buscar votación por ID
@@ -131,14 +137,6 @@ export async function deleteVotacionById(req, res) {
         if(!votacion) {
             return res.status(404).json({ message: "Votación no encontrada."});
         }
-        /* Verificar si la votación ya está activa (PREGUNTAR SI SE PUEDE BORRAR UNA VOTACIÓN CUANDO SIGUE ACTIVA  (CON TIEMPO)
-        const ahora = new Date();
-        if (votacion.fecha_inicio <= ahora) {
-            return res.status(400).json({ message: "No se puede eliminar una votacion activa o pasada."})
-        }
-        */
-        
-        
         // Eliminar votación
         await votacionRepo.remove(votacion);
 
@@ -149,4 +147,22 @@ export async function deleteVotacionById(req, res) {
         
     }
     
+}
+
+export async function getVotacionById(req, res) {
+  const id = parseInt(req.params.id);
+  try {
+    const votacion = await AppDataSource.getRepository(VotacionEntity).findOne({
+      where: { id },
+    });
+
+    if (!votacion) {
+      return res.status(404).json({ message: 'Votación no encontrada' });
+    }
+
+    return res.json(votacion);
+  } catch (err) {
+    console.error('Error al obtener votación por ID:', err);
+    return res.status(500).json({ message: 'Error interno del servidor' });
+  }
 }

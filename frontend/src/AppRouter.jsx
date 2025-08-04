@@ -95,6 +95,24 @@ const AppRouter = () => {
         }
       />
 
+      <Route 
+        path="/votaciones" 
+        element={
+          <ProtectedRoute>
+            <Votacion />
+          </ProtectedRoute>
+        } 
+      />
+
+      <Route 
+        path="/votacion/:id" 
+        element={
+          <ProtectedRoute>
+            <Voto />
+          </ProtectedRoute>
+        }
+      />
+
       {/* Error 404 */}
       <Route path="*" element={<Error404 />} />
     </Routes>
