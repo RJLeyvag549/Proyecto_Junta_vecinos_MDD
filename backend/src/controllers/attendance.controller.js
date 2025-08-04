@@ -14,8 +14,10 @@ export async function generateAttendanceForMeeting(meetingId) {
   const meeting = await meetingRepository.findOneBy({ id: meetingId });
   if (!meeting) return;
 
-  const usuarios = await userRepository.find();
-
+  const usuarios = await userRepository.find({
+    where: { requestStatus: "aprobado" }
+  });
+  
   const newList = usuarios.map(user => {
     return attendanceRepository.create({
       reunion: meeting,
@@ -25,7 +27,7 @@ export async function generateAttendanceForMeeting(meetingId) {
   });
 
   await attendanceRepository.save(newList);
-}
+}  
 
 export async function getAttendanceByMeetingId(req, res) {
   try {
@@ -42,7 +44,7 @@ export async function getAttendanceByMeetingId(req, res) {
     const attendanceRepository = AppDataSource.getRepository(Attendance);
 
     const lista = await attendanceRepository.find({
-      where: { reunion: { id: id } },
+      where: { reunion: { id: id }, usuario: { requestStatus: "aprobado" } },
       relations: ["usuario"]
     });
 
