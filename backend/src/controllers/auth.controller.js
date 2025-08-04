@@ -20,7 +20,7 @@ export async function register(req, res) {
       return res.status(400).json({ message: fileError });
     }
 
-    //*VALIDACIÓN DATOS DEL BODY (CON AHRUPACIÓN DE ERRORES)
+    //*VALIDACIÓN DATOS DEL BODY (CON AGRUPACIÓN DE ERRORES)
     const { error } = registerValidation.validate(req.body, { abortEarly: false }); 
     if (error) {
       deleteUploadedFiles(req.files);

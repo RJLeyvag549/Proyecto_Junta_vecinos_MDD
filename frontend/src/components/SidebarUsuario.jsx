@@ -29,7 +29,7 @@ const SidebarUsuario = ({ isOpen }) => {
         </div>
         <div className={`sidebar-usuario__sub-links-wrapper ${openSection === "comunicacion" ? "open" : ""}`}>
           <div className="sidebar-usuario__sub-links">
-            <NavLink to="/Foro">Foro de Vecinos</NavLink>
+            <NavLink to="/foro">Foro de Vecinos</NavLink>
             <NavLink to="/calendario">Calendario</NavLink>
           </div>
         </div>

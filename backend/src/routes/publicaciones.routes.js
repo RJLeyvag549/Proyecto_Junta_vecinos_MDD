@@ -9,7 +9,10 @@ import { updatePublicacion } from "../controllers/publicaciones.controller.js";
 import { deletePublicacion } from "../controllers/publicaciones.controller.js";
 
 const router = Router();
+
+
 router.use(authenticateJwt);//
+
 
 router.get("/", getPublicaciones); // cualquiera autenticado
 router.get("/:id_publicacion", getPublicacionConComentarios); // cualquiera autenticado

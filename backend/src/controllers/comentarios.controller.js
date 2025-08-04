@@ -67,11 +67,11 @@ export async function createComentario(req, res) {
     res.status(500).json({ message: "Error interno", error: error.message });
   }
 }
-
-export async function deleteComentario(req, res) { // solo el usuario puede eliminar SUS comentarios, no los de otros
+export async function deleteComentario(req, res) {
   try {
     const { id_comentario } = req.params;
     const id_usuario = req.user?.id;
+    const rol = req.user?.role;
 
     if (!id_usuario) {
       return res.status(401).json({ message: "No autenticado" });
@@ -88,8 +88,11 @@ export async function deleteComentario(req, res) { // solo el usuario puede elim
       return res.status(404).json({ message: "Comentario no encontrado" });
     }
 
-    // Solo el dueño puede eliminar su comentario
-    if (comentario.user.id !== id_usuario) {
+    // Solo el dueño o el administrador puede eliminar el comentario
+    const esDueño = comentario.user.id === id_usuario;
+    const esAdmin = rol === 'administrator';
+
+    if (!esDueño && !esAdmin) {
       return res.status(403).json({ message: "No autorizado para eliminar este comentario" });
     }
 

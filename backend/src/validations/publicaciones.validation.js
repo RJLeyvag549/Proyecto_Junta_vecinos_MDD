@@ -19,7 +19,7 @@ export const createValidation = Joi.object({
     .min(3)
     .max(300)
     .required()
-    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9.,;:¡!¿?'"()\-\n\s]+$/)
+    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9.,;:¡!¿?'"()\-\s]+$/)
     .messages({
       "string.pattern.base": "El contenido solo puede contener letras, números y puntuación válida",
       "string.min": "El contenido debe tener más de 3 caracteres",
