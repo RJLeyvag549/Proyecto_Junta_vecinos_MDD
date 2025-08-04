@@ -274,3 +274,24 @@ div.dataTables_filter input,
   display: block;
   object-fit: contain;
 }
+
+.boton-guardar {
+  background-color: #78c93a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px; 
+  font-size: 0.85rem;   
+  font-weight: 500;          
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.boton-guardar:hover {
+  background-color: #41751c;
+}
+
+.boton-guardar-prueba {
+  background-color: blue;
+  color: white;
+}

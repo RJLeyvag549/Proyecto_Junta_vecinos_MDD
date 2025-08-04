@@ -15,13 +15,6 @@ const Sidebar = () => {
         <NavLink to="/planilla" className={({ isActive }) => (isActive ? "active" : "")}>
           <LiaFileAlt className="icon" /> Planilla
         </NavLink>
-        <NavLink to="/reuniones" className={({ isActive }) => (isActive ? "active" : "")}>
-          <span className="icon">📅</span> Reuniones
-        </NavLink>
-        <NavLink to="/actas" className={({ isActive }) => (isActive ? "active" : "")}>
-          <span className="icon">📝</span> Actas
-        </NavLink>
-
       </nav>
     </aside>
   );

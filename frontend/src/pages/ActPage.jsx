@@ -3,12 +3,13 @@ import useGetMeetingsWithActs from "../hooks/meeting/useGetMeetingsWithActs";
 import useCreateActa from "../hooks/meeting/useCreateAct";
 import useUpdateActa from "../hooks/meeting/useUpdateAct";
 import useSignActa from "../hooks/meeting/useSignAct";
-
 import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import SidebarAdmin from "../components/SidebarAdmin";
 import TablaActas from "../components/TablaActas";
 import FormularioEditarActa from "../components/FormularioEditarActa";
 import "../styles/acta.css";
+import "../styles/meeting.css";
+import '../styles/SidebarAdmin.css';
 
 const initialForm = {
   titulo: "",
@@ -110,7 +111,7 @@ const ActPage = () => {
     <div className="app-layout">
       <Navbar />
       <div className="main-content">
-        <Sidebar />
+        <SidebarAdmin />
         <div className="page-content">
           <div className="reuniones-container">
             <div className="reuniones-header">

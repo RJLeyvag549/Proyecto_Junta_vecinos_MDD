@@ -8,16 +8,22 @@ const ModalAsistencia = ({ meetingId, isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
+      console.log("🔍 Modal abierto - Meeting ID:", meetingId);
       fetchAttendance(meetingId);
     }
   }, [isOpen, meetingId, fetchAttendance]);
 
+  useEffect(() => {
+    console.log("📋 Asistencia recibida:", attendanceList);
+  }, [attendanceList]);
+
   const handleToggle = async (userId, currentFirma) => {
     try {
+      console.log(`🟡 Cambiando asistencia del usuario ${userId} a:`, !currentFirma);
       await toggleAttendance(meetingId, userId, !currentFirma);
       fetchAttendance(meetingId);
     } catch (err) {
-      console.error("Error al actualizar asistencia:", err);
+      console.error("❌ Error al actualizar asistencia:", err);
       alert("Hubo un error al actualizar la asistencia.");
     }
   };
@@ -35,7 +41,7 @@ const ModalAsistencia = ({ meetingId, isOpen, onClose }) => {
             <ul className="asistencia-ul">
               {attendanceList.map((item) => (
                 <li key={item.usuario.id} className="asistencia-item">
-                  <span>{item.usuario.firstName} {item.usuario.lastName}</span>
+                  <span>{item.usuario.fullName}</span>
                   <input
                     type="checkbox"
                     checked={item.firma}

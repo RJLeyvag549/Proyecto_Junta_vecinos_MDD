@@ -1,26 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../styles/acta.css";
 
-const FormularioEditarActa = ({ acta, onGuardar, onCancelar }) => {
+const FormularioCrearActa = ({ onGuardar, onCancelar }) => {
   const [titulo, setTitulo] = useState("");
   const [contenido, setContenido] = useState("");
 
-  useEffect(() => {
-    if (acta) {
-      setTitulo(acta.titulo);
-      setContenido(acta.contenido);
-    }
-  }, [acta]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    onGuardar({ ...acta, titulo, contenido });
+    onGuardar({ titulo, contenido });
   };
 
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>Editar Acta</h2>
+        <h2>Crear Acta</h2>
         <form onSubmit={handleSubmit} className="formulario-acta">
           <label htmlFor="titulo">Título</label>
           <input
@@ -39,7 +32,7 @@ const FormularioEditarActa = ({ acta, onGuardar, onCancelar }) => {
           />
 
           <div className="form-actions">
-            <button type="submit" className="boton-guardar">Guardar</button>
+            <button type="submit" className="boton-guardar-prueba">Guardar</button>
             <button type="button" onClick={onCancelar} className="btn-cancelar">Cancelar</button>
           </div>
         </form>
@@ -48,4 +41,4 @@ const FormularioEditarActa = ({ acta, onGuardar, onCancelar }) => {
   );
 };
 
-export default FormularioEditarActa;
+export default FormularioCrearActa;

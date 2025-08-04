@@ -3,34 +3,30 @@ import useGetMeetings from "../hooks/meeting/useGetMeetings";
 import useDeleteMeeting from "../hooks/meeting/useDeleteMeeting";
 import useCreateMeeting from "../hooks/meeting/useCreateMeeting";
 import useUpdateMeeting from "../hooks/meeting/useUpdateMeeting";
+import FormularioCrearActa from "../components/FormularioCrearActa";
 import useCreateAct from "../hooks/meeting/useCreateAct";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import SidebarAdmin from "../components/SidebarAdmin";
 import TablaReuniones from "../components/TablaReuniones";
 import ModalAsistencia from "../components/ModalAsistencia";
 import useGetMeetingsWithActs from "../hooks/meeting/useGetMeetingsWithActs";
 import "../styles/meeting.css";
+import "../styles/SidebarAdmin.css";
+import Navbar from "../components/Navbar.jsx";
 
-const initialForm = { 
+const initialForm = {
   lugar: "",
   fecha: "",
   hora: "",
   modalidad: ""
 };
 
-const initialActaForm = {
-  titulo: "",
-  contenido: ""
-};
-
 function MeetingPage() {
-
   const { meetings, fetchMeetings } = useGetMeetings();
-  const { createActa, loading } = useCreateAct();
-  console.log("loading en MeetingPage:", loading);
+  const { createActa } = useCreateAct();
   const { deleteMeeting } = useDeleteMeeting();
   const { createMeeting } = useCreateMeeting();
   const { updateMeeting } = useUpdateMeeting();
+  const { meetingsWithActs, fetchMeetingsWithActs } = useGetMeetingsWithActs();
 
   const [mensaje, setMensaje] = useState("");
   const [error, setError] = useState("");
@@ -41,17 +37,16 @@ function MeetingPage() {
 
   const [showAsistenciaModal, setShowAsistenciaModal] = useState(false);
   const [selectedMeetingId, setSelectedMeetingId] = useState(null);
+
   const [showCreateActaForm, setShowCreateActaForm] = useState(false);
-  const [actaForm, setActaForm] = useState(initialActaForm);
-  const [actaCreatingMeetingId, setActaCreatingMeetingId] = useState(null); 
-  const { meetingsWithActs, fetchMeetingsWithActs } = useGetMeetingsWithActs();
+  const [actaCreatingMeetingId, setActaCreatingMeetingId] = useState(null);
 
   useEffect(() => {
     fetchMeetings();
   }, [fetchMeetings]);
 
   useEffect(() => {
-  fetchMeetingsWithActs();
+    fetchMeetingsWithActs();
   }, [fetchMeetingsWithActs]);
 
   const resetForm = () => {
@@ -79,6 +74,7 @@ function MeetingPage() {
         setMensaje("Reunión creada exitosamente");
       }
       resetForm();
+      fetchMeetings();
     } catch (err) {
       setError("Error al guardar la reunión");
     }
@@ -103,6 +99,7 @@ function MeetingPage() {
     try {
       await deleteMeeting(id);
       setMensaje("Reunión eliminada exitosamente");
+      fetchMeetings();
     } catch (err) {
       setError("Error al eliminar la reunión");
     }
@@ -113,46 +110,30 @@ function MeetingPage() {
     setShowAsistenciaModal(true);
   };
 
-  const handleActaFormChange = (e) => {
-    setActaForm({ ...actaForm, [e.target.name]: e.target.value });
-  };
-
   const openCreateActaForm = (reunion) => {
     setActaCreatingMeetingId(reunion.id);
-    setActaForm(initialActaForm);
     setShowCreateActaForm(true);
   };
 
   const closeCreateActaForm = () => {
     setShowCreateActaForm(false);
     setActaCreatingMeetingId(null);
-    setActaForm(initialActaForm);
   };
-
-  const handleCreateActaSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await createActa(actaCreatingMeetingId, actaForm);
-      alert("Acta creada exitosamente");
-      fetchMeetings();
-      closeCreateActaForm();
-    } catch (error) {
-      alert("Error al crear el acta");
-    }
-  };
-
 
   return (
     <div className="app-layout">
       <Navbar />
       <div className="main-content">
-        <Sidebar />
+        <SidebarAdmin />
         <div className="page-content">
           <div className="reuniones-container">
             <div className="reuniones-header">
               <h2 className="reuniones-title">Gestión de Reuniones</h2>
               {!showForm && (
-                <button onClick={() => setShowForm(true)} className="meeting-button meeting-create-btn">
+                <button
+                  onClick={() => setShowForm(true)}
+                  className="meeting-button meeting-create-btn"
+                >
                   Crear Reunión
                 </button>
               )}
@@ -176,7 +157,6 @@ function MeetingPage() {
                     <input
                       type="date"
                       name="fecha"
-                      placeholder="Fecha"
                       value={form.fecha}
                       onChange={handleChange}
                       required
@@ -184,7 +164,6 @@ function MeetingPage() {
                     <input
                       type="time"
                       name="hora"
-                      placeholder="Hora"
                       value={form.hora}
                       onChange={handleChange}
                       required
@@ -200,10 +179,17 @@ function MeetingPage() {
                       <option value="virtual">Virtual</option>
                     </select>
                     <div className="botones-formulario">
-                      <button className="meeting-button meeting-create-btn" type="submit">
+                      <button
+                        className="meeting-button meeting-create-btn"
+                        type="submit"
+                      >
                         {editingId ? "Actualizar" : "Crear"}
                       </button>
-                      <button className="meeting-button meeting-create-btn" type="button" onClick={resetForm}>
+                      <button
+                        className="meeting-button meeting-create-btn"
+                        type="button"
+                        onClick={resetForm}
+                      >
                         Cancelar
                       </button>
                     </div>
@@ -220,48 +206,34 @@ function MeetingPage() {
               onAsistencia={handleVerAsistencia}
               onCrearActa={openCreateActaForm}
             />
-            {/* Modal para crear acta */}
-            {showCreateActaForm && (
+
+            {showCreateActaForm && actaCreatingMeetingId !== null && (
               <div className="modal-overlay">
                 <div className="modal-content">
-                  <h3>Crear Acta</h3>
-                  <form onSubmit={handleCreateActaSubmit} className="form-crear-acta">
-                    <input
-                      type="text"
-                      name="titulo"
-                      placeholder="Título del acta"
-                      value={actaForm.titulo}
-                      onChange={handleActaFormChange}
-                      required
-                    />
-                    <textarea
-                      name="contenido"
-                      placeholder="Contenido del acta"
-                      value={actaForm.contenido}
-                      onChange={handleActaFormChange}
-                      rows={6}
-                      required
-                    />
-                    <div className="botones-formulario">
-                      <button type="submit" className="meeting-button meeting-create-btn" >Crear Acta</button>
-                      <button type="button" className="meeting-button meeting-cancel-btn" onClick={closeCreateActaForm}>Cancelar</button>
-                    </div>
-                  </form>
+                  <FormularioCrearActa
+                    meetingId={actaCreatingMeetingId}
+                    onGuardar={async (nuevaActa) => {
+                      try {
+                        await createActa(actaCreatingMeetingId, nuevaActa);
+                        alert("Acta creada exitosamente");
+                        fetchMeetings();
+                        closeCreateActaForm();
+                      } catch (error) {
+                        alert("Error al crear el acta");
+                      }
+                    }}
+                    onCancelar={closeCreateActaForm}
+                  />
                 </div>
               </div>
-            )}            
+            )}
+
             {showAsistenciaModal && selectedMeetingId !== null && (
-              <>
-              {console.log("✅ Mostrando ModalAsistencia para ID:", selectedMeetingId)}
               <ModalAsistencia
                 meetingId={selectedMeetingId}
                 isOpen={showAsistenciaModal}
-                onClose={() => {
-                  console.log("❌ Cerrando ModalAsistencia");
-                  setShowAsistenciaModal(false);
-                }}
+                onClose={() => setShowAsistenciaModal(false)}
               />
-              </>
             )}
           </div>
         </div>
