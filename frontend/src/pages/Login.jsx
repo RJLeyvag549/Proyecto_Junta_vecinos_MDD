@@ -10,9 +10,11 @@ const Login = () => {
 const loginSubmit = async (data) => {
     try {
         const res = await login(data);
+        console.log("Respuesta del login:", res);
 
         // Si todo bien, navegar
-        if (res?.token) {
+        if (res?.accessToken) {
+            sessionStorage.setItem("token", res.accessToken);
             navigate('/home');
         } else {
             alert("Credenciales incorrectas.");
