@@ -119,7 +119,7 @@ const AppRouter = () => {
         }
       />
       <Route
-        path="/Transacciones"
+        path="/transacciones"
         element={
           <ProtectedRoute allowedRoles={['administrator']}>
             <Transactions />

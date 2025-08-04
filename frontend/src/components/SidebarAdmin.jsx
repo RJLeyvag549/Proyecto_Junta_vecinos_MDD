@@ -63,7 +63,7 @@ const SidebarAdmin = ({ isOpen }) => {
         </div>
         <div className={`sidebar-admin__sub-links-wrapper ${openSection === "finanzas" ? "open" : ""}`}>
           <div className="sidebar-admin__sub-links">
-            <NavLink to="/Transacciones">Registro de Transacciones</NavLink>
+            <NavLink to="/transacciones">Registro de Transacciones</NavLink>
             <NavLink to="/inventario">Inventario</NavLink>
             <NavLink to="/fondos">Acreditación a Fondos Públicos</NavLink>
             <NavLink to="/graficos">Gráficos Financieros</NavLink>
