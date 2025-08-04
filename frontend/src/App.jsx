@@ -1,12 +1,8 @@
-import AppRouter from "./AppRouter";
+import AppRouter from "./AppRouter.jsx";
 
-function App() {
-  return (
-    <>
-      <AppRouter />
-    </>
-  );
-}
+const App = () => {
+  return <AppRouter />;
+};
 
 export default App;
 

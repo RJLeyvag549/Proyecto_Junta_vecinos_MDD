@@ -19,8 +19,7 @@ export async function getUsers(req, res) {
 
     const filteredUsers = approvedUsers.map(user => ({
       role: user.role,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      fullName: user.fullName,
       rut: user.rut,
     }));
 
@@ -44,8 +43,7 @@ export async function getUserById(req, res) {
 
       const filteredUser = {
       role: user.role,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      fullName: user.fullName,
       rut: user.rut,
       email: user.email,
       contact: user.contact,
@@ -53,8 +51,7 @@ export async function getUserById(req, res) {
       docIdentity: user.docIdentity,
       docResidence: user.docResidence,
       familyGroup: user.familyGroup.map((member) => ({
-        firstName: member.firstName,
-        lastName: member.lastName,
+        fullName: member.fullName,
         rut: member.rut,
       })),
     };
@@ -106,23 +103,21 @@ export async function updateUserById(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
     const { id } = req.params;
-    const { firstName, lastName, email, contact, homeAddress, requestStatus, familyGroup } = req.body;
+    const { email, contact, homeAddress } = req.body;
+
     const user = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
 
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado." });
     }
 
-    user.firstName = firstName || user.firstName;
-    user.lastName = lastName || user.lastName;
     user.email = email || user.email;
     user.contact = contact || user.contact;
     user.homeAddress = homeAddress || user.homeAddress;
-    user.requestStatus = requestStatus || user.requestStatus;
 
     await userRepository.save(user);
 
-    if (Array.isArray(familyGroup)) {
+   /* if (Array.isArray(familyGroup)) {
       const familyGroupRepository = AppDataSource.getRepository(FamilyGroup);
 
       for (const member of familyGroup) {
@@ -137,7 +132,7 @@ export async function updateUserById(req, res) {
           await familyGroupRepository.save(familyMember);
         }
       }
-    }
+    } */
 
     const updateUser = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
 
@@ -170,7 +165,7 @@ export async function deleteUserById(req, res) {
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* Cambia el estado de solicitud del usuario (aprobado, rechazado)
+//* Cambia el estado de solicitud del usuario (aprobado, rechazado, pendiente...)
 export async function updateRequestStatus(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);

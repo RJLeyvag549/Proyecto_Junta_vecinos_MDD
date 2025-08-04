@@ -1,11 +1,14 @@
 import { Router } from "express";
-import { createFunding, getFunding, updateFunding, deleteFunding } from "../controllers/funding.controller.js";
+import { createFunding, getFunding, updateFunding, deleteFunding, getComprobanteFile } from "../controllers/funding.controller.js";
 import { exportFundingSheet } from "../controllers/fundingSheet.controller.js";
 import { authenticateJwt } from "../middleware/authentication.middleware.js";
 import { isAdmin } from "../middleware/authorization.middleware.js";
 import { uploadComprobanteSingle, handleFileSizeLimit } from "../middleware/uploadVoucher.middleware.js";
 
 const router = Router();
+
+// Ruta pública para archivos (sin autenticación)
+router.get("/file/:filename", getComprobanteFile);
 
 router.use(authenticateJwt);
 router.use(isAdmin);
@@ -15,6 +18,5 @@ router.get("/get", getFunding);
 router.put("/update/:id", updateFunding);
 router.delete("/delete/:id", deleteFunding);
 router.get("/planilla", exportFundingSheet);
-
 
 export default router;

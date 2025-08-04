@@ -12,11 +12,7 @@ export const FamilyGroupEntity = new EntitySchema({
             primary: true,
             generated: true,
         },
-        firstName: {
-            type: String,
-            nullable: false,
-        },
-        lastName: {
+        fullName: {
             type: String,
             nullable: false,
         },

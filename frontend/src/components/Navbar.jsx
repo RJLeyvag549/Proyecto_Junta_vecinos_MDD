@@ -1,35 +1,38 @@
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+// src/components/Navbar.jsx
+import { useNavigate } from "react-router-dom";
 import { logout } from '../services/auth.service.js';
 
 const Navbar = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const logoutSubmit = () => {
-        try {
-            logout();
-            navigate('/'); 
-        } catch (error) {
-            console.error('Error al cerrar sesión:', error);
-        }
-    };
+  const navigate = useNavigate();
 
-    return (
-        <nav className="navbar">
-            <ul>
-                <li>
-                    <img
-                        src="/family.png"
-                        alt="Logo metodología de desarrollo"
-                    />
-                    <h1 color='white'>Junta de Vecinos</h1>
-                </li>
-                
-                <li className={location.pathname === "/" ? "active" : ""}>
-                    <NavLink to="/" onClick={logoutSubmit} className="boton-cerrar">Cerrar</NavLink>
-                </li>
-            </ul>
-        </nav>
-    );
+  const logoutSubmit = async () => {
+    try {
+      await logout(); // ✅ espera correctamente
+      navigate('/login', { replace: true }); // 🔁 no volver a HomeRedirect
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
+  };
+
+  return (
+    <nav className="navbar">
+      <ul>
+        <li className="logo-section">
+          <img
+            src="/family.png"
+            alt="Logo metodología de desarrollo"
+          />
+          <h1>Junta Vecinal Parque Ecuador</h1>
+        </li>
+
+        <li>
+          <button onClick={logoutSubmit} className="boton-cerrar">
+            Cerrar Sesión
+          </button>
+        </li>
+      </ul>
+    </nav>
+  );
 };
 
 export default Navbar;
