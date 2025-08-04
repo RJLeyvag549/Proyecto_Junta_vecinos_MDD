@@ -4,6 +4,7 @@ import axios from './root.service.js';
 
 export async function login(data) {
   const response = await axios.post('/auth/login', data);
+
   if (response.status === 200) {
     const user = {
       token: response.data.token,
@@ -11,7 +12,6 @@ export async function login(data) {
     };
     sessionStorage.setItem('user', JSON.stringify(user));
   }
-
   return response.data;
 }
 

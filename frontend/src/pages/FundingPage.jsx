@@ -34,9 +34,10 @@ function FundingPage() {
     fetchFundings();
   }, [fetchFundings]);
 
-  // Funciones para manejar el sidebar
+
   const handleSidebarHover = () => setSidebarOpen(true);
   const handleSidebarLeave = () => setSidebarOpen(false);
+
 
   const handleChange = e => {
     if (e.target.name === "comprobante") {
