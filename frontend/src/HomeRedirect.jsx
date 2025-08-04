@@ -29,7 +29,7 @@ const HomeRedirect = () => {
     }
   }, [navigate]);
 
-  
+
 const Navbar = () => {
   const navigate = useNavigate();
 
