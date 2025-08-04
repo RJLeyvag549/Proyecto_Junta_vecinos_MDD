@@ -1,5 +1,6 @@
 import axios from './root.service.js';
 
+/*
 export async function getUsers() {
     try {
         const config = {
@@ -12,6 +13,22 @@ export async function getUsers() {
     } catch (error) {
         throw error.response?.data || error.message;
     }
+}*/
+
+export async function getUsers() {
+  try {
+    const token = localStorage.getItem('token'); // o donde guardes el JWT
+    const config = {
+      headers: {
+        'Cache-Control': 'no-cache',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.get('/users/', config);
+    return data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
 }
 
 export async function updateUser(data, rut) {

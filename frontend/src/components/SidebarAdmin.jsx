@@ -36,7 +36,7 @@ const SidebarAdmin = ({ isOpen }) => {
         </div>
         <div className={`sidebar-admin__sub-links-wrapper ${openSection === "padron" ? "open" : ""}`}>
           <div className="sidebar-admin__sub-links">
-            <NavLink to="/tabla">Tabla de Vecinos</NavLink>
+            <NavLink to="/user-list">Tabla de Vecinos</NavLink>
             <NavLink to="/solicitudes">Solicitudes Pendientes</NavLink>
           </div>
         </div>

@@ -14,91 +14,108 @@ import Foro from "./pages/Foro";
 import Profile from "./pages/Profile";
 import EditUser from "./pages/EditUser";
 import Users from "./pages/Users";
+import UserList from "./pages/UserList"; 
 
 const AppRouter = () => {
   return (
     <Routes>
       {/* Ruta raíz: redirige según rol */}
-      <Route path="/" element={<HomeRedirect />} />
-
+      <Route
+        path='/'
+        element={<HomeRedirect />}
+      />
       {/* Rutas públicas */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-
+      <Route
+        path='/login'
+        element={<Login />}
+      />
+      <Route
+        path='/register'
+        element={<Register />}
+      />
       {/* Redirección según rol */}
       <Route
-        path="/home"
+        path='/home'
         element={
           <ProtectedRoute>
             <HomeRedirect />
           </ProtectedRoute>
         }
       />
-
       {/* Home administrador */}
       <Route
-        path="/home/admin"
+        path='/home/admin'
         element={
-          <ProtectedRoute allowedRoles={["administrator"]}>
+          <ProtectedRoute allowedRoles={['administrator']}>
             <HomeAdmin />
           </ProtectedRoute>
         }
       />
-
       {/* Home usuario */}
       <Route
-        path="/home/usuario"
+        path='/home/usuario'
         element={
-          <ProtectedRoute allowedRoles={["user"]}>
+          <ProtectedRoute allowedRoles={['user']}>
             <HomeUsuario />
           </ProtectedRoute>
         }
       />
-
       {/* Foro para todos los usuarios registrados */}
       <Route
-        path="/foro"
+        path='/foro'
         element={
-          <ProtectedRoute allowedRoles={["user", "administrator"]}>
+          <ProtectedRoute allowedRoles={['user', 'administrator']}>
             <Foro />
           </ProtectedRoute>
         }
       />
-
       {/* Perfil */}
       <Route
-        path="/profile"
+        path='/profile'
         element={
           <ProtectedRoute>
             <Profile />
           </ProtectedRoute>
         }
       />
-
       {/* Editar usuario */}
       <Route
-        path="/edit-user/:rut"
+        path='/edit-user/:rut'
         element={
-          <ProtectedRoute allowedRoles={["administrator"]}>
+          <ProtectedRoute allowedRoles={['administrator']}>
             <EditUser />
           </ProtectedRoute>
         }
       />
-
       {/* Usuarios */}
       <Route
-        path="/users"
+        path='/users'
         element={
-          <ProtectedRoute allowedRoles={["administrator"]}>
+          <ProtectedRoute allowedRoles={['administrator']}>
             <Users />
           </ProtectedRoute>
         }
       />
+      
+      {/* Lista de usuarios admin */}
+      <Route
+        path='/user-list'
+        element={
+          <ProtectedRoute allowedRoles={['administrator']}>
+            <UserList />
+          </ProtectedRoute>
+        }
+      />
 
-      {/* Error 404 */}
-      <Route path="*" element={<Error404 />} />
+      ;{/* Error 404 */}
+      <Route
+        path='*'
+        element={<Error404 />}
+      />
     </Routes>
   );
 };
+
+
 
 export default AppRouter;
