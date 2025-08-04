@@ -1,16 +1,17 @@
 "use strict";
 import { Router } from "express";
-import { createAct, getActByMeetingId, updateAct, signAct } from "../controllers/meeting_act.controller.js";
+import { createMeeting, getMeetings, getMeeting, getMeetingById, updateMeetingById, deleteMeetingById } from "../controllers/meeting.controller.js";
 import { authenticateJwt } from "../middleware/authentication.middleware.js";
 import { isAdmin } from "../middleware/authorization.middleware.js";
 
 const router = Router();
 router.use(authenticateJwt);
+router.get("/filtrar", getMeeting);
 router.use(isAdmin);
-
-router.post("/:meetingId/act", createAct);
-router.get("/:meetingId/act", getActByMeetingId);
-router.put("/:meetingId/act", updateAct);
-router.patch("/:meetingId/act", signAct);
+router.post("/", createMeeting);
+router.get("/", getMeetings);
+router.get("/:id", getMeetingById);
+router.put("/:id", updateMeetingById);
+router.delete("/:id", deleteMeetingById);
 
 export default router;

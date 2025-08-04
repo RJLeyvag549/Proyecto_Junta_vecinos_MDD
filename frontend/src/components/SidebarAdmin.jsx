@@ -51,11 +51,10 @@ const SidebarAdmin = ({ isOpen }) => {
         <div className={`sidebar-admin__sub-links-wrapper ${openSection === "reuniones" ? "open" : ""}`}>
           <div className="sidebar-admin__sub-links">
             <NavLink to="/actas">Actas de Reuniones</NavLink>
-            <NavLink to="/gestion-reuniones">Gestión de reuniones</NavLink>
+            <NavLink to="/reuniones">Gestión de reuniones</NavLink>
           </div>
         </div>
       </div>
-
       {/* Gestión de Finanzas */}
       <div className="sidebar-admin__section">
         <div className="sidebar-admin__section-title" onClick={() => toggleSection("finanzas")}>
