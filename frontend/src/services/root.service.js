@@ -15,7 +15,7 @@ const instance = axios.create({
 // Interceptor para agregar el token a cada request
 instance.interceptors.request.use((config) => {
 
-  const userData = sessionStorage.getItem("usuario");
+  const userData = sessionStorage.getItem("user");
   const token = userData ? JSON.parse(userData).token : null;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
