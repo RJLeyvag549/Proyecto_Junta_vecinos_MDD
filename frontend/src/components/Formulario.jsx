@@ -1,5 +1,5 @@
+// Formulario.jsx
 const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundColor }) => {
-
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -32,6 +32,5 @@ const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundCo
         </form>
     );
 };
-
 
 export default Form;

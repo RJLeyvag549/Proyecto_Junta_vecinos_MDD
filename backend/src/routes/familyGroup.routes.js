@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { addFamilyMember } from "../controllers/familyGroup.controller.js";
+import { addFamilyMember, deleteFamilyMemberById } from "../controllers/familyGroup.controller.js";
 
 const router = Router();
 
 router.post("/add/:userId", addFamilyMember);
+router.delete("/:id,", deleteFamilyMemberById)
 
 export default router;

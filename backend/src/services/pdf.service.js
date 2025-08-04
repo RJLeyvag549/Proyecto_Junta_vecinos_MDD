@@ -57,7 +57,7 @@ const doc = new PDFDocument({
       doc.text('Certifica que:');
       doc.moveDown(1);
 
-      doc.text(`Señor(a) ${firstName} ${lastName}, RUT ${rut}, mantiene domicilio vigente en ${homeAddress}, Villa putos, comuna de Concepción.`);
+      doc.text(`Señor(a) ${fullName}, RUT ${rut}, mantiene domicilio vigente en ${homeAddress}, Villa putos, comuna de Concepción.`);
 
       doc.moveDown(1);
       doc.text(

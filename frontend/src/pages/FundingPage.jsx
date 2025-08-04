@@ -5,8 +5,11 @@ import useEditFunding from '../hooks/funding/useEditFunding.jsx';
 import useDeleteFunding from '../hooks/funding/useDeleteFunding.jsx';
 import useDownloadFundings from '../hooks/funding/useDownloadFundings.jsx';
 import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import SidebarAdmin from "../components/SidebarAdmin";
 import "../styles/funding.css";
+import "../styles/HomeAdmin.css";
+import "../styles/SidebarAdmin.css";
+import "../styles/Navbar.css";
 
 function FundingPage() {
   const { fundings, fetchFundings } = useGetFundings();
@@ -25,10 +28,16 @@ function FundingPage() {
   const [editingId, setEditingId] = useState(null);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     fetchFundings();
   }, [fetchFundings]);
+
+
+  const handleSidebarHover = () => setSidebarOpen(true);
+  const handleSidebarLeave = () => setSidebarOpen(false);
+
 
   const handleChange = e => {
     if (e.target.name === "comprobante") {
@@ -53,11 +62,11 @@ function FundingPage() {
       }
 
       if (editingId) {
-        await editFunding(editingId, formData, true);
+        await editFunding(editingId, formData);
         setMessage("Acreditación actualizada exitosamente");
         setEditingId(null);
       } else {
-        await createFunding(formData, true);
+        await createFunding(formData);
         setMessage("Acreditación creada exitosamente");
       }
       setForm({ name: "", amount: "", date: "", status: "", comprobante: "" });
@@ -101,109 +110,115 @@ function FundingPage() {
   };
 
   return (
-    <div className="app-layout">
+    <div className="home-container-admin">
       <Navbar />
-      <div className="main-content">
-        <Sidebar />
-        <div className="page-content">
-          <div className="funding-container">
-            <h2 className="funding-title">{editingId ? "Editar Acreditación" : "Crear Acreditación"}</h2>
-            {message && <div className="funding-message">{message}</div>}
-            {error && <div className="funding-error">{error}</div>}
-            <form className="funding-form" onSubmit={handleSubmit} encType="multipart/form-data">
-              <input name="name" placeholder="Nombre" value={form.name} onChange={handleChange} required />
-              <input name="amount" placeholder="Monto" value={form.amount} onChange={handleChange} required type="number" />
-              <input
-                name="date"
-                placeholder="Fecha"
-                value={form.date}
-                onChange={handleChange}
-                required
-                type="date"
-                className="custom-date-input"
-              />
-              <select name="status" value={form.status} onChange={handleChange} required>
-                <option value="">Seleccione estado</option>
-                <option value="acreditado">Acreditado</option>
-                <option value="pendiente">Pendiente</option>
-                <option value="rechazado">Rechazado</option>
-              </select>
-              {/* Custom file input */}
-              <label className="custom-file-label">
-                Subir comprobante
-                <input
-                  name="comprobante"
-                  type="file"
-                  accept="application/pdf"
-                  onChange={handleChange}
-                  style={{ display: "none" }}
-                />
-              </label>
-              <span className="file-name">
-                {form.comprobante ? form.comprobante.name : "Ningún archivo seleccionado"}
-              </span>
-              <button type="submit">{editingId ? "Actualizar" : "Crear"}</button>
-              {editingId && (
-                <button type="button" onClick={() => { setEditingId(null); setForm({ name: "", amount: "", date: "", status: "", comprobante: "" }); }}>
-                  Cancelar
-                </button>
-              )}
-            </form>
+      
+      <div
+        className="sidebar-wrapper-admin"
+        onMouseEnter={handleSidebarHover}
+        onMouseLeave={handleSidebarLeave}
+      >
+        <SidebarAdmin isOpen={sidebarOpen} />
+      </div>
 
-            <h2 className="funding-title">Acreditaciones Creadas</h2>
-            <button className="funding-download-btn" onClick={handleDownload}>Descargar Todas</button>
-            <div className="funding-table-container">
-              <table className="funding-table">
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Monto</th>
-                    <th>Fecha</th>
-                    <th>Estado</th>
-                    <th>Comprobante</th>
-                    <th>Acciones</th>
+      <main className={`main-content-admin ${sidebarOpen ? 'sidebar-open' : ''}`}>
+        <div className="funding-container">
+          <h2 className="funding-title">{editingId ? "Editar Acreditación" : "Crear Acreditación"}</h2>
+          {message && <div className="funding-message">{message}</div>}
+          {error && <div className="funding-error">{error}</div>}
+          <form className="funding-form" onSubmit={handleSubmit} encType="multipart/form-data">
+            <input name="name" placeholder="Nombre" value={form.name} onChange={handleChange} required />
+            <input name="amount" placeholder="Monto" value={form.amount} onChange={handleChange} required type="number" />
+            <input
+              name="date"
+              placeholder="Fecha"
+              value={form.date}
+              onChange={handleChange}
+              required
+              type="date"
+              className="custom-date-input"
+            />
+            <select name="status" value={form.status} onChange={handleChange} required>
+              <option value="">Seleccione estado</option>
+              <option value="acreditado">Acreditado</option>
+              <option value="pendiente">Pendiente</option>
+              <option value="rechazado">Rechazado</option>
+            </select>
+            {/* Custom file input */}
+            <label className="custom-file-label">
+              Subir comprobante
+              <input
+                name="comprobante"
+                type="file"
+                accept="application/pdf"
+                onChange={handleChange}
+                style={{ display: "none" }}
+              />
+            </label>
+            <span className="file-name">
+              {form.comprobante ? form.comprobante.name : "Ningún archivo seleccionado"}
+            </span>
+            <button type="submit">{editingId ? "Actualizar" : "Crear"}</button>
+            {editingId && (
+              <button type="button" onClick={() => { setEditingId(null); setForm({ name: "", amount: "", date: "", status: "", comprobante: "" }); }}>
+                Cancelar
+              </button>
+            )}
+          </form>
+
+          <h2 className="funding-title">Acreditaciones Creadas</h2>
+          <button className="funding-download-btn" onClick={handleDownload}>Descargar Todas</button>
+          <div className="funding-table-container">
+            <table className="funding-table">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Monto</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th>Comprobante</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {fundings.map(funding => (
+                  <tr key={funding.id}>
+                    <td>{funding.name}</td>
+                    <td>{funding.amount}</td>
+                    <td>{funding.date}</td>
+                    <td>
+                      <span className={
+                        funding.status === "pendiente" ? "status status-pendiente" :
+                          funding.status === "acreditado" ? "status status-acreditado" :
+                            funding.status === "rechazado" ? "status status-rechazado" : ""
+                      }>
+                        {funding.status}
+                      </span>
+                    </td>
+                    <td>
+                      {funding.comprobante ? (
+                        <a
+                          href={`http://localhost:3000/api/funding/file/${funding.comprobante.replace('upload/', '')}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          comprobante
+                        </a>
+                      ) : (
+                        "Sin comprobante"
+                      )}
+                    </td>
+                    <td className="actions">
+                      <button className="edit" onClick={() => handleEdit(funding)}>Editar</button>
+                      <button className="delete" onClick={() => handleDelete(funding.id)}>Borrar</button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {fundings.map(funding => (
-                    <tr key={funding.id}>
-                      <td>{funding.name}</td>
-                      <td>{funding.amount}</td>
-                      <td>{funding.date}</td>
-                      <td>
-                        <span className={
-                          funding.status === "pendiente" ? "status status-pendiente" :
-                            funding.status === "acreditado" ? "status status-acreditado" :
-                              funding.status === "rechazado" ? "status status-rechazado" : ""
-                        }>
-                          {funding.status}
-                        </span>
-                      </td>
-                      <td>
-                        {funding.comprobante ? (
-                          <a
-                            href={`http://localhost:3000/${funding.comprobante}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            comprobante
-                          </a>
-                        ) : (
-                          "Sin comprobante"
-                        )}
-                      </td>
-                      <td className="actions">
-                        <button className="edit" onClick={() => handleEdit(funding)}>Editar</button>
-                        <button className="delete" onClick={() => handleDelete(funding.id)}>Borrar</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
