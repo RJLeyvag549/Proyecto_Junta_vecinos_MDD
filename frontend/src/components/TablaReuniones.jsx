@@ -2,7 +2,9 @@ import { useEffect, useRef } from "react";
 import DataTable from "datatables.net";
 import "../styles/meeting.css";
 
-const TablaReuniones = ({ reuniones = [], onEliminar, onEditar, onAsistencia }) => {
+const TablaReuniones = ({ reuniones = [], actas = [], onEliminar, onEditar, onAsistencia, onCrearActa }) => {
+  console.log("Reuniones:", reuniones);
+  console.log("Actas:", actas);
   const tableRef = useRef(null);
   const dataTableRef = useRef(null);
 
@@ -10,12 +12,58 @@ const TablaReuniones = ({ reuniones = [], onEliminar, onEditar, onAsistencia }) 
     const tableElement = tableRef.current;
     if (!tableElement) return;
 
+    // Destruir DataTable anterior si existe
     if (dataTableRef.current) {
       dataTableRef.current.destroy();
+      dataTableRef.current = null;
     }
+
+    // Prepara los datos para la tabla
+    const data = reuniones.map((reunion) => {
+      const existeActa = actas.some(acta => acta.reunion.id === reunion.id);
+      return [
+        reunion.id,
+        new Date(reunion.fecha).toLocaleDateString(),
+        reunion.hora,
+        reunion.lugar,
+        reunion.modalidad,
+        existeActa, // columna extra para saber si existe acta
+        reunion // objeto reunion para usar en render
+      ];
+    });
 
     if (reuniones.length > 0) {
       dataTableRef.current = new DataTable(tableElement, {
+        data,
+        columns: [
+          { title: "ID" },
+          { title: "Fecha" },
+          { title: "Hora" },
+          { title: "Lugar" },
+          { title: "Modalidad" },
+          {
+            title: "Acciones",
+            orderable: false,
+            searchable: false,
+            render: function (data, type, row) {
+              const id = row[0];
+              const existeActa = row[5];
+              // row[6] es el objeto reunion
+              return `
+                <div class="flex gap-2">
+                  <button class="meeting-button meeting-edit-btn" data-id="${id}">Editar</button>
+                  <button class="meeting-button meeting-delete-btn" data-id="${id}">Eliminar</button>
+                  <button class="meeting-button meeting-asistencia-btn" data-id="${id}">Asistencia</button>
+                  ${
+                    !existeActa
+                      ? `<button class="meeting-button meeting-acta-btn" data-id="${id}">Crear Acta</button>`
+                      : `<span class="text-green-700 font-bold">Acta Creada</span>`
+                  }
+                </div>
+              `;
+            }
+          }
+        ],
         language: {
           url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
         },
@@ -27,21 +75,23 @@ const TablaReuniones = ({ reuniones = [], onEliminar, onEditar, onAsistencia }) 
 
     // Delegación de eventos para botones
     const handleClick = (e) => {
-      const row = e.target.closest("tr");
-      if (!row) return;
-
-      const id = parseInt(row.querySelector("td")?.textContent);
+      const btn = e.target.closest("button[data-id]");
+      if (!btn) return;
+      const id = parseInt(btn.getAttribute("data-id"));
       if (!id) return;
+      const reunion = reuniones.find((r) => r.id === id);
+      if (!reunion) return;
 
-      if (e.target.closest(".meeting-asistencia-btn")) {
+      if (btn.classList.contains("meeting-asistencia-btn")) {
         onAsistencia(id);
-      } else if (e.target.closest(".meeting-edit-btn")) {
-        const reunion = reuniones.find((r) => r.id === id);
-        if (reunion) onEditar(reunion);
-      } else if (e.target.closest(".meeting-delete-btn")) {
-        if (confirm("¿Estás seguro de eliminar esta reunión?")) {
+      } else if (btn.classList.contains("meeting-edit-btn")) {
+        onEditar(reunion);
+      } else if (btn.classList.contains("meeting-delete-btn")) {
+        if (window.confirm("¿Estás seguro de eliminar esta reunión?")) {
           onEliminar(id);
         }
+      } else if (btn.classList.contains("meeting-acta-btn")) {
+        onCrearActa(reunion);
       }
     };
 
@@ -54,7 +104,7 @@ const TablaReuniones = ({ reuniones = [], onEliminar, onEditar, onAsistencia }) 
       }
       tableElement.removeEventListener("click", handleClick);
     };
-  }, [reuniones, onAsistencia, onEditar, onEliminar]);
+  }, [reuniones, actas, onAsistencia, onEditar, onEliminar, onCrearActa]);
 
   return (
     <div className="p-4">
@@ -75,28 +125,7 @@ const TablaReuniones = ({ reuniones = [], onEliminar, onEditar, onAsistencia }) 
             </tr>
           </thead>
           <tbody>
-            {reuniones.map((reunion) => (
-              <tr key={reunion.id}>
-                <td>{reunion.id}</td>
-                <td>{new Date(reunion.fecha).toLocaleDateString()}</td>
-                <td>{reunion.hora}</td>
-                <td>{reunion.lugar}</td>
-                <td>{reunion.modalidad}</td>
-                <td>
-                  <div className="flex gap-2">
-                    <button className="meeting-button meeting-edit-btn">
-                      Editar
-                    </button>
-                    <button className="meeting-button meeting-delete-btn">
-                      Eliminar
-                    </button>
-                    <button className="meeting-button meeting-asistencia-btn">
-                      Asistencia
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {/* Deja vacío, DataTable lo llenará */}
           </tbody>
         </table>
       </div>
