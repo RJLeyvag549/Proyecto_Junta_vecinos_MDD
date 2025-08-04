@@ -250,7 +250,6 @@ const Transactions = () => {
           <img src={searchIcon} alt="Buscar" className="search-icon" />
           <input
             type="text"
-            placeholder="Buscar por descripción, usuario o monto"
             value={searchTerm}
             onChange={handleSearch}
             className="search-input"
