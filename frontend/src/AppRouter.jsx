@@ -12,9 +12,9 @@ import HomeUsuario from "./pages/HomeUsuario";
 import Foro from "./pages/Foro";
 
 import Profile from "./pages/Profile";
-import EditUser from "./pages/EditUser";
-import Users from "./pages/Users";
 import UserList from "./pages/UserList"; 
+import Requests from "./pages/Requests";
+import ResidenceCertificate from "./pages/ResidenceCertificate"
 
 const AppRouter = () => {
   return (
@@ -78,25 +78,6 @@ const AppRouter = () => {
           </ProtectedRoute>
         }
       />
-      {/* Editar usuario */}
-      <Route
-        path='/edit-user/:rut'
-        element={
-          <ProtectedRoute allowedRoles={['administrator']}>
-            <EditUser />
-          </ProtectedRoute>
-        }
-      />
-      {/* Usuarios */}
-      <Route
-        path='/users'
-        element={
-          <ProtectedRoute allowedRoles={['administrator']}>
-            <Users />
-          </ProtectedRoute>
-        }
-      />
-      
       {/* Lista de usuarios admin */}
       <Route
         path='/user-list'
@@ -106,7 +87,24 @@ const AppRouter = () => {
           </ProtectedRoute>
         }
       />
-
+      {/* solicitudes pendientes */}
+      <Route
+        path='/requests'
+        element={
+          <ProtectedRoute allowedRoles={['administrator']}>
+            <Requests />
+          </ProtectedRoute>
+        }
+      />
+      {/* certificado residencia */}
+      <Route
+        path='/certificate'
+        element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <ResidenceCertificate />
+          </ProtectedRoute>
+        }
+      />
       ;{/* Error 404 */}
       <Route
         path='*'

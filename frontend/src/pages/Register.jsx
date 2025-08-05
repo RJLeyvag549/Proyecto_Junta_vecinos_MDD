@@ -39,6 +39,13 @@ function Register() {
     e.preventDefault();
     setErrors({});
 
+    if (!formData.docIdentity || !formData.docResidence) {
+    alert(
+      'Debes adjuntar la cédula de identidad y el comprobante de domicilio antes de enviar la solicitud de registro.'
+    );
+    return;
+    }
+
     try {
       await register(formData);
       alert(
@@ -238,7 +245,6 @@ function Register() {
               name='docIdentity'
               accept='.pdf,.jpg,.jpeg,.png'
               onChange={handleChange}
-              required
               ref={docIdentityRef}
             />
             {errors.docIdentity && (
@@ -266,7 +272,6 @@ function Register() {
               name='docResidence'
               accept='.pdf,.jpg,.jpeg,.png'
               onChange={handleChange}
-              required
               ref={docResidenceRef}
             />
             {errors.docResidence && (

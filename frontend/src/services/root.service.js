@@ -1,5 +1,3 @@
-// src/services/root.service.js
-
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000/api';
@@ -12,9 +10,9 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-// Interceptor para agregar el token a cada request
 instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const storedUser = sessionStorage.getItem('user');
+  const token = storedUser ? JSON.parse(storedUser).token : null;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

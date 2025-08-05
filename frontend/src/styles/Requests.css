@@ -1,0 +1,56 @@
+.requests-page .table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.requests-table {
+  width: 100%;
+  table-layout: fixed;
+  font-size: 0.9rem; 
+}
+
+.requests-table th,
+.requests-table td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: left;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.requests-table th {
+  background-color: #f0f0f0;
+}
+
+.btn-accept {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  margin-right: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-reject {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.requests-table th:nth-child(6),
+.requests-table td:nth-child(6),
+.requests-table th:nth-child(7),
+.requests-table td:nth-child(7) {
+  width: 140px;
+}
+
+.requests-table th:last-child,
+.requests-table td:last-child {
+  width: 120px;
+  text-align: center;
+}
+
