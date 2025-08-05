@@ -26,11 +26,12 @@ const Navbar = () => {
           <h1>Junta Vecinal Parque Ecuador</h1>
         </li>
 
-        <li>
+        <li className="logout-section">
           <button onClick={logoutSubmit} className="boton-cerrar">
             Cerrar Sesión
           </button>
         </li>
+
       </ul>
     </nav>
   );
