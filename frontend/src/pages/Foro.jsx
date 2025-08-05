@@ -294,6 +294,9 @@ const eliminarComentario = async (idComentario, idPublicacion) => {
   }
 };
 
+//* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+//* CALENDARIO CONEXION CON LOS MEETINGS
+
 useEffect(() => {
   const token = user?.token;
 
@@ -361,6 +364,7 @@ return (
       </button>
     )}
 
+  /*&&&&&&&&&&&&&&&&&&&&&&             CALENDARIO          &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
     {/* Layout del foro y calendario */}
     <div className="foro-calendario-layout">
   <div className="foro-publicaciones">
@@ -372,6 +376,7 @@ return (
   </div>
 
 
+  /*&&&&&&&&&&&&&&&&&&&&&&             CALENDARIO          &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
 
       <div className="foro-publicaciones">
         {publicaciones.length === 0 ? (
