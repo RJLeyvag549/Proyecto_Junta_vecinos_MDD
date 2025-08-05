@@ -36,7 +36,6 @@
   font-size: 1.1rem;
 }
 
-/* Selector de tipo de gráfico */
 .chart-type-selector {
   display: flex;
   justify-content: center;
@@ -65,12 +64,11 @@
 }
 
 .selector-btn.active {
-  background: #667eea;
+  background: #13d24c;
   color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(6, 8, 110, 0.3);
 }
 
-/* Tarjetas de resumen */
 .summary-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -81,7 +79,7 @@
 }
 
 .summary-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #b1ea66 0%, #4ba257 100%);
   padding: 1.5rem;
   border-radius: 10px;
   text-align: center;
@@ -134,7 +132,6 @@
   font-size: 1.3rem;
 }
 
-/* Gráfico de barras */
 .bar-chart {
   display: flex;
   justify-content: space-around;
@@ -190,7 +187,6 @@
   font-weight: 500;
 }
 
-/* Gráfico circular (pie chart) */
 .pie-chart {
   display: flex;
   flex-direction: column;
@@ -219,7 +215,6 @@
   color: #333;
 }
 
-/* Gráfico de línea/tendencia */
 .line-chart {
   display: flex;
   flex-direction: column;
@@ -253,7 +248,6 @@
   margin: 0.2rem 0;
 }
 
-/* Estados de carga y error */
 .loading, .error {
   display: flex;
   justify-content: center;
@@ -267,7 +261,6 @@
   color: #f44336;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .financial-charts-container {
     padding: 12vh 1rem 2rem 1rem;

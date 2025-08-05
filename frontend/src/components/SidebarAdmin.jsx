@@ -51,11 +51,10 @@ const SidebarAdmin = ({ isOpen }) => {
         <div className={`sidebar-admin__sub-links-wrapper ${openSection === "reuniones" ? "open" : ""}`}>
           <div className="sidebar-admin__sub-links">
             <NavLink to="/actas">Actas de Reuniones</NavLink>
-            <NavLink to="/gestion-reuniones">Gestión de reuniones</NavLink>
+            <NavLink to="/reuniones">Gestión de reuniones</NavLink>
           </div>
         </div>
       </div>
-
       {/* Gestión de Finanzas */}
       <div className="sidebar-admin__section">
         <div className="sidebar-admin__section-title" onClick={() => toggleSection("finanzas")}>
@@ -64,7 +63,7 @@ const SidebarAdmin = ({ isOpen }) => {
         </div>
         <div className={`sidebar-admin__sub-links-wrapper ${openSection === "finanzas" ? "open" : ""}`}>
           <div className="sidebar-admin__sub-links">
-            <NavLink to="/Transacciones">Registro de Transacciones</NavLink>
+            <NavLink to="/transacciones">Registro de Transacciones</NavLink>
             <NavLink to="/inventario">Inventario</NavLink>
             <NavLink to="/fondos">Acreditación a Fondos Públicos</NavLink>
             <NavLink to="/graficos">Gráficos Financieros</NavLink>

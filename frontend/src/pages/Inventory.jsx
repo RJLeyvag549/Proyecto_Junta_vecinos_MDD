@@ -265,7 +265,6 @@ const Inventory = () => {
             <img src={searchIcon} alt="Buscar" className="search-icon" />
             <input
               type="text"
-              placeholder="Buscar por nombre o descripción"
               value={searchTerm}
               onChange={handleSearch}
               className="search-input"
