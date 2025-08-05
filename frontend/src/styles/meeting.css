@@ -12,9 +12,13 @@ body {
 
 .page-content {
   flex-grow: 1;
-  padding: 30px;
+  margin-left: 140px;
+  margin-right: 60px;
+  padding: 60px 40px;
   background-color:rgba(255, 255, 255, 0.5);
+  margin-top: 70px;
   min-height: 100vh;
+  border-radius: 10px;
 }
 
 /* ------------------ Reuniones y Actas ------------------ */
@@ -59,12 +63,31 @@ body {
 }
 
 .meeting-edit-btn {
-  background-color: #000000;
+  background-color: #365d12;
   color: white;
 }
 
+.meeting-asistencia-btn {
+  background-color: #437415;
+  color: white;
+}
+
+.meeting-asistencia-btn:hover {
+  background-color: #26420c;
+  color: white;
+}
+
+.meeting-acta-btn {
+  background-color: #437415;
+  color: white;
+}
+
+.meeting-acta-btn:hover {
+  background-color: #26420c;
+} 
+
 .meeting-edit-btn:hover {
-  background-color: #001d3a;
+  background-color: #26420c;
 }
 
 .meeting-delete-btn {
@@ -89,8 +112,8 @@ body {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-  font-size: 14px;
+  margin-top: 10px;
+  font-size: 15px;
 }
 
 th,
@@ -189,6 +212,42 @@ td button {
   max-width: 700px;
   background-color: #ffffff;
 }
+
+.acta-ver-btn {
+  background-color: #437415;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.acta-ver-btn:hover {
+  background-color: #365d12;
+} 
+
+.acta-edit-btn {
+  background-color: #365d12;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.acta-edit-btn:hover {
+  background-color: #26420c;
+}  
+
+.acta-sign-btn {
+  background-color: #0d47a1;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.acta-sign-btn:hover {
+  background-color: #06306e;
+} 
 
 .acta-modal-header h2 {
   margin: 0;
@@ -410,4 +469,87 @@ button.btn-guardar:hover {
 .form-acta textarea:focus {
   border-color: #437415;
   outline: none;
+}
+/* ------------------ DataTables Personalizado ------------------ */
+.dataTables_wrapper {
+  font-size: 15px;
+  color: #000000;
+}
+
+table.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+   min-width: 1000px;
+}
+
+table.dataTable thead {
+  background-color: #437415;;
+}
+
+table.dataTable thead th {
+  border-bottom: 2px solid #437415;
+  background-color: #437415;;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+table.dataTable thead th:hover {
+  background-color: #365c10;
+  color: white;
+}
+table.dataTable tbody td {
+  border-bottom: 1px solid #365c10;
+  padding: 12px;
+}
+
+table.dataTable tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.dataTables_paginate {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.dataTables_paginate .paginate_button {
+  background-color: #fff;
+  color: #437415 !important;
+  border: 1px solid #b5d3a9;
+  padding: 6px 12px;
+  margin: 0 3px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.dataTables_paginate .paginate_button.current {
+  background-color: #437415;
+  color: white !important;
+  border: 1px solid #365c10;
+}
+
+.dataTables_length select,
+.dataTables_filter input {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #d41b1b;
+  margin-left: 5px;
+}
+
+.dataTables_filter label,
+.dataTables_length label {
+  font-weight: 600;
+  color: #365c10;
+}
+
+.dataTables_info {
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+table.dataTable thead tr:first-child {
+  background-color: #437415; 
+  color: white; 
 }

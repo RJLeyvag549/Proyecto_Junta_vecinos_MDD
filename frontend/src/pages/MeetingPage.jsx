@@ -126,7 +126,6 @@ function MeetingPage() {
       <div className="main-content">
         <SidebarAdmin />
         <div className="page-content">
-          <div className="reuniones-container">
             <div className="reuniones-header">
               <h2 className="reuniones-title">Gestión de Reuniones</h2>
               {!showForm && (
@@ -238,7 +237,6 @@ function MeetingPage() {
                 onClose={() => setShowAsistenciaModal(false)}
               />
             )}
-          </div>
         </div>
       </div>
     </div>

@@ -112,7 +112,6 @@ const ActPage = () => {
       <div className="main-content">
         <SidebarAdmin />
         <div className="page-content">
-          <div className="reuniones-container">
             <div className="reuniones-header">
               <h2 className="reuniones-title">Gestión de Actas</h2>
             </div>
@@ -173,7 +172,6 @@ const ActPage = () => {
               </div>
             )}
           </div>
-        </div>
       </div>
     </div>
   );
