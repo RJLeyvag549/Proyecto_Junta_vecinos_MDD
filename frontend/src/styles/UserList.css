@@ -1,0 +1,61 @@
+.user-list-page {
+  display: flex;
+  height: 100vh;
+  font-family: 'Nunito', sans-serif;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-container {
+  padding: 20px;
+}
+
+.page-title {
+  text-align: center;      
+  margin-top: 100px;  
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: px;
+  color: #333;
+}
+
+.table-container {
+  width: 80%; 
+  margin-left: 250px;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #f0f0f0;
+}
+
+.btn-view-profile {
+  padding: 6px 12px;
+  background-color: #3a4dd7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-view-profile:hover {
+  background-color: #2d3cbf;
+}

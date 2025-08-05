@@ -11,14 +11,14 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 async function setupServer() {
-
   const app = express();
-  app.disable("x-powered-by");
-
+  app.disable('x-powered-by');
 
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  
+
+  app.use('/api/src/upload', express.static(path.join(__dirname, 'src/upload')));
+
   // Habilita el CORS para permitir solicitudes desde otros dominios (frontend)
   app.use(
     cors({
@@ -26,14 +26,13 @@ async function setupServer() {
       origin: true,
     })
   );
- // Avisa a express que use JSON
-
+  // Avisa a express que use JSON
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use('/upload', express.static(path.join(__dirname, 'src', 'upload')));
 
-  app.use(morgan("dev"));
+  app.use(morgan('dev'));
 
 
   app.use("/api", indexRoutes);

@@ -13,14 +13,12 @@ import { deleteUploadedFiles } from '../helpers/fileCleanup.helper.js';
 export async function register(req, res) {
   try {
     
-    //* VALIDACIÓN DOCUMENTOS (CÉDULA Y RESIDENCIA)
     const fileError = validateUploadedFiles(req.files);
     if (fileError) {
       deleteUploadedFiles(req.files);
       return res.status(400).json({ message: fileError });
     }
 
-    //*VALIDACIÓN DATOS DEL BODY (CON AGRUPACIÓN DE ERRORES)
     const { error } = registerValidation.validate(req.body, { abortEarly: false }); 
     if (error) {
       deleteUploadedFiles(req.files);
@@ -42,7 +40,6 @@ export async function register(req, res) {
       return res.status(400).json({ message: "Faltan campos obligatorios o documentos" });
     }
 
-    //* VALIDACIÓN SI EXISTE EMAIL/RUT EN DB
     const existingEmail = await userRepository.findOne({ where: { email } });
     if (existingEmail) {
       deleteUploadedFiles(req.files);
@@ -55,8 +52,7 @@ export async function register(req, res) {
       return res.status(409).json({ message: "RUT ya registrado" });
     }
 
-    //* PARA CONSTRUIR LAS URL DE LOS DOCUMENTOS
-    const baseUrl = `http://${HOST}:${PORT}/api/src/upload/`;  //* Ruta base
+    const baseUrl = `http://${HOST}:${PORT}/api/src/upload/`;  
     const docIdentityUrl = baseUrl + path.basename(docIdentityFile.path);
     const docResidenceUrl = baseUrl + path.basename(docResidenceFile.path);
 
@@ -94,78 +90,67 @@ export async function register(req, res) {
 export async function login(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
-
     const { email, password } = req.body;
 
-    const { error } = loginValidation.validate(req.body, { abortEarly: false }); 
+    const { error } = loginValidation.validate(req.body, { abortEarly: false });
     if (error) {
       const formattedErrors = groupErrorsByField(error.details);
       return res.status(400).json({
-        message: "Error al iniciar sesión",
-        details: formattedErrors
+        message: 'Error al iniciar sesión',
+        details: formattedErrors,
       });
     }
 
-    //* BUSCA AL USUARIO EN LA BD POR EMAIL
     const userFound = await userRepository.findOne({ where: { email } });
-    
+
     if (!userFound) {
       return res.status(400).json({
-        message: "Error al iniciar sesión",
+        message: 'Error al iniciar sesión',
         details: {
-          email: ["El correo electrónico debe ser válido."]
-        }
+          email: ['El correo electrónico debe ser válido.'],
+        },
       });
     }
 
-    //* COMPARA CONTRASEÑA INGRESADA CON LA QUE ESTÁ EN LA BD (ENCRIPTADA)
+    if (userFound.requestStatus !== 'aprobado') {
+      return res.status(403).json({
+        message: 'Tu cuenta aún no ha sido aprobada por el administrador.',
+      });
+    }
+
     const isMatch = await comparePassword(password, userFound.password);
     if (!isMatch) {
       return res.status(400).json({
-        message: "Error al iniciar sesión",
+        message: 'Error al iniciar sesión',
         details: {
-          password: ["Contraseña inválida."]
-        }
+          password: ['Contraseña inválida.'],
+        },
       });
     }
 
-    //* CREA TOKEN (JWT)
     const payload = {
       id: userFound.id,
       email: userFound.email,
       role: userFound.role,
     };
-    const accessToken = jwt.sign(payload, SESSION_SECRET, { expiresIn: "1d" });
+    const accessToken = jwt.sign(payload, SESSION_SECRET, { expiresIn: '1d' });
 
-    //* ENVÍA TOKEN COMO RESPUESTA
-const { password: _, ...safeUser } = userFound;
+    const { password: _, ...safeUser } = userFound;
 
-res.status(200).json({
-  message: "Inicio de sesión exitoso",
-  token: accessToken,
-  user: safeUser  // ← ahora sí incluirá el rol y demás
-});
-
-
+    res.status(200).json({
+      message: 'Inicio de sesión exitoso',
+      token: accessToken,
+      user: safeUser,
+    });
   } catch (error) {
-    console.error("Error en auth.controller.js -> login(): ", error);
-    return res.status(500).json({ message: "Error al iniciar sesión" });
+    console.error('Error en auth.controller.js -> login(): ', error);
+    return res.status(500).json({ message: 'Error al iniciar sesión' });
   }
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* FUNCIÓN PARA CERRAR SESIÓN                                                          
-export async function logout(req, res) {
-  // Eliminar la cookie de sesión del cliente
-  try {
-    res.clearCookie("jwt", { httpOnly: true });
-    res.status(200).json({ message: "Sesión cerrada exitosamente" });
-  } catch (error) {
-    return res.status(500).json({ message: "Error al cerrar sesión" });
-  }
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* FUNCIÓN QUE OBTIENE EL PERFIL DEL USUARIO AUTENTICADO - VER SI USAR ESTO, POR QUE SIRVE PARA QUE EL PROPIO USUARIO VEA SU PERFIIL
-export async function getProfile(req, res) {
+//* FUNCIÓN QUE OBTIENE USUARIO AUTENTICADO
+export async function getCurrentUser(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
     const userEmail = req.user.email;
@@ -177,10 +162,11 @@ export async function getProfile(req, res) {
 
     const formattedUser = {
       id: user.id,
-      username: user.firstName + " " + user.lastName,
+      fullName: user.fullName,
       email: user.email,
       rut: user.rut,
-      role: user.role
+      role: user.role,
+      homeAddress: user.homeAddress,
     };
 
     res.status(200).json({ message: "Perfil encontrado: ", data: formattedUser });

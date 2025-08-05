@@ -1,4 +1,3 @@
-// src/services/auth.service.js
 import cookies from 'js-cookie';
 import axios from './root.service.js';
 
@@ -10,7 +9,7 @@ export async function login(data) {
       token: response.data.token,
       data: response.data.user 
     };
-    sessionStorage.setItem('user', JSON.stringify(user));
+    sessionStorage.setItem('user', JSON.stringify(user)); 
   }
   return response.data;
 }
@@ -49,9 +48,9 @@ export async function logout() {
   try {
     await axios.post('/auth/logout');
   } catch (err) {
-    console.warn("⚠️ Logout falló en el backend (continuamos):", err.message);
+    console.warn("Logout falló en el backend:", err.message);
   }
 
-  sessionStorage.removeItem('user'); // 🔁 asegurarse que usamos "user"
+  sessionStorage.removeItem('user'); 
   cookies.remove('miCookie');
 }
