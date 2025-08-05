@@ -6,7 +6,10 @@ import SidebarAdmin from '../components/SidebarAdmin';
 import Navbar from '../components/Navbar';
 import iconoEliminar from '../assets/eliminar.png'; // ajusta la ruta si está en otra subcarpeta
 import iconoEditar from '../assets/editar.png';
-
+import Calendario from '../components/Calendario.jsx';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import '../styles/Calendario.css';
 
 
 const Foro = () => {
@@ -14,12 +17,14 @@ const Foro = () => {
   const [comentarios, setComentarios] = useState({});
   const [nuevoComentario, setNuevoComentario] = useState({});
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
-  
+  const [eventos, setEventos] = useState({});
+
   const [nuevaPublicacion, setNuevaPublicacion] = useState({
     titulo: '',
     contenido: '',
     tipo_de_publicacion: 'Educativos' // valor por defecto válido según tu enum
   });
+
 
   const user = JSON.parse(sessionStorage.getItem('user'));
   const role = user?.data?.role;
@@ -289,30 +294,92 @@ const eliminarComentario = async (idComentario, idPublicacion) => {
   }
 };
 
+useEffect(() => {
+  const token = user?.token;
+
+  const cargarReunionesConActa = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/meetings", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+      const reuniones = data.data || [];
+
+      const reunionesConActa = [];
+
+      for (const reunion of reuniones) {
+        const resActa = await fetch(`http://localhost:3000/api/meetings/${reunion.id_reunion || reunion._id}/act`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (resActa.ok) {
+          const fecha = reunion.fecha?.split('T')[0];
+          if (fecha) {
+            reunionesConActa.push({ fecha, title: 'Reunión Directiva' });
+          }
+        }
+      }
+
+      // Agrupar por fecha
+      const eventosAgrupados = {};
+      reunionesConActa.forEach(({ fecha, title }) => {
+        if (!eventosAgrupados[fecha]) eventosAgrupados[fecha] = [];
+        eventosAgrupados[fecha].push({ title });
+      });
+
+      // Llama a Calendario.jsx con estos eventos agrupados
+      setEventos(eventosAgrupados);
+    } catch (error) {
+      console.error("Error al cargar reuniones con acta:", error);
+    }
+  };
+
+  cargarReunionesConActa();
+}, []);
 
 return (
   <>
-    <Navbar />
+  <Navbar />
 
-    <div className="foro-layout">
-      <aside className="foro-sidebar">
-        {role === 'administrator' ? <SidebarAdmin /> : <SidebarUsuario />}
-      </aside>
+<div className="foro-layout">
+  {/* Sidebar */}
+  <aside className="foro-sidebar">
+    {role === 'administrator' ? <SidebarAdmin /> : <SidebarUsuario />}
+  </aside>
 
-      <main className="foro-container">
-        <h1 className="foro-titulo">Foro Comunitario</h1>
+  <main className="foro-container">
+    <h1 className="foro-titulo">Foro Comunitario</h1>
 
-        {role === 'administrator' && (
-          <button className="btn-flotante-crear" onClick={abrirFormulario}>
-             <img src="/src/assets/anadir.png" alt="Editar" style={{ width: '50px', height: '50px' }} />
-            
-          </button>
-        )}
+    {role === 'administrator' && (
+      <button className="btn-flotante-crear" onClick={abrirFormulario}>
+        <img src="/src/assets/anadir.png" alt="Crear publicación" style={{ width: '50px', height: '50px' }} />
+      </button>
+    )}
 
+    {/* Layout del foro y calendario */}
+    <div className="foro-calendario-layout">
+  <div className="foro-publicaciones">
+    {/* Aquí van tus publicaciones */}
+  </div>
+
+  <div className="calendario-container">
+    <Calendario eventos={eventos} />
+  </div>
+
+
+
+      <div className="foro-publicaciones">
         {publicaciones.length === 0 ? (
           <div className="sin-publicaciones">
             <p>No hay publicaciones aún.</p>
           </div>
+
+          
         ) : (
           publicaciones.map((pub) => {
             const id = pub._id || pub.id_publicacion;
@@ -321,97 +388,88 @@ return (
                 <div className="cabecera-publicacion">
                   <h2>{pub.titulo}</h2>
                   <span className="badge-tipo-publicacion">{pub.tipo_de_publicacion}</span>
-
                 </div>
 
-              <div className="contenido-publicacion-externo">
-          <div className="contenido-publicacion-interno">
-            <p>{pub.contenido}</p>
-          </div>
-        </div>
-
+                <div className="contenido-publicacion-externo">
+                  <div className="contenido-publicacion-interno">
+                    <p>{pub.contenido}</p>
+                  </div>
+                </div>
 
                 <div className="info-publicacion">
-                  <small>Publicado por: Directiva
-
+                  <small>
+                    Publicado por: Directiva
                     <div className="fecha-publicacion">
-                    Fecha:{' '}
-                    {pub.fecha_publicacion
-                      ? new Date(pub.fecha_publicacion).toLocaleDateString()
-                      : 'Fecha no disponible'}
-
-                      
-                  </div>
+                      Fecha: {pub.fecha_publicacion ? new Date(pub.fecha_publicacion).toLocaleDateString() : 'Fecha no disponible'}
+                    </div>
                   </small>
                 </div>
 
                 {role === 'administrator' && (
                   <div className="acciones-admin">
                     <button
-                        onClick={() => comenzarEdicion(pub)}
-                        className="btn-icono-admin"
-                        title="Editar"
-                      >
-                        <img src="/src/assets/editar.png" alt="Editar" />
-                      </button>
-                      
-                      <button
-                        onClick={() => eliminarPublicacion(id)}
-                        className="btn-icono-admin"
-                        title="Eliminar"
-                      >
-                        <img src="/src/assets/eliminar.png" alt="Eliminar" />
-                      </button>
+                      onClick={() => comenzarEdicion(pub)}
+                      className="btn-icono-admin"
+                      title="Editar"
+                    >
+                      <img src="/src/assets/editar.png" alt="Editar" />
+                    </button>
+
+                    <button
+                      onClick={() => eliminarPublicacion(id)}
+                      className="btn-icono-admin"
+                      title="Eliminar"
+                    >
+                      <img src="/src/assets/eliminar.png" alt="Eliminar" />
+                    </button>
                   </div>
-                  
                 )}
 
+                <div className="comentarios">
+                  <h4>Comentarios:</h4>
+                  {(comentarios[pub.id_publicacion] || []).map((comentario) => (
+                    <div key={comentario.id_comentario} className="comentario">
+                      <div className="contenido-comentario">
+                        <div className="texto-comentario">
+                          <strong>{comentario.user?.fullName || 'Anónimo'}</strong>: {comentario.contenido}
+                          <br />
+                          <small>{new Date(comentario.fecha_comentario).toLocaleDateString()}</small>
+                        </div>
 
-              <div className="comentarios">
-                <h4>Comentarios:</h4>
-                {(comentarios[pub.id_publicacion] || []).map((comentario) => (
-                  <div key={comentario.id_comentario} className="comentario">
-                    <div className="contenido-comentario">
-                      <div className="texto-comentario">
-                        <strong>{comentario.user?.fullName || 'Anónimo'}</strong>: {comentario.contenido}
-                        <br />
-                        <small>{new Date(comentario.fecha_comentario).toLocaleDateString()}</small>
+                        {role === 'administrator' && (
+                          <button
+                            onClick={() => eliminarComentario(comentario.id_comentario, pub.id_publicacion)}
+                            className="btn-icono-eliminar"
+                            title="Eliminar"
+                          >
+                            <img src="/src/assets/eliminar.png" alt="Eliminar" style={{ width: '20px', height: '20px' }} />
+                          </button>
+                        )}
                       </div>
-
-                      {role === 'administrator' && (
-                        <button
-                          onClick={() => eliminarComentario(comentario.id_comentario, pub.id_publicacion)}
-                          className="btn-icono-eliminar"
-                          title="Eliminar"
-                        >
-                          <img src="/src/assets/eliminar.png" alt="Eliminar" style={{ width: '20px', height: '20px' }} />
-                        </button>
-                      )}
                     </div>
-                  </div>
+                  ))}
 
-                ))}
-
-
-                <textarea
-                  placeholder="Escribe un comentario..."
-                  value={nuevoComentario[pub.id_publicacion] || ''}
-                  onChange={(e) => handleComentarioChange(e, pub.id_publicacion)}
-                  className="comentario-input"
-                ></textarea>
-                <button
-                  onClick={() => handleEnviarComentario(pub.id_publicacion)}
-                  className="btn-comentar"
-                >
-                  Comentar
-                </button>
-              </div>
+                  <textarea
+                    placeholder="Escribe un comentario..."
+                    value={nuevoComentario[pub.id_publicacion] || ''}
+                    onChange={(e) => handleComentarioChange(e, pub.id_publicacion)}
+                    className="comentario-input"
+                  ></textarea>
+                  <button
+                    onClick={() => handleEnviarComentario(pub.id_publicacion)}
+                    className="btn-comentar"
+                  >
+                    Comentar
+                  </button>
+                </div>
               </div>
             );
           })
         )}
-      </main>
-    </div>
+      </div> {/* Cierre de foro-publicaciones */}
+    </div> {/* Cierre de foro-calendario-layout */}
+  </main>
+</div>
 
     {/* Modal Crear Publicación */}
     {mostrarFormulario && (
