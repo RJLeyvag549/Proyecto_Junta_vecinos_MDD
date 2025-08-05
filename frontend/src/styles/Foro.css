@@ -1,14 +1,4 @@
 
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 9vh;
-  width: 100%;
-  background-color: #718355;
-  z-index: 1000;
-}
-
 
 html, body {
   margin: 0;
