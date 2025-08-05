@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/acta.css";
+import "../styles/meeting.css";
 
 const FormularioCrearActa = ({ onGuardar, onCancelar }) => {
   const [titulo, setTitulo] = useState("");
@@ -11,10 +11,10 @@ const FormularioCrearActa = ({ onGuardar, onCancelar }) => {
   };
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <h2>Crear Acta</h2>
-        <form onSubmit={handleSubmit} className="formulario-acta">
+    <div className="modal-overlay">
+      <div className="modal-acta">
+        <h2 className="asistencia-titulo">Crear Acta</h2>
+        <form onSubmit={handleSubmit} className="form-acta">
           <label htmlFor="titulo">Título</label>
           <input
             id="titulo"
@@ -31,8 +31,8 @@ const FormularioCrearActa = ({ onGuardar, onCancelar }) => {
             required
           />
 
-          <div className="form-actions">
-            <button type="submit" className="boton-guardar-prueba">Guardar</button>
+          <div className="form-acta-buttons">
+            <button type="submit" className="btn-guardar">Guardar</button>
             <button type="button" onClick={onCancelar} className="btn-cancelar">Cancelar</button>
           </div>
         </form>
