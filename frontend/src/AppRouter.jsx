@@ -1,16 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Error404 from "./pages/Error404";
-
 import HomeRedirect from "./HomeRedirect";
 import HomeAdmin from "./pages/HomeAdmin";
 import HomeUsuario from "./pages/HomeUsuario";
-
 import Foro from "./pages/Foro";
-
 import Profile from "./pages/Profile";
 import EditUser from "./pages/EditUser";
 import Users from "./pages/Users";
@@ -18,7 +14,8 @@ import FundingPage from "./pages/FundingPage";
 import Transactions from "./pages/Transactions";
 import Inventory from "./pages/Inventory";
 import FinancialCharts from "./pages/FinancialCharts";
-
+import MeetingPage from './pages/MeetingPage';
+import ActPage from './pages/ActPage';
 
 const AppRouter = () => {
   return (
@@ -79,8 +76,22 @@ const AppRouter = () => {
           </ProtectedRoute>
         }
       />
-
-      {/* Editar usuario */}
+      <Route
+        path="/reuniones"
+        element={
+          <ProtectedRoute allowedRoles={['administrator']}>
+            <MeetingPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route 
+        path="/actas" 
+        element={
+          <ProtectedRoute allowedRoles={['administrator']}>   
+            <ActPage />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/edit-user/:rut"
         element={
@@ -108,7 +119,7 @@ const AppRouter = () => {
         }
       />
       <Route
-        path="/Transacciones"
+        path="/transacciones"
         element={
           <ProtectedRoute allowedRoles={['administrator']}>
             <Transactions />
