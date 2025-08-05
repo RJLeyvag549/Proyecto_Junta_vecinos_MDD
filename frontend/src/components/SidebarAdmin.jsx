@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaUsers, 
-  FaComments, 
-  FaClipboardList, 
+import {
+  FaUsers,
+  FaComments,
+  FaClipboardList,
   FaMoneyCheckAlt,
   FaVoteYea
 } from 'react-icons/fa';
@@ -35,9 +36,8 @@ const SidebarAdmin = ({ isOpen }) => {
           </span>
         </div>
         <div
-          className={`sidebar-admin__sub-links-wrapper ${
-            openSection === 'comunicacion' ? 'open' : ''
-          }`}
+          className={`sidebar-admin__sub-links-wrapper ${openSection === 'comunicacion' ? 'open' : ''
+            }`}
         >
           <div className='sidebar-admin__sub-links'>
             <NavLink to='/foro'>Foro de Vecinos</NavLink>
@@ -61,9 +61,8 @@ const SidebarAdmin = ({ isOpen }) => {
           </span>
         </div>
         <div
-          className={`sidebar-admin__sub-links-wrapper ${
-            openSection === 'padron' ? 'open' : ''
-          }`}
+          className={`sidebar-admin__sub-links-wrapper ${openSection === 'padron' ? 'open' : ''
+            }`}
         >
           <div className='sidebar-admin__sub-links'>
             <NavLink to='/user-list'>Tabla de Vecinos</NavLink>
@@ -72,26 +71,27 @@ const SidebarAdmin = ({ isOpen }) => {
         </div>
       </div>
 
-     {/* Gestión de Reuniones */}
-      <div className="sidebar-adminsection">
-        <div className="sidebar-adminsection-title" onClick={() => toggleSection("reuniones")}>
-          <div className="sidebar-adminicon-circle"><FaClipboardList /></div>
+      {/* Gestión de Reuniones */}
+      <div className="sidebar-admin__section">
+        <div className="sidebar-admin__section-title" onClick={() => toggleSection("reuniones")}>
+          <div className="sidebar-admin__icon-circle"><FaClipboardList /></div>
           <span>Gestión de<br /> Reuniones</span>
         </div>
-        <div className={`sidebar-adminsub-links-wrapper ${openSection === "reuniones" ? "open" : ""}`}>
+        <div className={`sidebar-admin__sub-links-wrapper ${openSection === "reuniones" ? "open" : ""}`}>
           <div className="sidebar-admin__sub-links">
             <NavLink to="/actas">Actas de Reuniones</NavLink>
             <NavLink to="/reuniones">Gestión de reuniones</NavLink>
           </div>
         </div>
       </div>
-     {/* Gestión de Finanzas */}
-      <div className="sidebar-adminsection">
-        <div className="sidebar-adminsection-title" onClick={() => toggleSection("finanzas")}>
-          <div className="sidebar-adminicon-circle"><FaMoneyCheckAlt /></div>
+
+      {/* Gestión de Finanzas */}
+      <div className="sidebar-admin__section">
+        <div className="sidebar-admin__section-title" onClick={() => toggleSection("finanzas")}>
+          <div className="sidebar-admin__icon-circle"><FaMoneyCheckAlt /></div>
           <span>Gestión de<br /> Finanzas</span>
         </div>
-        <div className={`sidebar-adminsub-links-wrapper ${openSection === "finanzas" ? "open" : ""}`}>
+        <div className={`sidebar-admin__sub-links-wrapper ${openSection === "finanzas" ? "open" : ""}`}>
           <div className="sidebar-admin__sub-links">
             <NavLink to="/transacciones">Registro de Transacciones</NavLink>
             <NavLink to="/inventario">Inventario</NavLink>
@@ -100,19 +100,19 @@ const SidebarAdmin = ({ isOpen }) => {
           </div>
         </div>
       </div>
-      
+
       {/* Participación Comunitaria */}
-            <div className="sidebar-admin__section">
-              <div className="sidebar-admin__section-title" onClick={() => toggleSection("participacion")}>
-                <div className="sidebar-admin__icon-circle"><FaVoteYea /></div>
-                <span>Participación<br /> Comunitaria</span>
-              </div>
-              <div className={`sidebar-admin__sub-links-wrapper ${openSection === "participacion" ? "open" : ""}`}>
-                <div className="sidebar-admin__sub-links">
-                  <NavLink to="/votaciones">Votaciones vecinales</NavLink>
-                </div>
-              </div>
-            </div>
+      <div className="sidebar-admin__section">
+        <div className="sidebar-admin__section-title" onClick={() => toggleSection("participacion")}>
+          <div className="sidebar-admin__icon-circle"><FaVoteYea /></div>
+          <span>Participación<br /> Comunitaria</span>
+        </div>
+        <div className={`sidebar-admin__sub-links-wrapper ${openSection === "participacion" ? "open" : ""}`}>
+          <div className="sidebar-admin__sub-links">
+            <NavLink to="/votaciones">Votaciones vecinales</NavLink>
+          </div>
+        </div>
+      </div>
     </aside>
   );
 };

@@ -25,15 +25,9 @@ router.use('/certificate', pdfRoutes);
 router.use("/transaction", TransactionRoutes);
 router.use("/inventory", InventoryRoutes);
 
-<<<<<<< HEAD
-router.use("/family", familyGroupRoutes);
 router.use("/certificate", pdfRoutes);
 router.use("/votaciones", votacionRoutes);
-=======
-router.use("/votacion", votacionRoutes);
->>>>>>> ca0207ad1900bd0ddbfd5ac38ec40900f8e583bd
 router.use("/voto", votoRoutes);
-    
 router.use("/meetings", meetingRoutes);
 router.use("/meetings", attendanceRoutes);
 router.use("/meetings", ActRoutes);
