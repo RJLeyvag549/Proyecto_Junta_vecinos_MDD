@@ -24,12 +24,12 @@ const SidebarUsuario = ({ isOpen }) => {
       onMouseLeave={() => setOpenSection(null)}
     >
       {/* Comunicación y Participación */}
-      <div className='sidebar-usuario__section'>
+      <div className='sidebar-usuariosection'>
         <div
-          className='sidebar-usuario__section-title'
+          className='sidebar-usuariosection-title'
           onClick={() => toggleSection('comunicacion')}
         >
-          <div className='sidebar-usuario__icon-circle'>
+          <div className='sidebar-usuarioicon-circle'>
             <FaComments />
           </div>
           <span>
@@ -37,12 +37,12 @@ const SidebarUsuario = ({ isOpen }) => {
           </span>
         </div>
         <div
-          className={`sidebar-usuario__sub-links-wrapper ${
+          className={`sidebar-usuariosub-links-wrapper ${
             openSection === 'comunicacion' ? 'open' : ''
           }`}
         >
           <div className='sidebar-usuario__sub-links'>
-            <NavLink to='/Foro'>Foro de Vecinos</NavLink>
+            <NavLink to='/foro'>Foro de Vecinos</NavLink>
             <NavLink to='/calendario'>Calendario</NavLink>
           </div>
         </div>
@@ -58,7 +58,8 @@ const SidebarUsuario = ({ isOpen }) => {
             <FaFileAlt />
           </div>
           <span>
-            Certificado de<br /> residencia
+            Certificado de
+            <br /> residencia
           </span>
         </div>
         <div
@@ -67,7 +68,9 @@ const SidebarUsuario = ({ isOpen }) => {
           }`}
         >
           <div className='sidebar-usuario__sub-links'>
-            <NavLink to='/certificate'>Generar certificado de residencia</NavLink>
+            <NavLink to='/certificate'>
+              Generar certificado de residencia
+            </NavLink>
           </div>
         </div>
       </div>

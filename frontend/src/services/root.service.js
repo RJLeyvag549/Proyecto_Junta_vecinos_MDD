@@ -11,11 +11,17 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  const storedUser = sessionStorage.getItem('user');
-  const token = storedUser ? JSON.parse(storedUser).token : null;
+  const userData = sessionStorage.getItem("user");
+  const token = userData ? JSON.parse(userData).token : null;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  
+  // Si es FormData, dejar que el navegador establezca el Content-Type
+  if (config.data instanceof FormData) {
+    delete config.headers['Content-Type'];
+  }
+  
   return config;
 });
 

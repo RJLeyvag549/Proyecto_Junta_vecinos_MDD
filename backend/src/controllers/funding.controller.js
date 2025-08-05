@@ -89,3 +89,25 @@ export async function deleteFunding(req, res) {
   }
 }
 
+export async function getComprobanteFile(req, res) {
+  try {
+    const { filename } = req.params;
+    const path = await import('path');
+    const fs = await import('fs');
+    
+    // Construir la ruta del archivo de forma segura
+    const filePath = path.join(process.cwd(), 'src', 'upload', filename);
+    
+    // Verificar si el archivo existe
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ message: "Archivo no encontrado" });
+    }
+    
+    // Enviar el archivo
+    res.sendFile(filePath);
+  } catch (error) {
+    console.error("Error en funding.controller.js -> getComprobanteFile(): ", error);
+    res.status(500).json({ message: "Error al obtener el archivo" });
+  }
+}
+

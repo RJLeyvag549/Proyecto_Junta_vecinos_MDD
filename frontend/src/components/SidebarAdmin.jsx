@@ -66,59 +66,31 @@ const SidebarAdmin = ({ isOpen }) => {
         </div>
       </div>
 
-      {/* Gestión de Reuniones */}
-      <div className='sidebar-admin__section'>
-        <div
-          className='sidebar-admin__section-title'
-          onClick={() => toggleSection('reuniones')}
-        >
-          <div className='sidebar-admin__icon-circle'>
-            <FaClipboardList />
-          </div>
-          <span>
-            Gestión de
-            <br /> Reuniones
-          </span>
+     {/* Gestión de Reuniones */}
+      <div className="sidebar-adminsection">
+        <div className="sidebar-adminsection-title" onClick={() => toggleSection("reuniones")}>
+          <div className="sidebar-adminicon-circle"><FaClipboardList /></div>
+          <span>Gestión de<br /> Reuniones</span>
         </div>
-        <div
-          className={`sidebar-admin__sub-links-wrapper ${
-            openSection === 'reuniones' ? 'open' : ''
-          }`}
-        >
-          <div className='sidebar-admin__sub-links'>
-            <NavLink to='/actas'>Actas de Reuniones</NavLink>
-            <NavLink to='/gestion-reuniones'>Gestión de reuniones</NavLink>
+        <div className={`sidebar-adminsub-links-wrapper ${openSection === "reuniones" ? "open" : ""}`}>
+          <div className="sidebar-admin__sub-links">
+            <NavLink to="/actas">Actas de Reuniones</NavLink>
+            <NavLink to="/reuniones">Gestión de reuniones</NavLink>
           </div>
         </div>
       </div>
-
-      {/* Gestión de Finanzas */}
-      <div className='sidebar-admin__section'>
-        <div
-          className='sidebar-admin__section-title'
-          onClick={() => toggleSection('finanzas')}
-        >
-          <div className='sidebar-admin__icon-circle'>
-            <FaMoneyCheckAlt />
-          </div>
-          <span>
-            Gestión de
-            <br /> Finanzas
-          </span>
+     {/* Gestión de Finanzas */}
+      <div className="sidebar-adminsection">
+        <div className="sidebar-adminsection-title" onClick={() => toggleSection("finanzas")}>
+          <div className="sidebar-adminicon-circle"><FaMoneyCheckAlt /></div>
+          <span>Gestión de<br /> Finanzas</span>
         </div>
-        <div
-          className={`sidebar-admin__sub-links-wrapper ${
-            openSection === 'finanzas' ? 'open' : ''
-          }`}
-        >
-          <div className='sidebar-admin__sub-links'>
-            <NavLink to='/ingresos-egresos'>
-              Registro de Ingresos y Egresos
-            </NavLink>
-            <NavLink to='/recibos'>Gestión de Recibos</NavLink>
-            <NavLink to='/fondos'>Acreditación a Fondos Públicos</NavLink>
-            <NavLink to='/inventario'>Inventario</NavLink>
-            <NavLink to='/graficos'>Gráficos Financieros</NavLink>
+        <div className={`sidebar-adminsub-links-wrapper ${openSection === "finanzas" ? "open" : ""}`}>
+          <div className="sidebar-admin__sub-links">
+            <NavLink to="/transacciones">Registro de Transacciones</NavLink>
+            <NavLink to="/inventario">Inventario</NavLink>
+            <NavLink to="/fondos">Acreditación a Fondos Públicos</NavLink>
+            <NavLink to="/graficos">Gráficos Financieros</NavLink>
           </div>
         </div>
       </div>

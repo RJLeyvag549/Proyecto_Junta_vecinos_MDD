@@ -118,6 +118,76 @@ h1 {
 	}
 }
 
+.sidebar {
+  position: fixed;
+  top: 9vh; 
+  left: 0;
+  width: 15%;
+  height: 100vh;
+  background-color: #437415;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1000; 
+}
+
+.sidebar.search-container {
+  position: relative;
+  margin-bottom: 30px;
+  width: 100%;
+  margin: 0 auto 20px auto;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar.search-container input {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  border: 2px solid white;
+  border-radius: 9999px;
+  background-color: transparent;
+  color: white;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.sidebar.search-container input::placeholder {
+  color: #e0e0e0;
+}
+
+.sidebar.search-container img {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+.sidebar.search-container img {
+  border: 1px solid red;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.sidebar-nav a:hover {
+  color: #d0ffd0;
+}
+
+
 
 .profile_page{
 	background-color: #eef7ff;
@@ -277,3 +347,10 @@ h1 {
 	width: 100%;
 	max-width: 500px;
   }
+
+.main-content {
+  padding: 0;
+  height: calc(100vh - 9vh);
+  overflow-y: auto;
+}
+
