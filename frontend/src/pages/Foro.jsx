@@ -258,10 +258,15 @@ const Foro = () => {
           <h1 className="foro-titulo">Foro Comunitario</h1>
 
           {role === 'administrator' && (
-            <button className="btn-flotante-crear" onClick={abrirFormulario}>
-              <img src="/src/assets/anadir.png" alt="Crear publicación" style={{ width: '50px', height: '50px' }} />
-            </button>
-          )}
+  <button className="btn-flotante-crear" onClick={abrirFormulario}>
+    <img
+      src="/src/assets/anadir.png"
+      alt="Crear publicación"
+      style={{ width: '40px', height: '40px', marginRight: '10px' }}
+    />
+    Crear publicación
+  </button>
+)}
 
           <div className="foro-calendario-layout">
             <div className="foro-publicaciones">

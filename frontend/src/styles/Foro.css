@@ -1,4 +1,13 @@
 
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 9vh;
+  width: 100%;
+  background-color: #718355;
+  z-index: 1000;
+}
 
 
 html, body {
@@ -18,38 +27,6 @@ html, body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   position: relative;
-}
-.btn-flotante-crear {
-  position: fixed;
-  bottom: 7px;
-  left: 50%;
-  transform: translateX(-50%);
-  transform: translateY(100%);
-
-
-  background-color: #2f570a;
-  border: none;
-  border-radius: 50%;
-  padding: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  width: 60px;  /* tamaño uniforme */
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-.btn-flotante-crear:hover {
-  background-color: #3f6d12;
-}
-
-.btn-flotante-crear img {
-  width: 40px;
-  height: 40px;
 }
 
 .foro-container > * {
@@ -132,7 +109,7 @@ html, body {
    word-wrap: break-word;      /* permite cortar palabras largas */
   overflow-wrap: break-word;  /* soporte para navegadores modernos */
   white-space: normal;     
-
+ 
     text-align: left;
 }
 
@@ -370,18 +347,19 @@ html, body {
   background-color: #4caf50;
   color: white;
   border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
+  margin: 3rem auto 2rem;
   display: flex;
-  justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
-  margin-top: 1rem;        /* lo baja */
-  margin-bottom: 2rem;
 }
+
 
 .btn-crear-publicacion:hover {
   background-color: #388e3c;
@@ -469,12 +447,10 @@ html, body {
   flex-direction: row;
   align-items: flex-start;
   gap: 40px;
-  margin-left: 70px; /* espacio del sidebar */
-  margin-top: 9vh;   /* altura del navbar */
+  margin-left: 70px; /* espacio para el sidebar */
   padding: 2rem;
   z-index: 1;
 }
-
 
 
 .calendario-container {
