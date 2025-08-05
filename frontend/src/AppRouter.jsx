@@ -14,6 +14,11 @@ import Foro from "./pages/Foro";
 import Profile from "./pages/Profile";
 import EditUser from "./pages/EditUser";
 import Users from "./pages/Users";
+import FundingPage from "./pages/FundingPage";
+import Transactions from "./pages/Transactions";
+import Inventory from "./pages/Inventory";
+import FinancialCharts from "./pages/FinancialCharts";
+
 
 const AppRouter = () => {
   return (
@@ -94,6 +99,39 @@ const AppRouter = () => {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/fondos"
+        element={
+          <ProtectedRoute allowedRoles={['administrator']}>
+            <FundingPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/Transacciones"
+        element={
+          <ProtectedRoute allowedRoles={['administrator']}>
+            <Transactions />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inventario"
+        element={
+          <ProtectedRoute allowedRoles={['administrator']}>
+            <Inventory />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/graficos"
+        element={
+          <ProtectedRoute allowedRoles={['administrator']}>
+            <FinancialCharts />
+          </ProtectedRoute>
+        }
+      />
+
 
       {/* Error 404 */}
       <Route path="*" element={<Error404 />} />

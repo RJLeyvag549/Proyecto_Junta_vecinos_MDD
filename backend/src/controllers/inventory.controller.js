@@ -19,7 +19,7 @@ export async function getInventories(req, res) {
         createdAt: true,
         updatedAt: true,
         user: {
-          username: true,
+          fullName: true,
         }
       }
     });
@@ -52,7 +52,7 @@ export async function getInventoryById(req, res) {
         createdAt: true,
         updatedAt: true,
         user: {
-          username: true,
+          fullName: true,
         }
       }
     });
@@ -109,7 +109,7 @@ export async function createInventory(req, res) {
         status: true,
         createdAt: true,
         user: {
-          username: true,
+          fullName: true,
         }
       }
     });
@@ -185,7 +185,7 @@ export async function updateInventoryById(req, res) {
         createdAt: true,
         updatedAt: true,
         user: {
-          username: true,
+          fullName: true,
         }
       }
     });

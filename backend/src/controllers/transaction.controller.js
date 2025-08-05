@@ -17,7 +17,7 @@ export async function getTransactions(req, res) {
                 createdAt: true,
                 updatedAt: true,
                 user: {
-                    username: true, 
+                    fullName: true, 
                 }
             }
         });
@@ -48,7 +48,7 @@ export async function getTransactionById(req, res) {
                 createdAt: true,
                 updatedAt: true,
                 user: {
-                    username: true,
+                    fullName: true,
                 }
             }
         });
@@ -96,7 +96,7 @@ export async function createTransaction(req, res) {
                 status: true,
                 createdAt: true,
                 user: {
-                    username: true,
+                    fullName: true,
                 }
             }
         });
@@ -152,7 +152,7 @@ export async function updateTransactionById(req, res) {
                 createdAt: true,
                 updatedAt: true,
                 user: {
-                    username: true, 
+                    fullName: true, 
                 }
             }
         });
