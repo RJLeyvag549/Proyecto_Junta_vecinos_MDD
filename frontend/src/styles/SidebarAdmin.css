@@ -4,7 +4,7 @@
   top: 9vh;
   left: 0;
   width: 60px; /* Solo íconos visibles al inicio */
-  height: 100vh;
+   height: calc(100vh - 9vh);
   background-color: #718355;
   padding: 20px 10px;
   display: flex;
