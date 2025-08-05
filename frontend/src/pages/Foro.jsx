@@ -364,7 +364,8 @@ return (
       </button>
     )}
 
-  /*&&&&&&&&&&&&&&&&&&&&&&             CALENDARIO          &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
+
+
     {/* Layout del foro y calendario */}
     <div className="foro-calendario-layout">
   <div className="foro-publicaciones">
@@ -376,7 +377,7 @@ return (
   </div>
 
 
-  /*&&&&&&&&&&&&&&&&&&&&&&             CALENDARIO          &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
+
 
       <div className="foro-publicaciones">
         {publicaciones.length === 0 ? (
