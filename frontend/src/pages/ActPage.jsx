@@ -7,7 +7,6 @@ import Navbar from "../components/Navbar";
 import SidebarAdmin from "../components/SidebarAdmin";
 import TablaActas from "../components/TablaActas";
 import FormularioEditarActa from "../components/FormularioEditarActa";
-import "../styles/acta.css";
 import "../styles/meeting.css";
 import '../styles/SidebarAdmin.css';
 
@@ -108,7 +107,7 @@ const ActPage = () => {
     : [];
 
   return (
-    <div className="app-layout">
+    <div className="ActPage">
       <Navbar />
       <div className="main-content">
         <SidebarAdmin />

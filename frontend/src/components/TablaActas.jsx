@@ -46,9 +46,13 @@ const TablaActas = ({ actas = [], onEditar, onVer, onFirmar }) => {
                 const firmado = acta.firma;
 
                 return `
-                  <div class="flex gap-2">
+                  <div class="flex flex-col gap-1 sm:flex-row sm:gap-2">
                     <button class="meeting-button acta-ver-btn" data-id="${id}">Ver</button>
-                    <button class="meeting-button acta-edit-btn" data-id="${id}">Editar</button>
+                    ${
+                      !firmado
+                        ? `<button class="meeting-button acta-edit-btn" data-id="${id}">Editar</button>`
+                        : `<span class="text-gray-500 font-semibold">Solo lectura /</span>`
+                    }
                     ${
                       !firmado
                         ? `<button class="meeting-button acta-sign-btn" data-id="${id}">Firmar</button>`

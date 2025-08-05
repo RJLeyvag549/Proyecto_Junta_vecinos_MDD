@@ -1,189 +1,134 @@
-/* reuniones.css */
+/* ------------------ General Layout ------------------ */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #437415;
+  color: rgb(24, 61, 23);
+}
 
+.main-content {
+  display: flex;
+}
+
+.page-content {
+  flex-grow: 1;
+  padding: 30px;
+  background-color:rgba(255, 255, 255, 0.5);
+  min-height: 100vh;
+}
+
+/* ------------------ Reuniones y Actas ------------------ */
 .reuniones-container {
   padding: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 12px;
-  margin-top: 20px;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: transparent;
-  overflow-x: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.reuniones-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .reuniones-title {
+  align-items: center;
   font-size: 24px;
-  font-weight: bold;
-  color: #002651;
-  margin-bottom: 20px;
-  text-align: center;
+  color: #437415;
+  margin: 0;
 }
 
+/* ------------------ Botones ------------------ */
+.meeting-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.meeting-create-btn {
+  background-color: #437415;
+  color: white;
+}
+
+.meeting-create-btn:hover {
+  background-color: #365d12;
+}
+
+.meeting-edit-btn {
+  background-color: #000000;
+  color: white;
+}
+
+.meeting-edit-btn:hover {
+  background-color: #001d3a;
+}
+
+.meeting-delete-btn {
+  background-color: #c62828;
+  color: white;
+}
+
+.meeting-delete-btn:hover {
+  background-color: #a71d1d;
+}
+
+.meeting-sign-btn {
+  background-color: #0d47a1;
+  color: white;
+}
+
+.meeting-sign-btn:hover {
+  background-color: #06306e;
+}
+
+/* ------------------ Tabla ------------------ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+th {
+  background-color: #e9f5db;
+  font-weight: bold;
+}
+
+td button {
+  margin-right: 8px;
+}
+
+/* ------------------ Mensajes ------------------ */
 .mensaje-exito {
   background-color: #d4edda;
   color: #155724;
-  padding: 12px;
-  border: 1px solid #c3e6cb;
+  padding: 10px;
+  margin: 10px 0;
   border-radius: 8px;
-  margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .mensaje-error {
   background-color: #f8d7da;
   color: #721c24;
-  padding: 12px;
-  border: 1px solid #f5c6cb;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.table-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.crear-reunion-btn {
-  background-color: #437415;
-  color: #fff;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 9999px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.crear-reunion-btn:hover {
-  background-color: #2f570a;
-}
-
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.MeetingPage {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.main-content {
-  margin-left: 240px;
-  transition: margin-left 0.3s ease;
-  padding: 20px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100vh - 9vh);
-}
-
-.page-content {
-  background-image: url('/login.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: calc(100vh - 9vh);
-  width: 100%;
-  padding: 20px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
-
-.meeting-button {
-  background: #5d9c2c;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 9px 14px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  font-weight: 500;
-  margin-right: 6px;
-}
-.meeting-button:hover {
-  background: #41751c;
-}
-
-.meeting-edit-btn {
-  background: #5d9c2c;
-}
-.meeting-edit-btn:hover {
-  background: #41751c;
-}
-
-.meeting-delete-btn {
-  background: #f44336;
-}
-.meeting-delete-btn:hover {
-  background: #d32f2f;
-}
-
-.meeting-asistencia-btn {
-  background: #5d9c2c;
-}
-.meeting-asistencia-btn:hover {
-  background: #41751c;
-}
-
-.formulario-reunion {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  padding: 10px;
   margin: 10px 0;
-  align-items: flex-end;
-}
-
-.formulario-reunion input,
-.formulario-reunion select {
-  padding: 6px 12px;
-  border: 1px solid #b5d7a8;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #fff;
-  flex: 1 1 200px;
-  transition: border 0.2s;
-}
-
-.formulario-reunion input:focus,
-.formulario-reunion select:focus {
-  border: 1.5px solid #5d9c2c;
-  outline: none;
-}
-
-.botones-formulario {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.meeting-button.meeting-create-btn {
-  padding: 10px 20px;
-  background: #5d9c2c;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  border-radius: 8px;
   font-weight: 600;
-  transition: background 0.2s ease;
 }
 
-.meeting-button.meeting-create-btn:hover {
-  background: #41751c;
-}
-
-.reuniones-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #7ed33d;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
+/* ------------------ Modal ------------------ */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -191,206 +136,278 @@ html, body, #root {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
 }
 
 .modal-content {
-  background: #eef7ff;
-  padding: 25px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 600px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-}
-
-.modal-close-btn {
-  background-color: #e53935;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  float: right;
-  margin-bottom: 10px;
-}
-
-table.dataTable {
-  background-color: #f9f9f9;
-  color: #000000;
-  font-size: 16px;
-  border-radius: 8px;
-}
-
-table.dataTable thead th {
-  background-color: #548b1f;
-  color: white;
-  text-align: center;
-}
-
-table.dataTable tbody tr:hover {
-  background-color: #cbe7ab;
-}
-
-.dt-input {
-  color: #000000;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 6px;
-}
-
-.dt-input::placeholder {
-  color: #777777;
-}
-
-.dt-paging .dt-paging-button {
-  background-color: #437415 !important;
-  color: white !important;
-  border-radius: 4px;
-  margin: 0 2px;
-  border: none;
-  padding: 6px 10px;
-}
-
-.dt-paging .dt-paging-button:hover {
-  background-color: #365f10 !important;
-  color: white !important;
-}
-
-.dt-paging .dt-paging-button.current {
-  background-color: #2c5e0f !important;
-  font-weight: bold;
-}
-
-.dt-info {
-  font-size: 14px;
-  color: #548b1f;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-weight: 500;
-}
-
-.dt-search {
-  margin-bottom: 10px;
-}
-
-.dt-search label {
-  font-size: 16px;
-  color: #548b1f;
-  font-weight: 600;
-}
-
-.dt-length label {
-  font-size: 14px;
-  color: #548b1f;
-  font-weight: 600;
-}
-
-.dt-length select.dt-input {
-  color: #437415;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 6px;
-}
-
-div.dataTables_info,
-.dt-info {
-  color: #548b1f !important;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-div.dataTables_filter label,
-.dt-search label {
-  color: #548b1f !important;
-  font-weight: 600;
-  font-size: 16px;
-}
-
-div.dataTables_filter input,
-.dt-search .dt-input {
-  color: #548b1f !important;
-  background-color: transparent !important;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 6px;
-}
-
-.modal-content {
-  width: 95%;
-  max-width: 420px; 
-  padding: 1rem;
   background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 250px;
+  width: 100%;  
+}
+
+/* ------------------ Formulario Acta ------------------ */
+.form-acta {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-acta label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.form-acta input,
+.form-acta textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+  font-size: 14px;
+}
+
+.form-acta textarea {
+  height: 120px;
+}
+
+.form-acta-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* ------------------ Modal Ver Acta ------------------ */
+.acta-modal {
+  width: 90%;
+  max-width: 700px;
+  background-color: #ffffff;
+}
+
+.acta-modal-header h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #002651;
+}
+
+.acta-modal-header h3 {
+  margin: 10px 0 0 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.acta-modal-body {
+  margin-top: 20px;
+  white-space: pre-wrap;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.acta-modal-firma {
+  margin-top: 30px;
+}
+
+.acta-firma-espacio {
+  border: 1px dashed #ccc;
+  height: 80px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.acta-firma-imagen {
+  max-height: 60px;
+  object-fit: contain;
+}
+
+.acta-modal-cerrar {
+  margin-top: 25px;
+}
+
+/* ------------------ Responsive ------------------ */
+@media (max-width: 768px) {
+  .modal-content,
+  .acta-modal {
+    padding: 20px;
+    width: 95%;
+  }
+
+  .form-acta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .meeting-button {
+    width: 100%;
+  }
+}
+
+/* -------- Modal: Formulario Editar Reunión -------- */
+.formulario-reunion {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.botones-formulario {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.botonera {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  
+}
+
+.btn-cancelar {
+  padding: 6px 12px;
+  max-width: 120px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 400;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: normal;
+}
+
+button.btn-guardar {
+  background-color: #529118 !important;
+  color: white !important;
+  padding: 6px 12px !important;
+  max-width: 120px !important;
+  border-radius: 6px !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: normal;
+}
+
+button.btn-guardar:hover {
+  background-color: #365c10;
+}
+
+.btn-cancelar {
+  background-color: #ccc;
+  color: #333;
+}
+
+.btn-cancelar:hover {
+  background-color: #bbb;
+}
+
+.titulo-formulario-reunion {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #437415;
+}
+
+.modal-asistencia {
+  background-color: #ffffff;
+  padding: 40px;
   border-radius: 12px;
+  width: 100%;
+  max-width: 300px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
 }
 
-.asistencia-lista {
+.modal-asistencia h2 {
+  font-size: 22px;
+  color: #437415;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.lista-asistencia {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 20px;
   max-height: 350px;
   overflow-y: auto;
-  padding: 40px;
+  padding: 10px;
 }
 
-.asistencia-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.asistencia-item {
+.item-asistencia {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 10px 12px;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #020202;
-  background-color: #f6fef1;
-  border-radius: 8px;
-  border: 1px solid #c3e6cb;
-}
-
-.asistencia-item span {
-  flex: 1;
-  white-space: nowrap;
-  overflow: visible;
-  text-overflow: unset;
-}
-
-.asistencia-item input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  accent-color: #5d9c2c;
-  cursor: pointer;
-  flex-shrink: 0;
-  margin-left: auto;
-}
-
-@media (max-width: 480px) {
-  .modal-content {
-    width: 95%;
-    max-width: 95%;
-  }
-
-.asistencia-item {
-  flex-direction: row;
   align-items: center;
+  background-color: #eef7ff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 15px;
 }
 
-.asistencia-item input[type="checkbox"] {
-    align-self: center;
-  }
+.asistencia-titulo {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  text-align: center;
+  color: #002651;
+}
+
+.asistencia-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.asistencia-tabla thead {
+  background-color: #e9f5db;
+}
+
+.asistencia-tabla th,
+.asistencia-tabla td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: center;
+}
+
+.asistencia-tabla tr:hover {
+  background-color: #f5f5f5;
+}
+
+.modal-acta {
+  background-color: #fefefe;
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  font-family: 'Georgia', serif;
+}
+
+.modal-acta h2 {
+  font-size: 24px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #437415;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: #437415;
+  text-align: center;
+}
+
+.form-acta input,
+.form-acta textarea {
+  background-color: #f9fff6;
+  border: 1px solid #b5d3a9;
+  transition: border 0.3s ease;
+}
+
+.form-acta input:focus,
+.form-acta textarea:focus {
+  border-color: #437415;
+  outline: none;
 }

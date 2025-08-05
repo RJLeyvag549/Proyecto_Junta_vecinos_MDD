@@ -145,6 +145,9 @@ function MeetingPage() {
             {showForm && (
               <div className="modal-overlay">
                 <div className="modal-content">
+                  <h2 className="titulo-formulario-reunion">
+                    {editingId ? "Editar Reunión" : "Crear Reunión"}
+                  </h2>
                   <form className="formulario-reunion" onSubmit={handleSubmit}>
                     <input
                       type="text"
@@ -178,15 +181,15 @@ function MeetingPage() {
                       <option value="presencial">Presencial</option>
                       <option value="virtual">Virtual</option>
                     </select>
-                    <div className="botones-formulario">
+                    <div className="botonera">
                       <button
-                        className="meeting-button meeting-create-btn"
+                        className="btn-guardar"
                         type="submit"
                       >
                         {editingId ? "Actualizar" : "Crear"}
                       </button>
                       <button
-                        className="meeting-button meeting-create-btn"
+                        className="btn-cancelar"
                         type="button"
                         onClick={resetForm}
                       >
