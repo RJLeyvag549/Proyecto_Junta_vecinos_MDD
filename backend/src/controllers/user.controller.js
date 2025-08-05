@@ -1,47 +1,52 @@
 //* CRUD DE USUARIOS
 
-"use strict";
+'use strict';
 
-import User from "../entity/user.entity.js";
-import FamilyGroup from "../entity/family.group.entity.js";
-import { AppDataSource } from "../config/configDb.js";
-import { sendEmail } from "../services/email.service.js";
+import User from '../entity/user.entity.js';
+import { AppDataSource } from '../config/configDb.js';
+import { sendEmail } from '../services/email.service.js';
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* ESTA FUNCIÓN LA PLANEO USAR PARA LISTAR A TODOS LOS USUARIOS REGISTRADOS (APROBADOS)
-//* Busca y devuelve todos los usuarios registrados en la base de datos (no incluye grupo familiar).
+//* Busca y devuelve todos los usuarios registrados (aprobados) en la base de datos 
 export async function getUsers(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
-    
+
     const approvedUsers = await userRepository.find({
-      where: { requestStatus: "aprobado" },
+      where: { requestStatus: 'aprobado' },
     });
 
-    const filteredUsers = approvedUsers.map(user => ({
+    const filteredUsers = approvedUsers.map((user) => ({
+      id: user.id,
       role: user.role,
       fullName: user.fullName,
       rut: user.rut,
     }));
 
-    res.status(200).json({ message: "Usuarios encontrados: ", data: filteredUsers });
+    res
+      .status(200)
+      .json({ message: 'Usuarios encontrados: ', data: filteredUsers });
   } catch (error) {
-    console.error("Error en user.controller.js -> getUsers(): ", error);
-    res.status(500).json({ message: "Error interno del servidor." });
+    console.error('Error en user.controller.js -> getUsers(): ', error);
+    res.status(500).json({ message: 'Error interno del servidor.' });
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* Busca y devuelve un usuario específico según su id (incluyendo grupo familiar en caso de que tenga).
+//* Busca y devuelve un usuario específico según su id 
 export async function getUserById(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
     const { id } = req.params;
-    const user = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
+
+    const user = await userRepository.findOne({
+      where: { id }
+    });
 
     if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado." });
+      return res.status(404).json({ message: 'Usuario no encontrado.' });
     }
 
-      const filteredUser = {
+    const filteredUser = {
+      id: user.id,
       role: user.role,
       fullName: user.fullName,
       rut: user.rut,
@@ -50,98 +55,43 @@ export async function getUserById(req, res) {
       homeAddress: user.homeAddress,
       docIdentity: user.docIdentity,
       docResidence: user.docResidence,
-      familyGroup: user.familyGroup.map((member) => ({
-        fullName: member.fullName,
-        rut: member.rut,
-      })),
     };
 
-    res.status(200).json({ message: "Usuario encontrado: ", data: filteredUser });
+    res
+      .status(200)
+      .json({ message: 'Usuario encontrado: ', data: filteredUser });
   } catch (error) {
-    console.error("Error en user.controller.js -> getUserById(): ", error);
-    res.status(500).json({ message: "Error interno del servidor." });
+    console.error('Error en user.controller.js -> getUserById(): ', error);
+    res.status(500).json({ message: 'Error interno del servidor.' });
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* Busca y devuelve todos los usuarios registrados en la base de datos SEGÚN SU ROL Y/O SEGÚN ESTADO DE SOLICITUD
-export async function getUsersByFilters(req, res) {
-  try {
-    const userRepository = AppDataSource.getRepository(User);
-
-    const { role, requestStatus } = req.query;
-
-    const validRoles = ["administrator", "user"];
-    const validStatuses = ["aprobado", "rechazado", "pendiente"];
-
-    if (role && !validRoles.includes(role)) {
-      return res.status(400).json({ message: "Rol no válido" });
-    }
-
-    if (requestStatus && !validStatuses.includes(requestStatus)) {
-      return res.status(400).json({ message: "Estado de solicitud no válido" });
-    }
-
-    const filters = {};
-    if (role) filters.role = role;
-    if (requestStatus) filters.requestStatus = requestStatus;
-
-    const users = await userRepository.find({
-      where: filters,
-      relations: ["familyGroup"],
-      order: { createdAt: "DESC" }
-    });
-
-    res.status(200).json({ message: "Usuarios filtrados!", data: users });
-  } catch (error) {
-    console.error("Error en user.controller.js -> getUsersByFilters():", error);
-    res.status(500).json({ message: "Error interno del servidor" });
-  }
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* Actualiza un usuario específico según su id.
 export async function updateUserById(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
     const { id } = req.params;
-    const { email, contact, homeAddress } = req.body;
+    const { fullName, email, contact, homeAddress } = req.body;
 
-    const user = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
+    const user = await userRepository.findOne({ where: { id } });
 
     if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado." });
+      return res.status(404).json({ message: 'Usuario no encontrado.' });
     }
 
-    user.email = email || user.email;
-    user.contact = contact || user.contact;
-    user.homeAddress = homeAddress || user.homeAddress;
+    user.fullName = fullName;
+    user.email = email;
+    user.contact = contact;
+    user.homeAddress = homeAddress;
 
     await userRepository.save(user);
 
-   /* if (Array.isArray(familyGroup)) {
-      const familyGroupRepository = AppDataSource.getRepository(FamilyGroup);
-
-      for (const member of familyGroup) {
-        const { id: memberId, firstName, lastName } = member;
-
-        const familyMember = await familyGroupRepository.findOneBy({ id: memberId });
-
-        if (familyMember) {
-          familyMember.firstName = firstName || familyMember.firstName;
-          familyMember.lastName = lastName || familyMember.lastName;
-
-          await familyGroupRepository.save(familyMember);
-        }
-      }
-    } */
-
-    const updateUser = await userRepository.findOne({ where: { id }, relations: ["familyGroup"] });
-
-    res
-      .status(200)
-      .json({ message: "Usuario actualizado exitosamente!", data: updateUser });
+    res.status(200).json({
+      message: 'Usuario actualizado exitosamente!',
+      data: user,
+    });
   } catch (error) {
-    console.error("Error en user.controller.js -> updateUserById(): ", error);
-    res.status(500).json({ message: "Error interno del servidor." });
+    console.error('Error en user.controller.js -> updateUserById(): ', error);
+    res.status(500).json({ message: 'Error interno del servidor.' });
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,65 +103,106 @@ export async function deleteUserById(req, res) {
     const user = await userRepository.findOne({ where: { id } });
 
     if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado." });
+      return res.status(404).json({ message: 'Usuario no encontrado.' });
     }
 
     await userRepository.remove(user);
 
-    res.status(200).json({ message: "Usuario eliminado exitosamente." });
+    res.status(200).json({ message: 'Usuario eliminado exitosamente.' });
   } catch (error) {
-    console.error("Error en user.controller.js -> deleteUserById(): ", error);
-    res.status(500).json({ message: "Error interno del servidor." });
+    console.error('Error en user.controller.js -> deleteUserById(): ', error);
+    res.status(500).json({ message: 'Error interno del servidor.' });
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* Cambia el estado de solicitud del usuario (aprobado, rechazado, pendiente...)
+//* Busca y devuelve todos los usuarios pendientes en la base de datos 
+export async function getPendingUsers(req, res) {
+  try {
+    const userRepository = AppDataSource.getRepository(User);
+
+    const pendingUsers = await userRepository.find({
+      where: { requestStatus: 'pendiente' },
+    });
+
+    console.log('Usuarios pendientes encontrados:', pendingUsers);
+
+    const filteredUsers = pendingUsers.map((user) => ({
+      id: user.id,
+      fullName: user.fullName,
+      rut: user.rut,
+      email: user.email,
+      contact: user.contact,
+      homeAddress: user.homeAddress,
+      docIdentity: user.docIdentity,
+      docResidence: user.docResidence,
+    }));
+
+    res
+      .status(200)
+      .json({ message: 'Usuarios encontrados: ', data: filteredUsers });
+  } catch (error) {
+    console.error('Error en user.controller.js -> getUsers(): ', error);
+    res.status(500).json({ message: 'Error interno del servidor.' });
+  }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//* Actualiza estado de la solicitud
 export async function updateRequestStatus(req, res) {
   try {
     const userRepository = AppDataSource.getRepository(User);
     const { id } = req.params;
     const { requestStatus } = req.body;
 
-    const allowedStatus = ["aprobado", "rechazado"];
+    const allowedStatus = ['aprobado', 'rechazado'];
     if (!allowedStatus.includes(requestStatus)) {
-      return res.status(400).json({ message: "Estado inválido! Debe ser: aprobado, rechazado" });
+      return res
+        .status(400)
+        .json({ message: 'Estado inválido! Debe ser: aprobado, rechazado' });
     }
 
     const user = await userRepository.findOne({ where: { id } });
     if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado." });
+      return res.status(404).json({ message: 'Usuario no encontrado.' });
     }
 
-    if (user.requestStatus !== "pendiente") {
-      return res.status(400).json({ message: `La solicitud ya fue procesada (${user.requestStatus}).` });
+    if (user.requestStatus !== 'pendiente') {
+      return res.status(400).json({
+        message: `La solicitud ya fue procesada (${user.requestStatus}).`,
+      });
     }
 
     user.requestStatus = requestStatus;
     await userRepository.save(user);
 
-    //* CORREO AUTOMATIZADO
+    //* NODEMAILER
     const subject =
-      requestStatus === "aprobado"
-        ? "¡Tu solicitud fue aprobada!"
-        : "Tu solicitud fue rechazada";
+      requestStatus === 'aprobado'
+        ? '¡Tu solicitud fue aprobada!'
+        : 'Tu solicitud fue rechazada';
 
     const message =
-      requestStatus === "aprobado"
-        ? `Hola ${user.firstName}, tu solicitud ha sido aprobada. Ya puedes ingresar al sistema.`
-        : `Hola ${user.firstName}, lamentamos informarte que tu solicitud fue rechazada.`;
+      requestStatus === 'aprobado'
+        ? `Hola ${user.fullName}, tu solicitud de registro ha sido aprobada. Ya puedes ingresar al sistema.`
+        : `Hola ${user.fullName}, lamentamos informarte que tu solicitud de registro fue rechazada.`;
+
+    if (requestStatus === 'rechazado') {
+      await userRepository.remove(user);
+    }
 
     await sendEmail(user.email, subject, message, `<p>${message}</p>`);
 
-    res.status(200).json({ message: `Solicitud actualizada a: ${requestStatus}`, data: user });
+    res.status(200).json({
+      message: `Solicitud actualizada a: ${requestStatus}`,
+      data: user,
+    });
   } catch (error) {
-    console.error("Error en user.controller.js -> updateRequestStatus(): ", error);
-    res.status(500).json({ message: "Error interno del servidor." });
+    console.error(
+      'Error en user.controller.js -> updateRequestStatus(): ',
+      error
+    );
+    res.status(500).json({ message: 'Error interno del servidor.' });
   }
 }
-
-
-
-
 
 
 
