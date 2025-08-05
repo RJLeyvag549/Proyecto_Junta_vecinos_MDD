@@ -8,6 +8,7 @@ import iconoEliminar from '../assets/eliminar.png';
 import iconoEditar from '../assets/editar.png';
 import Calendario from '../components/Calendario.jsx';
 import 'react-calendar/dist/Calendar.css';
+import iconoAnadir from '../assets/anadir.png';
 
 
 const Foro = () => {
