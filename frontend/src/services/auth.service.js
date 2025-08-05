@@ -26,6 +26,7 @@ export async function register(data) {
   formData.append("docIdentity", data.docIdentity);
   formData.append("docResidence", data.docResidence);
 
+  //Si puedo borrar esto
   const response = await axios.post("http://localhost:3000/api/auth/register", formData, {
     headers: {
       "Content-Type": "multipart/form-data",

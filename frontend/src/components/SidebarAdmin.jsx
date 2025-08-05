@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaUsers, FaCalendarAlt, FaComments, FaUserCheck, FaClipboardList, FaFileAlt, FaMoneyCheckAlt, FaFileInvoiceDollar, FaUniversity, FaBox, FaChartBar, FaSearch } from 'react-icons/fa';
+import { FaUsers, 
+  FaComments, 
+  FaClipboardList, 
+  FaMoneyCheckAlt,
+  FaVoteYea
+} from 'react-icons/fa';
 import '../styles/SidebarAdmin.css';
+import '../styles/SidebarUsuario.css'
 
 const SidebarAdmin = ({ isOpen }) => {
   const [openSection, setOpenSection] = useState(null);
@@ -72,6 +78,19 @@ const SidebarAdmin = ({ isOpen }) => {
           </div>
         </div>
       </div>
+      
+      {/* Participación Comunitaria */}
+            <div className="sidebar-admin__section">
+              <div className="sidebar-admin__section-title" onClick={() => toggleSection("participacion")}>
+                <div className="sidebar-admin__icon-circle"><FaVoteYea /></div>
+                <span>Participación<br /> Comunitaria</span>
+              </div>
+              <div className={`sidebar-admin__sub-links-wrapper ${openSection === "participacion" ? "open" : ""}`}>
+                <div className="sidebar-admin__sub-links">
+                  <NavLink to="/votaciones">Votaciones vecinales</NavLink>
+                </div>
+              </div>
+            </div>
     </aside>
   );
 };

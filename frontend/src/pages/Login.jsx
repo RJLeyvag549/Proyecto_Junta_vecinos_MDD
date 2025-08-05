@@ -3,6 +3,7 @@ import { login } from '../services/auth.service.js';
 import Form from '../components/Formulario.jsx';
 import LoginIcon from "../components/LoginIcon.jsx";
 
+//Puedo borrar esto tambien
 const Login = () => {
   const navigate = useNavigate();
 
@@ -10,15 +11,17 @@ const Login = () => {
     try {
       const res = await login(data);
 
-    if (res?.accessToken) {
-      sessionStorage.setItem("user", JSON.stringify({
-        token: res.accessToken,
-        data: res.user,
-    }));
-    navigate('/home');
-    } else {
-      alert("Credenciales incorrectas.");
-  }
+      // ✅ Guarda usuario en sesión
+    if (res?.token) {
+  sessionStorage.setItem("user", JSON.stringify({
+    token: res.token,
+    data: res.user, // 👈 así queda: user.data.role
+  }));
+
+  navigate("/home"); // ✅ Dispara redirección que activa HomeRedirect
+      } else {
+        alert("Credenciales incorrectas.");
+      }
 
     } catch (error) {
       console.error("Error en login:", error);

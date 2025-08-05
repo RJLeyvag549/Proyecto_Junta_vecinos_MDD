@@ -1,5 +1,5 @@
 .fondo-voto {
-  background: url('/voto-fondo.png') center center / cover no-repeat fixed;
+  background: url('login.webp') center center / cover no-repeat fixed;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -16,6 +16,7 @@
 }
 
 .voto-content {
+  position: relative;
   flex: 1;
   display: flex;
   justify-content: center;
@@ -120,25 +121,142 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.2)
 }
 
-/*
-.boton-volver {
-  position: absolute;
-  top: 30px;
-  left: 280px; 
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #445528;
-  color: white;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: background-color 0.3s ease;
-  z-index: 10;
+.voto-opcion.selected {
+  background-color: #cde6a3;
+  border-color: #7fa73e;
+  color: #243504;
+  box-shadow: 0 0 0 3px rgba(127, 167, 62, 0.3);
+  transform: scale(1.03);
 }
 
-.boton-volver:hover {
-  background-color: #6f8e4e;
+.boton-volver-wrapper {
+  position: absolute;
+  bottom: 700px;
+  left: 550px;
+  z-index: 20;
 }
-*/
+
+
+.voto-content .boton-volver {
+  background-color: #445528;
+  color: #cde6a3;
+  /* Eliminamos el borde */
+  border: none;
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.voto-content .boton-volver:hover {
+  background-color: #6f8e4e;
+  transform: scale(1.12); /* Sutil agrandado sin rotación */
+}
+
+.voto-content .boton-volver svg {
+  color: inherit;
+}
+
+@media (max-width: 1024px) {
+  .voto-body {
+    padding: 1.5rem;
+  }
+
+  .voto-card {
+    padding: 2rem;
+    max-width: 90%;
+  }
+
+  .voto-titulo {
+    font-size: 1.6rem;
+  }
+
+  .voto-descripcion {
+    font-size: 1rem;
+  }
+
+  .voto-fecha {
+    font-size: 0.85rem;
+  }
+
+  .voto-opcion {
+    font-size: 1rem;
+    padding: 0.9rem 1.3rem;
+  }
+
+  .voto-boton {
+    font-size: 1rem;
+    padding: 0.9rem 1.6rem;
+  }
+
+  .boton-volver-wrapper {
+    bottom: 650px;
+    left: 30px;
+  }
+
+  .voto-content .boton-volver {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .voto-body {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .voto-card {
+    padding: 1.5rem;
+    max-width: 95%;
+  }
+
+  .voto-titulo {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .voto-descripcion {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  .voto-opciones {
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .voto-opcion {
+    font-size: 0.95rem;
+    padding: 0.8rem 1.2rem;
+  }
+
+  .voto-boton {
+    font-size: 0.95rem;
+    padding: 0.8rem 1.4rem;
+    width: 100%;
+  }
+
+  .boton-volver-wrapper {
+    position: static;
+    margin-bottom: 1rem;
+    align-self: flex-start;
+  }
+
+  .voto-content {
+    flex-direction: column;
+  }
+
+  .voto-content .boton-volver {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+}
+

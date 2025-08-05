@@ -12,9 +12,10 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-// Interceptor para agregar el token a cada request
+// Lo puedo borrar
 instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  const token = user?.token;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

@@ -1,0 +1,395 @@
+/* Estética general */
+body {
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+}
+
+button, .btn-votar, .btn-detalle, .boton-toggle-admin {
+  font-family: "Nunito", sans-serif;
+}
+
+/* Contenedor principal del layout */
+.votacion-layout-admin {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenedor principal */
+.votaciones-container-admin {
+  padding-top: 120px;
+  padding-left: 250px;
+  min-height: 100vh;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boton-volver-admin {
+  background-color: white;
+  color: #355e3b;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.boton-volver-admin:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.1);
+}
+
+/* Banner superior */
+.votaciones-banner-admin {
+  background: linear-gradient(135deg, #355e3b, #7ba05b);
+  color: white;
+  padding: 40px 40px;
+  font-size: 2.5rem;
+  font-weight: 900;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-right: 0px;
+  width: 80%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.boton-toggle-admin {
+  background-color: #4e944f;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 14px 28px;
+  margin-left: auto;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+.boton-toggle-admin:hover {
+  background-color: #388e3c;
+  transform: translateY(-3px) scale(1.05);
+}
+
+.boton-toggle-admin:active {
+  background-color: #2e7d32; /* un verde más oscuro al presionar */
+  transform: scale(0.95);   /* opcional: pequeña reducción para efecto de clic */
+}
+
+/* Botón flotante para crear votación */
+.boton-crear-flotante {
+  background-color: #4e944f;
+  color: white;
+  font-size: 2rem;
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  margin-left: 100px; 
+}
+
+
+.boton-crear-flotante:hover {
+  background-color: #388e3c;
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Grid de tarjetas */
+.votaciones-cards-grid-admin {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* tarjetas más anchas */
+  gap: 2rem;
+  width: 80%;
+  margin-top: 20px;
+  margin-right: 0px;
+  max-width: 1600px; 
+  padding: 40px 60px 100px;
+  justify-content: center;
+}
+
+/* Tarjetas */
+.votaciones-card-admin {
+  background: #e9f5db;
+  border-radius: 20px;
+  padding: 2rem;
+  min-height: 290px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  backdrop-filter: blur(6px);
+  transition: transform 0.3s ease;
+  height: auto;
+  font-size: 1.1rem;
+  position: relative;
+}
+
+.votaciones-card-admin:hover {
+  transform: scale(1.04);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+
+/* Título */
+.votaciones-card-admin h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  padding-right: 60px;
+}
+
+/* Descripciones */
+.votaciones-card-admin p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Botones superiores */
+.botones-superiores-admin {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+  z-index: 10; 
+}
+
+/* Botones eliminar y editar */
+.votaciones-card-admin .btn-editar,
+.votaciones-card-admin .btn-eliminar {
+  padding: 6px;
+  border-radius: 50%;
+  border: none;
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Animación al pasar el mouse */
+.votaciones-card-admin .btn-editar:hover,
+.votaciones-card-admin .btn-eliminar:hover {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+/* Animación al hacer clic */
+.votaciones-card-admin .btn-editar:active,
+.votaciones-card-admin .btn-eliminar:active {
+  transform: scale(0.95);
+}
+
+/* Botones inferiores */
+.botones-acciones {
+  display: flex;
+  justify-content: center;
+  gap: 10px; 
+  margin-top: auto;
+}
+
+/* Botón VOTAR */
+.votaciones-card-admin .btn-votar {
+  background: #4e944f;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.votaciones-card-admin .btn-votar:hover {
+  background: #6f8e4e;
+  transform: scale(1.05);
+}
+
+/* Botón DETALLE */
+.votaciones-card-admin .btn-detalle {
+  background-color: #71adcc;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.votaciones-card-admin .btn-detalle:hover {
+  background-color: #1985b7;
+  transform: scale(1.05);
+}
+
+/* Botón editar */
+.votaciones-card-admin .btn-editar {
+  background-color: #e4b56a;
+}
+
+.votaciones-card-admin .btn-editar:hover {
+  background-color: #ffaf38;
+}
+
+/* Botón eliminar */
+.votaciones-card-admin .btn-eliminar {
+  background-color: #ee6d6b;
+}
+
+.votaciones-card-admin .btn-eliminar:hover {
+  background-color: #ff4f4f;
+}
+
+@media (max-width: 1024px) {
+  .votaciones-banner-admin {
+    font-size: 2rem;
+    padding: 30px 20px;
+    width: 90%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .boton-volver-admin {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+    margin-right: 12px;
+  }
+
+  .boton-toggle-admin {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+
+  .votaciones-cards-grid-admin {
+    width: 90%;
+    padding: 30px 40px 80px;
+    gap: 1.5rem;
+  }
+
+  .votaciones-card-admin h3 {
+    font-size: 1.3rem;
+    padding-right: 30px;
+  }
+
+  .votaciones-card-admin {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .botones-superiores-admin {
+    top: 8px;
+    right: 8px;
+    gap: 6px;
+  }
+
+  .votaciones-card-admin .btn-editar,
+  .votaciones-card-admin .btn-eliminar {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+
+  .botones-acciones {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .votaciones-banner-admin {
+    font-size: 1.6rem;
+    padding: 20px 15px;
+    width: 95%;
+    text-align: center;
+    align-items: center;
+  }
+
+  .boton-volver-admin {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+    margin-right: 10px;
+  }
+
+  .boton-toggle-admin {
+    width: 100%;
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+
+  .votaciones-cards-grid-admin {
+    grid-template-columns: 1fr;
+    padding: 20px 15px 60px;
+    gap: 1.2rem;
+    width: 100%;
+  }
+
+  .votaciones-card-admin {
+    padding: 1.2rem;
+    min-height: auto;
+  }
+
+  .votaciones-card-admin h3 {
+    font-size: 1.2rem;
+  }
+
+  .votaciones-card-admin p {
+    font-size: 0.85rem;
+  }
+
+  .botones-superiores-admin {
+    top: 5px;
+    right: 5px;
+  }
+
+  .votaciones-card-admin .btn-editar,
+  .votaciones-card-admin .btn-eliminar {
+    width: 26px;
+    height: 26px;
+    font-size: 0.8rem;
+  }
+
+  .botones-acciones {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .votaciones-card-admin .btn-votar,
+  .votaciones-card-admin .btn-detalle {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .boton-crear-flotante {
+    width: 60px;
+    height: 60px;
+    font-size: 1.6rem;
+    margin-left: 20px;
+  }
+}

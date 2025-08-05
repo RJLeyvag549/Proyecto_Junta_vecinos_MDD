@@ -15,6 +15,12 @@ import Profile from "./pages/Profile";
 import EditUser from "./pages/EditUser";
 import Users from "./pages/Users";
 
+import Voto from './pages/Voto';
+import VotacionRouter from './pages/VotacionRouter';
+import DetalleVotacion from "./pages/DetalleVotacion";
+import CrearVotacion from './pages/CrearVotacion';
+import EditarVotacion from "./pages/EditarVotacion";
+
 const AppRouter = () => {
   return (
     <Routes>
@@ -99,16 +105,43 @@ const AppRouter = () => {
         path="/votaciones" 
         element={
           <ProtectedRoute>
-            <Votacion />
+            <VotacionRouter />
           </ProtectedRoute>
         } 
       />
 
       <Route 
-        path="/votacion/:id" 
+        path="/votaciones/:id" 
         element={
           <ProtectedRoute>
             <Voto />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route 
+        path="/votaciones/:id/detalle" 
+        element={
+          <ProtectedRoute allowedRoles={["administrator"]}>
+          <DetalleVotacion />
+          </ProtectedRoute>
+        } 
+      />
+
+      <Route 
+        path="/crear-votacion" 
+        element={
+          <ProtectedRoute allowedRoles={["administrator"]}>
+          <CrearVotacion />
+          </ProtectedRoute>
+        } 
+      />
+
+      <Route 
+        path="/votaciones/:id/editar" 
+        element={
+          <ProtectedRoute allowedRoles={["administrator"]}>
+          <EditarVotacion />
           </ProtectedRoute>
         }
       />
