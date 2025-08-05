@@ -17,6 +17,12 @@ import FinancialCharts from "./pages/FinancialCharts";
 import MeetingPage from './pages/MeetingPage';
 import ActPage from './pages/ActPage';
 
+import Voto from './pages/Voto';
+import VotacionRouter from './pages/VotacionRouter';
+import DetalleVotacion from "./pages/DetalleVotacion";
+import CrearVotacion from './pages/CrearVotacion';
+import EditarVotacion from "./pages/EditarVotacion";
+
 const AppRouter = () => {
   return (
     <Routes>
@@ -143,6 +149,51 @@ const AppRouter = () => {
         }
       />
 
+
+      <Route 
+        path="/votaciones" 
+        element={
+          <ProtectedRoute>
+            <VotacionRouter />
+          </ProtectedRoute>
+        } 
+      />
+
+      <Route 
+        path="/votaciones/:id" 
+        element={
+          <ProtectedRoute>
+            <Voto />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route 
+        path="/votaciones/:id/detalle" 
+        element={
+          <ProtectedRoute allowedRoles={["administrator"]}>
+          <DetalleVotacion />
+          </ProtectedRoute>
+        } 
+      />
+
+      <Route 
+        path="/crear-votacion" 
+        element={
+          <ProtectedRoute allowedRoles={["administrator"]}>
+          <CrearVotacion />
+          </ProtectedRoute>
+        } 
+      />
+
+      <Route 
+        path="/votaciones/:id/editar" 
+        element={
+          <ProtectedRoute allowedRoles={["administrator"]}>
+          <EditarVotacion />
+          </ProtectedRoute>
+        }
+      />
 
       {/* Error 404 */}
       <Route path="*" element={<Error404 />} />

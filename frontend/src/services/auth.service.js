@@ -8,7 +8,7 @@ export async function login(data) {
   if (response.status === 200) {
     const user = {
       token: response.data.token,
-      data: response.data.user // aquí viene el role
+      data: response.data.user 
     };
     sessionStorage.setItem('user', JSON.stringify(user));
   }

@@ -35,8 +35,8 @@ async function setupServer() {
 
   app.use(morgan("dev"));
 
-  app.use("/api", indexRoutes);
 
+  app.use("/api", indexRoutes);
   
 
   // Enciende el servidor
