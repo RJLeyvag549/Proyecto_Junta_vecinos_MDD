@@ -20,6 +20,29 @@ html, body {
   position: relative;
 }
 
+.btn-flotante-crear {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1500;
+  background-color: #2f570a;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-flotante-crear:hover {
+  background-color: #3f6d12;
+}
+
+.btn-flotante-crear img {
+  width: 40px;
+  height: 40px;
+}
+
 .foro-container > * {
   position: relative;
   z-index: 1;
