@@ -1,5 +1,4 @@
 //* ESTE ARCHIVO CREA EL CERTIFICADO DE RESIDENCIA
-
 //* DEPENDENCIA PDF KIT: $ npm i pdfkit
 
 "use strict";
@@ -16,7 +15,7 @@ export async function PDFResidenceCertificate(user) {
 
     if (!user) return [null, "Usuario no encontrado."];
 
-    const { firstName, lastName, rut, homeAddress } = user;
+    const { fullName, rut, homeAddress } = user;
 
     const currentDate = new Date();
     const months = [ 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre' ];
@@ -49,7 +48,7 @@ const doc = new PDFDocument({
 
       //* CUERPO
       doc.fontSize(14).text(
-        'La Junta de Vecinos “junta vecinal pro”, Rut 65.062.063-1, Personalidad Jurídica N°618. De la comuna de Concepción,'
+        'La Junta de Vecinos “Junta Vecinal Parque Ecuador", Rut 65.062.063-1, Personalidad Jurídica N°618. De la comuna de Concepción,'
       );
 
       doc.moveDown(1);
@@ -57,7 +56,7 @@ const doc = new PDFDocument({
       doc.text('Certifica que:');
       doc.moveDown(1);
 
-      doc.text(`Señor(a) ${fullName}, RUT ${rut}, mantiene domicilio vigente en ${homeAddress}, Villa putos, comuna de Concepción.`);
+      doc.text(`Señor(a) ${fullName}, RUT ${rut}, mantiene domicilio vigente en ${homeAddress}, Villa los escritores, comuna de Concepción.`);
 
       doc.moveDown(1);
       doc.text(

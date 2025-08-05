@@ -12,7 +12,6 @@ export async function isAdmin(req, res, next) {
 
     const rolUser = userFound.role;
 
-    // Si el rol no es administrador, devolver un error 403
     if (rolUser !== "administrator")
       return res
         .status(403)

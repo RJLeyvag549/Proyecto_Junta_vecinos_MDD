@@ -22,7 +22,7 @@ try {
     homeAddress,
     docIdentity,
     docResidence,
-    requestStatus: "pendiente", //* PORQUE ESTÁ PENDIENTE DE APROBACIÓN
+    requestStatus: "pendiente", 
     });
 
     const savedUser = await userRepository.save(newUser);

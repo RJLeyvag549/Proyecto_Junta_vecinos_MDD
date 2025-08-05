@@ -5,7 +5,6 @@ import authRoutes from "./auth.routes.js"
 import userRoutes from "./user.routes.js";
 import TransactionRoutes from "./transaction.routes.js";
 import InventoryRoutes from "./inventory.routes.js";
-import familyGroupRoutes from "./familyGroup.routes.js";
 import pdfRoutes from "./pdf.routes.js";
 import votacionRoutes from "./voto.routes.js";
 import votoRoutes from "./voto.routes.js";
@@ -21,12 +20,10 @@ const router = Router();
 
 router.use("/auth", authRoutes);
 router.use("/users", userRoutes);
+router.use('/certificate', pdfRoutes);
 
 router.use("/transaction", TransactionRoutes);
 router.use("/inventory", InventoryRoutes);
-
-router.use("/family", familyGroupRoutes);
-router.use("/certificate", pdfRoutes);
 
 router.use("/votacion", votacionRoutes);
 router.use("/voto", votoRoutes);
