@@ -1,0 +1,42 @@
+.residence-container {
+  padding: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.residence-container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.residence-container ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.residence-container li {
+  margin-bottom: 0.5rem;
+}
+
+.residence-container button {
+  padding: 10px 20px;
+  font-weight: bold;
+  background-color: #003366;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pdf-preview {
+  margin-top: 2rem;
+}
+
+.pdf-preview a {
+  display: inline-block;
+  margin-top: 1rem;
+  font-weight: bold;
+}

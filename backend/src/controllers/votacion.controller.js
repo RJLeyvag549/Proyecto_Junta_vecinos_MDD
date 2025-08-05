@@ -54,7 +54,6 @@ export async function getAllVotaciones(req, res){
 export async function getVotacionesDisp(req, res) {
     try {
         const ahora = new Date();
-        console.log("Fecha y hora actual:", ahora.toISOString());
         const votacionRepo = AppDataSource.getRepository(VotacionEntity);
 
         const disponibles = await votacionRepo.find({
@@ -76,6 +75,7 @@ export async function updateVotacionById(req, res){
     try {
         const { error } = votacionUpdateValidation.validate(req.body);
         if (error) {
+            console.error("Error de validación en updateVotacionById:", error.details);
             return res.status(400).json({ message: error.details[0].message });
         }
         const ahora = new Date();
@@ -131,14 +131,6 @@ export async function deleteVotacionById(req, res) {
         if(!votacion) {
             return res.status(404).json({ message: "Votación no encontrada."});
         }
-        /* Verificar si la votación ya está activa (PREGUNTAR SI SE PUEDE BORRAR UNA VOTACIÓN CUANDO SIGUE ACTIVA  (CON TIEMPO)
-        const ahora = new Date();
-        if (votacion.fecha_inicio <= ahora) {
-            return res.status(400).json({ message: "No se puede eliminar una votacion activa o pasada."})
-        }
-        */
-        
-        
         // Eliminar votación
         await votacionRepo.remove(votacion);
 
@@ -149,4 +141,22 @@ export async function deleteVotacionById(req, res) {
         
     }
     
+}
+
+export async function getVotacionById(req, res) {
+  const id = parseInt(req.params.id);
+  try {
+    const votacion = await AppDataSource.getRepository(VotacionEntity).findOne({
+      where: { id },
+    });
+
+    if (!votacion) {
+      return res.status(404).json({ message: 'Votación no encontrada' });
+    }
+
+    return res.json(votacion);
+  } catch (err) {
+    console.error('Error al obtener votación por ID:', err);
+    return res.status(500).json({ message: 'Error interno del servidor' });
+  }
 }
