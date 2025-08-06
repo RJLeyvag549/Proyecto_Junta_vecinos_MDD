@@ -1,68 +1,241 @@
-/* NAVBAR */
 
-
-/* LAYOUT GENERAL */
-.foro-layout {
-  display: flex;
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 9vh;
+  width: 100%;
+  background-color: #718355;
+  z-index: 1000;
 }
 
 
-/* CONTENIDO PRINCIPAL */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 .foro-container {
-  margin-left: 70px; /* espacio para el sidebar */
-  margin-top: 60px;  /* espacio para el navbar */
+  flex: 1; /* toma el espacio disponible */
+  margin: 0; /* eliminamos márgenes externos */
   padding: 2rem;
-  flex: 1;
-  min-height: calc(100vh - 60px);
-  background-image: url('/login.png');
+  min-height: calc(100vh - 9vh); /* ocupa toda la altura menos navbar */
+  background-image: url('/Foro.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-attachment: fixed;
+  position: relative;
 }
+
+.foro-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Capa de color encima de la imagen, pero detrás del contenido */
+.foro-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+
+/* Asegura que el contenido esté por encima del overlay */
+.foro-container > * {
+  position: relative;
+  z-index: 1;
+}
+
 
 /* TITULO */
 .foro-titulo {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  color: #ffffff;
+  top: 5vh;
+  font-size: 5rem;
+  margin-left: 75px;
+  margin-right: auto;
+  margin-bottom: 0.1rem;
+  color:#ffffff;
   text-align: center;
   font-family: 'Poppins';
 }
 
-/* PUBLICACION */
-.publicacion {
-  background: rgba(113, 228, 138, 0.527);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 2px 10px rgba(3, 19, 8, 0.664);
+.fecha-publicacion {
+  text-align: right;
   width: 100%;
   max-width: 1000px;
+  margin-bottom: 0.5rem; /* opcional */
+ 
 }
 
-.cabecera-publicacion {
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
+
+/* CONTENEDOR DE CADA PUBLICACIÓN */
+.publicacion {
+  background: linear-gradient(to right, #034920b7, #267a52af);
+  border-radius: 16px;
+  padding: 1.8rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CONTENEDOR EXTERNO DEL CONTENIDO */
+.contenido-publicacion-externo {
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 12px;
+  border-radius: 14px;
+  margin-top: 1.2rem;
+  width: 98%;
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.1);
+}
+
+.foro-publicaciones {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
+  flex-direction: column;
+  align-items: center; /* centra horizontalmente */
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 820px; /* ajusta el ancho máximo */
 }
 
-.tipo-publicacion {
-  font-size: 0.9rem;
+
+/* CONTENEDOR INTERNO BLANCO DEL TEXTO */
+.contenido-publicacion-interno {
+  background-color: #ffffffee;
+  border-radius: 10px;
+  padding: 1rem 1.4rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #333;
+  font-family: 'Nunito', sans-serif;
+  overflow-wrap: break-word;
+}
+
+
+/* PÁRRAFOS DENTRO DEL CONTENIDO */
+.contenido-publicacion-interno p {
+  margin: 0;
+  padding: 0.2rem 0;
+}
+.titulo-con-tipo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.cabecera-publicacion h2 {
+  background-color: rgba(255, 255, 255, 0.1);
   color: white;
-  background-color: #1e90ff;
-  padding: 2px 8px;
-  border-radius: 5px;
-  text-transform: capitalize;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  margin: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+.cabecera-publicacion h2 {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  margin: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  
+  /* 🔧 claves para evitar desborde */
+  display: block;
+  width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+
+}
+
+
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
+
+/* Etiqueta tipo de publicación */
+.badge-tipo-publicacion {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background-color: #ffffff33;
+  color: #ffffff;
+  margin: 0;
+  white-space: nowrap; /* evita que el badge se corte en varias líneas */
+}
+.badge-educativos {
+  background: linear-gradient(135deg, #c5cae9, #606db8);
+  color: #000000;
+  border: none;
+}
+
+.badge-medioambiente {
+  background: linear-gradient(135deg, #b2dfdb, #3bb345);
+  color: #004d40;
+  border: none;
+}
+
+.badge-bienestar {
+  background: linear-gradient(135deg, #dcedc8, #aed581);
+  color: #33691e;
+  border: none;
+}
+
+.badge-arte {
+  background: linear-gradient(135deg, #f8bbd0, #f48fb1);
+  color: #880e4f;
+  border: none;
+}
+
+.badge-entretenimiento {
+  background: linear-gradient(135deg, #ffe0b2, #e7b66b);
+  color: #e65100;
+  border: none;
+}
+
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
+/* TEXTO FINAL DE LA PUBLICACIÓN (como fecha o autor) */
+.contenido-publicacion {
+  color: #eeeeee;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-top: 0.6rem;
+  font-family: 'Nunito', sans-serif;
+}
+
+.cabecera-publicacion h2 {
+  background-color: #e2e2e23d; /* el color de fondo del cuadro */
+  color: white;              /* color del texto */
+  padding: 0.5rem 1rem;       /* espacio interior */
+  border-radius: 8px;         /* esquinas redondeadas */
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  margin: 0;
+  display: inline-block;     /* para que el fondo se ajuste al texto */
 }
 
 .info-publicacion {
-  font-size: 0.85rem;
-  color: #ccc;
-  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin-top: 1rem;
+  
 }
 
 .acciones-admin {
@@ -72,7 +245,7 @@
 .acciones-admin button {
   margin-right: 10px;
   padding: 5px 10px;
-  background: #ff6347;
+  background: #a0af5a;
   color: white;
   border: none;
   border-radius: 6px;
@@ -82,64 +255,401 @@
 .acciones-admin button:hover {
   background: #cc4d38;
 }
+/*???????????????????????????????????????????????????*/
 
-/* COMENTARIOS */
+/* CONTENEDOR DE COMENTARIOS */
 .comentarios {
-  margin-top: 1.2rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(2px);
 }
 
+/* TÍTULO DE LA SECCIÓN */
+.titulo-comentarios {
+  font-size: 1.6rem;
+  color: #ffffff;
+  font-family: 'Nunito', sans-serif;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #81c784;
+  padding-bottom: 0.2rem;
+  display: inline-block;
+}
+
+/* CADA COMENTARIO */
 .comentario {
-  background: #f1f1f1;
-  padding: 8px 10px;
-  margin-bottom: 5px;
-  border-radius: 6px;
+  background-color: #f3fef5;
+  border-left: 5px solid #4caf50;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
+/* CONTENIDO DENTRO DEL COMENTARIO */
+.contenido-comentario {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* ÁREA DE TEXTO PARA ESCRIBIR UN COMENTARIO */
 .comentario-input {
-  width: 100%;
-  height: 60px;
-  margin-top: 10px;
-  padding: 10px;
-  resize: none;
+  width: 97%;
+  height: 80px;
+  margin-top: 12px;
+  padding: 12px;
+  resize: vertical;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #cce3d0;
+  background-color: #fff;
+  font-size: 1rem;
+  color: #2e7d32;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: border 0.3s ease;
 }
 
+.comentario-input:focus {
+  outline: none;
+  border: 1px solid #81c784;
+  box-shadow: 0 0 6px rgba(129, 199, 132, 0.3);
+}
+
+/* BOTÓN COMENTAR */
 .btn-comentar {
-  margin-top: 5px;
-  background-color: #2e8b57;
+  font-size: 1rem;
+  margin-top: 12px;
+  background-color: #4caf50;
   color: white;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
 .btn-comentar:hover {
-  background-color: #256d45;
+  background-color: #388e3c;
 }
+
 
 /* SIN PUBLICACIONES */
 .sin-publicaciones {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(7, 0, 0, 0.144);
   padding: 2rem;
   border-radius: 12px;
   text-align: center;
+  margin-left:60px ;
   margin-top: 2rem;
-  color: white;
+  color: rgb(255, 255, 255);
+  font-family: 'Nunito', sans-serif;
 }
 
-.btn-crear-publicacion {
-  margin-top: 1rem;
-  padding: 10px 16px;
-  background-color: #3a9c5d;
+.barra-inferior-publicacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin-top: 0.8rem;
   color: white;
+  font-size: 1.1rem;
+  font-family: 'Nunito', sans-serif;
+}
+
+.publicado-por,
+.fecha-publicacion {
+  margin: 0;
+}
+
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
+.btn-icono-editar {
+  background-color: #05524e; /* Verde agua claro */
   border: none;
-  border-radius: 8px;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  margin-left: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-icono-editar img {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease;
+}
+
+.btn-icono-editar:hover {
+  background-color: #26817a; /* más intenso al hover */
+  transform: scale(1.1);
+}
+
+.btn-icono-editar:hover img {
+  transform: scale(1.15);
+}
+
+.contenedor-botones-comentario {
+  display: flex;
+  gap: 10px; /* espacio entre los botones */
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
+.btn-icono-eliminar {
+  background-color: #af3447; /* Rojo claro */
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 8px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-icono-eliminar img {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease;
+}
+
+.btn-icono-eliminar:hover {
+  background-color: #ad2e3b; /* rojo más intenso al hover */
+  transform: scale(1.1);
+}
+
+.btn-icono-eliminar:hover img {
+  transform: scale(1.15);
+}
+
+
+
+/*???????????????????????????????????????????????????*/
+.modal-formulario {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(2px); /* efecto moderno */
+}
+
+.formulario-publicacion {
+  background-color: #f8fff9; /* fondo verde muy claro */
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 480px;
+  box-shadow: 0 8px 20px rgba(0, 128, 0, 0.15);
+  border: 1px solid #d1e7dd;
+  font-family: 'Nunito', sans-serif;
+}
+
+.formulario-publicacion h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #2e7d32;
+  text-align: center;
+  font-weight: 600;
+}
+
+.formulario-publicacion input,
+.formulario-publicacion textarea,
+.formulario-publicacion select {
+  width: 100%;
+  margin: 0.5rem 0 1rem;
+  padding: 0.75rem;
+  border: 1px solid #b2d8b2;
+  border-radius: 6px;
+  background-color: #ffffff;
   font-size: 1rem;
+  color: #2e7d32;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.formulario-publicacion input,
+.formulario-publicacion select {
+  height: 44px; /* altura uniforme */
+  line-height: 1.2;
+}
+
+.formulario-publicacion textarea {
+  min-height: 140px;
+  resize: vertical;
+  overflow-y: auto;
+}
+
+.formulario-publicacion input:focus,
+.formulario-publicacion textarea:focus,
+.formulario-publicacion select:focus {
+  outline: none;
+  border-color: #81c784;
+  box-shadow: 0 0 5px rgba(129, 199, 132, 0.4);
+}
+
+/* Contenedor de botones */
+.botones-formulario {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+/* Botón Publicar / Guardar */
+.btn-crear-publicacion {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 .btn-crear-publicacion:hover {
-  background-color: #287847;
+  background-color: #388e3c;
+}
+
+/* Botón Cancelar */
+.btn-cancelar-publicacion {
+  background-color: transparent;
+  color: #4caf50;
+  border: 2px solid #4caf50;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-cancelar-publicacion:hover {
+  background-color: #e8f5e9;
+  color: #388e3c;
+  border-color: #388e3c;
+}
+
+/* Botón Guardar */
+.btn-crear-publicacion {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-crear-publicacion:hover {
+  background-color: #388e3c;
+}
+
+/* Botón Cancelar */
+.btn-cancelar-publicacion {
+  background-color: transparent;
+  color: #4caf50;
+  border: 2px solid #4caf50;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-cancelar-publicacion:hover {
+  background-color: #e8f5e9;
+  color: #388e3c;
+  border-color: #388e3c;
+}
+
+
+
+
+
+.btn-crear-publicacion {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-flotante-crear {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 50px;
+  margin-left: 650px;
+  display: flex;
+  align-items: center;
+  
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+
+
+.btn-crear-publicacion:hover {
+  background-color: #388e3c;
+
+
+}
+
+.btn-cancelar {
+  background-color: transparent;
+  color: #4caf50;
+  border: 2px solid #4caf50;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-cancelar:hover {
+  background-color: #e8f5e9;
+  color: #388e3c;
+  border-color: #388e3c;
+}
+
+
+
+.texto-comentario {
+  flex: 1;
+  padding-right: 10px; /* para que no se pegue al ícono */
 }

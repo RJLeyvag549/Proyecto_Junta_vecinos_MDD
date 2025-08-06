@@ -3,7 +3,6 @@ import { DATABASE, DB_USERNAME, HOST, PASSWORD } from "./configEnv.js"
 import { UserEntity } from "../entity/user.entity.js"
 import { publicacionesEntity } from "../entity/publicaciones.entity.js"
 import { ComentariosEntity } from "../entity/comentarios.entity.js"
-import FamilyGroup from "../entity/family.group.entity.js"
 import Attendance from "../entity/attendance.entity.js"
 import Funding from "../entity/funding.entity.js"
 import Inventory from "../entity/inventory.entity.js"
@@ -29,7 +28,6 @@ export const AppDataSource = new DataSource({
         UserEntity,
         publicacionesEntity,
         ComentariosEntity,
-        FamilyGroup,
         Attendance,
         Funding,
         Inventory,

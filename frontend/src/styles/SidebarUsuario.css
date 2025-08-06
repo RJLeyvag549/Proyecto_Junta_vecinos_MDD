@@ -1,15 +1,16 @@
 /* ---------- Sidebar Usuario Base ---------- */
 .sidebar-usuario {
   position: fixed;
-  top: 9vh;
+  top: 9vh; /* <-- ESTE ES EL CAMBIO CLAVE */
   left: 0;
   width: 60px;
-  height: 100vh;
+  height: calc(100vh - 9vh); /* ocupa el resto de la pantalla */
   background-color: #718355;
   padding: 20px 10px;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  overflow-y: auto;
   z-index: 1000;
   transition: width 0.3s ease;
 }

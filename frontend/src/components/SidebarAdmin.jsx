@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaUsers, FaCalendarAlt, FaComments, FaUserCheck, FaClipboardList, FaFileAlt, FaMoneyCheckAlt, FaFileInvoiceDollar, FaUniversity, FaBox, FaChartBar, FaSearch } from 'react-icons/fa';
+import {
+  FaUsers,
+  FaComments,
+  FaClipboardList,
+  FaMoneyCheckAlt,
+  FaVoteYea
+} from 'react-icons/fa';
 import '../styles/SidebarAdmin.css';
+import '../styles/SidebarUsuario.css'
 
 const SidebarAdmin = ({ isOpen }) => {
   const [openSection, setOpenSection] = useState(null);
@@ -11,33 +18,55 @@ const SidebarAdmin = ({ isOpen }) => {
   };
 
   return (
-    <aside className={`sidebar-admin ${isOpen ? 'open' : ''}`} onMouseLeave={() => setOpenSection(null)}>
-      
-
+    <aside
+      className={`sidebar-admin ${isOpen ? 'open' : ''}`}
+      onMouseLeave={() => setOpenSection(null)}
+    >
       {/* Comunicación y Participación */}
-      <div className="sidebar-admin__section">
-        <div className="sidebar-admin__section-title" onClick={() => toggleSection("comunicacion")}>
-          <div className="sidebar-admin__icon-circle"><FaComments /></div>
-          <span>Comunicación y<br /> Participación</span>
+      <div className='sidebar-admin__section'>
+        <div
+          className='sidebar-admin__section-title'
+          onClick={() => toggleSection('comunicacion')}
+        >
+          <div className='sidebar-admin__icon-circle'>
+            <FaComments />
+          </div>
+          <span>
+            Comunicación y<br /> Participación
+          </span>
         </div>
-        <div className={`sidebar-admin__sub-links-wrapper ${openSection === "comunicacion" ? "open" : ""}`}>
-          <div className="sidebar-admin__sub-links">
-            <NavLink to="/foro">Foro de Vecinos</NavLink>
-            <NavLink to="/calendario">Calendario</NavLink>
+        <div
+          className={`sidebar-admin__sub-links-wrapper ${openSection === 'comunicacion' ? 'open' : ''
+            }`}
+        >
+          <div className='sidebar-admin__sub-links'>
+            <NavLink to='/foro'>Foro de Vecinos</NavLink>
+            
           </div>
         </div>
       </div>
 
       {/* Padrón de Vecinos */}
-      <div className="sidebar-admin__section">
-        <div className="sidebar-admin__section-title" onClick={() => toggleSection("padron")}>
-          <div className="sidebar-admin__icon-circle"><FaUsers /></div>
-          <span>Padrón de<br /> Vecinos</span>
+      <div className='sidebar-admin__section'>
+        <div
+          className='sidebar-admin__section-title'
+          onClick={() => toggleSection('padron')}
+        >
+          <div className='sidebar-admin__icon-circle'>
+            <FaUsers />
+          </div>
+          <span>
+            Padrón de
+            <br /> Vecinos
+          </span>
         </div>
-        <div className={`sidebar-admin__sub-links-wrapper ${openSection === "padron" ? "open" : ""}`}>
-          <div className="sidebar-admin__sub-links">
-            <NavLink to="/tabla">Tabla de Vecinos</NavLink>
-            <NavLink to="/solicitudes">Solicitudes Pendientes</NavLink>
+        <div
+          className={`sidebar-admin__sub-links-wrapper ${openSection === 'padron' ? 'open' : ''
+            }`}
+        >
+          <div className='sidebar-admin__sub-links'>
+            <NavLink to='/user-list'>Tabla de Vecinos</NavLink>
+            <NavLink to='/requests'>Solicitudes Pendientes</NavLink>
           </div>
         </div>
       </div>
@@ -55,6 +84,7 @@ const SidebarAdmin = ({ isOpen }) => {
           </div>
         </div>
       </div>
+
       {/* Gestión de Finanzas */}
       <div className="sidebar-admin__section">
         <div className="sidebar-admin__section-title" onClick={() => toggleSection("finanzas")}>
@@ -67,6 +97,19 @@ const SidebarAdmin = ({ isOpen }) => {
             <NavLink to="/inventario">Inventario</NavLink>
             <NavLink to="/fondos">Acreditación a Fondos Públicos</NavLink>
             <NavLink to="/graficos">Gráficos Financieros</NavLink>
+          </div>
+        </div>
+      </div>
+
+      {/* Participación Comunitaria */}
+      <div className="sidebar-admin__section">
+        <div className="sidebar-admin__section-title" onClick={() => toggleSection("participacion")}>
+          <div className="sidebar-admin__icon-circle"><FaVoteYea /></div>
+          <span>Participación<br /> Comunitaria</span>
+        </div>
+        <div className={`sidebar-admin__sub-links-wrapper ${openSection === "participacion" ? "open" : ""}`}>
+          <div className="sidebar-admin__sub-links">
+            <NavLink to="/votaciones">Votaciones vecinales</NavLink>
           </div>
         </div>
       </div>

@@ -9,7 +9,12 @@ export default defineConfig({
       '/auth': {
         target: 'http://localhost:3000/api',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/auth/, '/auth'), // mantiene la ruta
+        rewrite: (path) => path.replace(/^\/auth/, '/auth'),
+      },
+      '/users': {
+        target: 'http://localhost:3000/api',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/users/, '/users'),
       },
     },
   },

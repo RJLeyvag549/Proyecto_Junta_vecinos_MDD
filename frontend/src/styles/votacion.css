@@ -1,0 +1,220 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+  background: transparent; /* importante */
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: url('login.png') center center / cover no-repeat;
+}
+
+.votaciones-container {
+  padding-top: 130px;
+  min-height: 100vh;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boton-volver {
+  background-color: white;
+  color: #355e3b;
+  position:absolute;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 60px;
+  top: 50px;
+  z-index: 1;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.votaciones-titulo {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+
+.boton-volver:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.1);
+}
+
+.votaciones-banner {
+  background: linear-gradient(135deg, #355e3b, #7ba05b);
+  color: white;
+  padding: 40px 40px;
+  font-size: 2.5rem;
+  font-weight: 900;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.votaciones-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* tarjetas más anchas */
+  gap: 1.2rem;
+  width: 80%;
+  margin-top: 20px;
+  max-width: 1600px; 
+  padding: 40px 60px;
+  justify-content: center;
+}
+
+.votaciones-card {
+  background: #e9f5db;
+  border-radius: 20px;
+  padding: 1.5rem;
+  min-height: 200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(6px);
+  transition: transform 0.3s ease;
+  height: auto;
+  font-size: 1.1rem;
+  position: relative;
+}
+
+.votaciones-card:hover {
+  transform: scale(1.04);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+
+/* Título */
+.votaciones-card-admin h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding-right: 60px;
+}
+
+/* Descripciones */
+.votaciones-card-admin p {
+  font-size: 0.9rem;
+}
+
+.fechas-container {
+  margin: 0.2em 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.votaciones-card p,
+.fechas-container p,
+.fechas-container span {
+  margin: 0.3em 0;
+  line-height: 1.4;
+}
+
+
+.votaciones-card button {
+  background: #445528;
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 999px;
+  margin: 20px auto 0; 
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s ease; 
+  display: block; 
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.votaciones-card button:hover {
+  background: #6f8e4e;
+  transform: scale(1.1) rotate(-2deg);
+}
+
+.mensaje-no-votaciones {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #333;
+  padding: 40px 20px;
+  background-color: #fff7f0;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+}
+
+@media (max-width: 1024px) {
+  .votaciones-container {
+    width: 90%;
+    padding-top: 120px;
+  }
+
+  .votaciones-cards-grid {
+    width: 100%;
+    padding: 40px 60px;
+
+  }
+
+  .votaciones-banner {
+    font-size: 2rem;
+    padding: 30px 20px;
+  }
+
+  .boton-volver {
+    left: 20px;
+    top: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .votaciones-banner {
+    font-size: 1.7rem;
+    flex-direction: column;
+    padding: 25px 15px;
+  }
+
+  .votaciones-cards-grid {
+    grid-template-columns: 1fr;
+    padding: 20px 15px 60px;
+  }
+
+  .votaciones-container {
+    width: 95%;
+    padding-top: 110px;
+  }
+
+  .boton-volver {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+    top: 30px;
+    left: 15px;
+  }
+
+  .votaciones-titulo {
+    font-size: 2rem;
+  }
+}

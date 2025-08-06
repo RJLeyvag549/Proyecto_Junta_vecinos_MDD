@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import useGetAttendance from "../hooks/meeting/useGetAttendanceByMeetingId";
 import useToggleAttendance from "../hooks/meeting/useToggleAttendance";
+import "../styles/meeting.css";
 
 const ModalAsistencia = ({ meetingId, isOpen, onClose }) => {
   const { attendanceList, fetchAttendance } = useGetAttendance();
@@ -8,18 +9,12 @@ const ModalAsistencia = ({ meetingId, isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
-      console.log("🔍 Modal abierto - Meeting ID:", meetingId);
       fetchAttendance(meetingId);
     }
   }, [isOpen, meetingId, fetchAttendance]);
 
-  useEffect(() => {
-    console.log("📋 Asistencia recibida:", attendanceList);
-  }, [attendanceList]);
-
   const handleToggle = async (userId, currentFirma) => {
     try {
-      console.log(`🟡 Cambiando asistencia del usuario ${userId} a:`, !currentFirma);
       await toggleAttendance(meetingId, userId, !currentFirma);
       fetchAttendance(meetingId);
     } catch (err) {
@@ -32,33 +27,44 @@ const ModalAsistencia = ({ meetingId, isOpen, onClose }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
-        <h3 className="reuniones-title">Asistencia de la Reunión</h3>
-        <div className="formulario-reunion asistencia-lista">
-          {attendanceList.length === 0 ? (
-            <p>No hay usuarios registrados en esta reunión.</p>
-          ) : (
-            <ul className="asistencia-ul">
-              {attendanceList.map((item) => (
-                <li key={item.usuario.id} className="asistencia-item">
-                  <span>{item.usuario.fullName}</span>
-                  <input
-                    type="checkbox"
-                    checked={item.firma}
-                    onChange={() => handleToggle(item.usuario.id, item.firma)}
-                    className="form-checkbox h-5 w-5 text-green-600"
-                  />
-                </li>
+      <div className="modal-asistencia">
+        <h2 className="asistencia-titulo">Lista de Asistencia</h2>
+
+        {attendanceList.length === 0 ? (
+          <p>No hay usuarios registrados en esta reunión.</p>
+        ) : (
+          <table className="asistencia-tabla">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Firmó</th>
+              </tr>
+            </thead>
+            <tbody>
+              {attendanceList.map((item, index) => (
+                <tr key={item.usuario.id}>
+                  <td>{index + 1}</td>
+                  <td>{item.usuario.fullName}</td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={item.firma}
+                      onChange={() => handleToggle(item.usuario.id, item.firma)}
+                    />
+                  </td>
+                </tr>
               ))}
-            </ul>
-          )}
-          <button
-            onClick={onClose}
-            className="meeting-button meeting-create-btn mt-4"
-          >
-            Cerrar
-          </button>
-        </div>
+            </tbody>
+          </table>
+        )}
+
+        <button
+          onClick={onClose}
+          className="meeting-button meeting-create-btn mt-4"
+        >
+          Cerrar
+        </button>
       </div>
     </div>
   );

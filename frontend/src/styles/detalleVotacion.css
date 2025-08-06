@@ -1,0 +1,141 @@
+/* Estilos para DetalleVotacion.jsx */
+
+.detalle-body {
+  font-family: "Nunito", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 50px; 
+
+}
+
+.detalle-votacion-container {
+  padding: 2.5rem 4rem;
+  background-color: #e9f5db;
+  border-radius: 20px;
+  max-width: 1400px;
+  margin: 2rem auto;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  font-family: "Nunito", sans-serif;
+  color: #1f2d1e;
+}
+
+.chart-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #355e3b;
+}
+
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 400px;
+}
+
+.volver-btn {
+  display: block;
+  margin: 2rem auto 0;
+  background-color: #445528;
+  color: white;
+  padding: 0.7rem 1.6rem;
+  border: none;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.volver-btn:hover {
+  background-color: #6f8e4e;
+  transform: scale(1.05);
+}
+
+.no-datos,
+.error {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #444;
+  margin: 2rem 0;
+}
+
+.votacion-info-card {
+  background-color: #f7feee;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.votacion-info-card h2 {
+  margin-bottom: 1rem;
+  font-size: 1.7rem;
+  color: #355e3b;
+}
+
+.votacion-info-card p {
+  margin: 0.4em 0;
+  font-size: 1rem;
+  color: #1f2d1e;
+}
+
+@media (max-width: 768px) {
+  .detalle-votacion-container {
+    padding: 1.5rem 1.2rem;
+    margin: 1rem;
+    border-radius: 16px;
+  }
+
+  .chart-title {
+    font-size: 1.5rem;
+  }
+
+  .chart-wrapper {
+    height: 300px;
+  }
+
+  .volver-btn {
+    font-size: 1rem;
+    padding: 0.6rem 1.3rem;
+  }
+
+  .votacion-info-card {
+    padding: 16px;
+  }
+
+  .votacion-info-card h2 {
+    font-size: 1.4rem;
+  }
+
+  .votacion-info-card p {
+    font-size: 0.95rem;
+  }
+
+  .no-datos,
+  .error {
+    font-size: 1rem;
+    margin: 1.5rem 0;
+  }
+}
+
+.opciones-list {
+  list-style-type: disc;     
+  padding-left: 1.5rem;      
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  display: block;           
+}
+
+.opciones-list li {
+  display: list-item !important;  
+  margin-bottom: 0.4rem;          
+  font-size: 1rem;
+  color: #1f2d1e;
+}

@@ -1,0 +1,268 @@
+/* Layout principal para editar */
+.editar-body {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  padding-top: 150px;
+}
+
+/* Contenedor del formulario */
+.editar-votacion-container {
+  flex: 1;
+  padding: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #f7feee;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  font-family: "Nunito", sans-serif;
+  color: #1f2d1e;
+  position: relative;
+}
+
+/* Banner superior */
+.editar-banner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #cdeac0;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.editar-banner h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #355e3b;
+}
+
+/* Formulario */
+.editar-votacion-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Inputs y textarea */
+.editar-votacion-form input[type="text"],
+.editar-votacion-form input[type="date"],
+.editar-votacion-form input[type="time"],
+.editar-votacion-form textarea {
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: "Nunito", sans-serif;
+  background-color: #ffffff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.editar-votacion-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* Etiquetas */
+.editar-votacion-form label {
+  font-weight: bold;
+  font-size: 0.95rem;
+  margin-bottom: 2px; 
+}
+
+/* Botón de enviar */
+.btn-actualizar-votacion {
+  padding: 12px 0;
+  background-color: #445528;
+  color: white;
+  font-size: 1.05rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-actualizar-votacion:hover {
+  background-color: #6f8e4e;
+  transform: scale(1.03);
+}
+
+.opcion-item-editar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 12px;  
+}
+
+
+.texto-opcion-editar {
+  display: block;
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 0.95rem;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.btn-quitar-opcion-editar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #cc5e52; /* tono verde para empezar */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 0.6rem;
+  
+  transition: background-color 0.35s ease, transform 0.2s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+
+.btn-quitar-opcion-editar:hover {
+  background-color: #e57373;
+  transform: scale(1.1);
+}
+
+/* Nueva opción input y botón */
+.nueva-opcion-editar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nueva-opcion-editar input {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+}
+
+.btn-agregar-opcion-editar {
+  background-color: #7fc241;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.btn-agregar-opcion-editar:hover {
+  background-color: #6aa532;
+}
+
+
+
+/* Mensajes */
+.mensaje-error,
+.mensaje-exito {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.mensaje-error {
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  color: #d32f2f;
+}
+
+.mensaje-exito {
+  background-color: #e6f4ea;
+  border: 1px solid #a5d6a7;
+  color: #2e7d32;
+}
+
+.btn-volver {
+  position: relative;
+  margin-right: 1rem;
+  background-color: #6f8e4e;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-volver:hover {
+  background-color: #55733b;
+  transform: translateX(-5px);
+}
+
+@media (max-width: 768px) {
+  .editar-body {
+    flex-direction: column;
+    padding-top: 100px;
+  }
+
+  .editar-votacion-container {
+    padding: 24px;
+    width: 90%;
+  }
+
+  .editar-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .editar-banner h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn-volver {
+    margin-bottom: 1rem;
+  }
+
+  .nueva-opcion-editar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-agregar-opcion-editar {
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  .opcion-item-editar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-quitar-opcion-editar {
+    margin-left: 0;
+    margin-top: 0.5rem;
+    width: 100%;
+    border-radius: 12px;
+  }
+}
