@@ -37,6 +37,8 @@ const Foro = () => {
   const [comentarioEditandoId, setComentarioEditandoId] = useState(null);
   const [comentarioEditado, setComentarioEditado] = useState('');
 
+  
+
 
   const comenzarEdicion = (publicacion) => {
     setEditandoId(publicacion._id || publicacion.id_publicacion);
@@ -352,74 +354,76 @@ const guardarEdicionComentario = async (idComentario, idPublicacion) => {
                       <h4 className="titulo-comentarios">Comentarios:</h4>
 
                     {(comentarios[pub.id_publicacion] || []).map((comentario) => {
-                      const esPropio = comentario.user?.id_usuario === user?.data?.id_usuario;
-                      const estaEditando = comentarioEditandoId === comentario.id_comentario;
+  const esPropio = comentario.user?.id === user?.data?.id;
 
-                      return (
-                        <div key={comentario.id_comentario} className="comentario">
-                          <div className="contenido-comentario">
-                            <div className="texto-comentario">
-                              <strong>{comentario.user?.fullName || 'Anónimo'}</strong>:
-                              {estaEditando ? (
-                                <>
-                                  <textarea
-                                    value={comentarioEditado}
-                                    onChange={(e) => setComentarioEditado(e.target.value)}
-                                    className="comentario-input"
-                                  />
-                                  <button
-                                    className="btn-comentar"
-                                    onClick={() =>
-                                      guardarEdicionComentario(comentario.id_comentario, pub.id_publicacion)
-                                    }
-                                  >
-                                    Guardar
-                                  </button>
-                                  <button
-                                    className="btn-cancelar-publicacion"
-                                    onClick={() => setComentarioEditandoId(null)}
-                                  >
-                                    Cancelar
-                                  </button>
-                                </>
-                              ) : (
-                                <>
-                                  {' '}{comentario.contenido}
-                                  <br />
-                                  <small>{new Date(comentario.fecha_comentario).toLocaleDateString()}</small>
-                                </>
-                              )}
-                            </div>
 
-                            {/* CONTENEDOR DE BOTONES */}
-                            <div className="contenedor-botones-comentario">
-                              {/* Botón de editar SOLO si es su propio comentario */}
-                              {esPropio && !estaEditando && (
-                                <button
-                                  className="btn-icono-editar"
-                                  title="Editar"
-                                  onClick={() => iniciarEdicionComentario(comentario)}
-                                >
-                                  <img src={iconoEditar} alt="Editar" />
-                                </button>
-                              )}
+  const estaEditando = comentarioEditandoId === comentario.id_comentario;
 
-                              {/* Botón de eliminar SOLO si es admin */}
-                              {role === 'administrator' && (
-                                <button
-                                  onClick={() =>
-                                    eliminarComentario(comentario.id_comentario, pub.id_publicacion)
-                                  }
-                                  className="btn-icono-eliminar"
-                                  title="Eliminar"
-                                >
-                                  <img src={iconoEliminar} alt="Eliminar" />
-                                </button>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      );
+  return (
+    <div key={comentario.id_comentario} className="comentario">
+      <div className="contenido-comentario">
+        <div className="texto-comentario">
+          <strong>{comentario.user?.fullName || 'Anónimo'}</strong>:
+          {estaEditando ? (
+            <>
+              <textarea
+                value={comentarioEditado}
+                onChange={(e) => setComentarioEditado(e.target.value)}
+                className="comentario-input"
+              />
+              <button
+                className="btn-comentar"
+                onClick={() =>
+                  guardarEdicionComentario(comentario.id_comentario, pub.id_publicacion)
+                }
+              >
+                Guardar
+              </button>
+              <button
+                className="btn-cancelar-publicacion"
+                onClick={() => setComentarioEditandoId(null)}
+              >
+                Cancelar
+              </button>
+            </>
+          ) : (
+            <>
+              {' '}{comentario.contenido}
+              <br />
+              <small>{new Date(comentario.fecha_comentario).toLocaleDateString()}</small>
+            </>
+          )}
+        </div>
+
+        {/* CONTENEDOR DE BOTONES */}
+        <div className="contenedor-botones-comentario">
+          {/* Botón de editar SOLO si es su propio comentario */}
+          {(esPropio || role === 'administrator') && !estaEditando && (
+            <button
+              className="btn-icono-editar"
+              title="Editar"
+              onClick={() => iniciarEdicionComentario(comentario)}
+            >
+              <img src={iconoEditar} alt="Editar" />
+            </button>
+          )}
+
+          {/* Botón de eliminar SOLO si es admin */}
+          {role === 'administrator' && (
+            <button
+              onClick={() =>
+                eliminarComentario(comentario.id_comentario, pub.id_publicacion)
+              }
+              className="btn-icono-eliminar"
+              title="Eliminar"
+            >
+              <img src={iconoEliminar} alt="Eliminar" />
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 })}
                         <textarea
                           placeholder="Escribe un comentario..."

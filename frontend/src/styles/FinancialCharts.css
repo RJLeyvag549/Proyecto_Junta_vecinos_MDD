@@ -14,6 +14,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
+  background-color: white; 
 }
 
 .charts-header {
