@@ -282,7 +282,7 @@ const guardarEdicionComentario = async (idComentario, idPublicacion) => {
 
           <main className="foro-container">
             
-            <h1 className="foro-titulo">🏘️ Foro Comunitario </h1>
+            <h1 className="foro-titulo"> Foro Comunitario </h1>
 
             {role === 'administrator' && (
               <button className="btn-flotante-crear" onClick={abrirFormulario}>

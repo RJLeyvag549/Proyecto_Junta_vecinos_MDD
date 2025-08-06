@@ -37,16 +37,25 @@ const HomeAdmin = () => {
               <section className="contenido-extra-admin">
               <div className="servicios-contenido-admin">
                 <h2 className="titulo-beneficios-admin">
-                  SERVICIOS EXCLUSIVOS AL ASOCIARSE<br />
-                  A LA JUNTA DE VECINOS
+                  COMO ADMINISTRADOR PUEDES:<br />
+                  
                 </h2>
 
                 <ul className="beneficios-lista-admin">
-                  <li>✅ Formulario de creación con campos dinámicos y validación de archivos.</li>
-                  <li>✅ Subida de comprobante obligatorio para confirmar acreditación.</li>
-                  <li>✅ Tabla de gestión con acciones de editar, eliminar y visualizar <br></br>comprobante.</li>
-                  <li>✅ Mensajes dinámicos de confirmación y error.</li>
-                  <li>✅ Botón para descargar todas las acreditaciones.</li>
+                  <li>✅ Registrar / actualizar vecinos</li>
+                  <li>✅ Aprobar o rechazar solicitudes de certificados de residencia</li>
+                  <li>✅ Crear y difundir convocatorias a reuniones comprobante.</li>
+                  <li>✅ Registrar asistencia a reuniones</li>
+                  <li>✅ Generar y firmar actas de reuniones</li>
+                  <li>✅ Registrar ingresos y egresos financieros</li>
+                  <li>✅ Generar informes y gráficos financieros</li>
+                  <li>✅ Registrar y editar acreditaciones de fondos públicos (con comprobante)</li>
+                  <li>✅ Crear, editar y eliminar publicaciones del foro</li>
+                  <li>✅ Eliminar comentarios de vecinos en el foro</li>
+                  <li>✅ Crear y publicar actividades comunitarias</li>
+                  <li>✅ Crear nuevas votaciones (con nombre, fechas y opciones)</li>
+                  <li>✅ Ver votos emitidos de forma confidencial (no editar ni duplicar votos)</li>
+              
                 </ul>
               </div>
             </section>
