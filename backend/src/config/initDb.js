@@ -24,6 +24,7 @@ export async function createUsers() {
         docResidence: 'uploads/doc-admin-residence1.pdf',
         requestStatus: 'aprobado',
       },
+      
       {
         role: 'user',
         fullName: 'Moises Pirito Araya Retamal',

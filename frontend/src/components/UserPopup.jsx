@@ -115,9 +115,12 @@ const UserPopup = ({ user, loading, error, onClose }) => {
           <p>Error: {error}</p>
         ) : (
           <>
-            <h2>Perfil de Usuario</h2>
+            <h2>PERFIL DE USUARIO</h2>
             <p>
-              <strong>Nombre:</strong>{' '}
+              <strong>ROL:</strong> {user.role}
+            </p>
+            <p>
+              <strong>NOMBRE:</strong>{' '}
               {editMode ? (
                 <input
                   name='fullName'
@@ -132,12 +135,9 @@ const UserPopup = ({ user, loading, error, onClose }) => {
             <p>
               <strong>RUT:</strong> {user.rut}
             </p>
-            <p>
-              <strong>Rol:</strong> {user.role}
-            </p>
 
             <p>
-              <strong>Email:</strong>{' '}
+              <strong>CORREO ELECTRÓNICO:</strong>{' '}
               {editMode ? (
                 <input
                   name='email'
@@ -150,7 +150,7 @@ const UserPopup = ({ user, loading, error, onClose }) => {
             </p>
 
             <p>
-              <strong>Contacto:</strong>{' '}
+              <strong>CONTACTO:</strong>{' '}
               {editMode ? (
                 <input
                   name='contact'
@@ -163,7 +163,7 @@ const UserPopup = ({ user, loading, error, onClose }) => {
             </p>
 
             <p>
-              <strong>Dirección:</strong>{' '}
+              <strong>DIRECCIÓN:</strong>{' '}
               {editMode ? (
                 <input
                   name='homeAddress'
@@ -177,7 +177,7 @@ const UserPopup = ({ user, loading, error, onClose }) => {
 
             {user?.docIdentity && (
               <div className='doc-link'>
-                <strong>Cédula de Identidad: </strong>
+                <strong>CÉDULA DE IDENTIDAD: </strong>
                 <a
                   href={user.docIdentity}
                   target='_blank'
@@ -190,7 +190,7 @@ const UserPopup = ({ user, loading, error, onClose }) => {
 
             {user?.docResidence && (
               <div className='doc-link'>
-                <strong>Comprobante de Domicilio: </strong>
+                <strong>COMPROBANTE DE DOMICILIO: </strong>
                 <a
                   href={user.docResidence}
                   target='_blank'
