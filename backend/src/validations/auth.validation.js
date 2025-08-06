@@ -41,14 +41,15 @@ export const registerValidation = Joi.object({
       'string.max': 'El nombre completo no debe exceder los 100 caracteres.',
       'string.empty': 'Este campo es obligatorio.',
     }),
-  rut: Joi.string()
-    .required()
-    .pattern(/^\d{2}\.\d{3}\.\d{3}-[\dkK]$/)
-    .messages({
-      'string.empty': 'Este campo es obligatorio.',
-      'string.base': 'El rut debe ser de tipo string.',
-      'string.pattern.base': 'Formato rut inválido. Debe ser xx.xxx.xxx-x.',
-    }),
+    rut: Joi.string()
+        .required()
+        .pattern(/^\d{1,2}.\d{3}.\d{3}-[\dkK]$/)
+        .messages({
+          'string.empty': 'Este campo es obligatorio.',
+          'string.base': 'El rut debe ser de tipo string.',
+          'string.pattern.base':
+            'Formato RUT inválido. Debe ser xx.xxx.xxx-x o x.xxx.xxx-x.',
+        }),
 email: Joi.string()
   .email({ tlds: false }) 
   .required()
