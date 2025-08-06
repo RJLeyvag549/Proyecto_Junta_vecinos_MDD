@@ -14,10 +14,14 @@ export const createInventoryValidation = joi.object({
         }),
     quantity: joi.number()
         .required()
+        .integer()
         .min(1)
+        .max(1000000)
         .messages({
             "number.base": "La cantidad debe ser un número.",
-            "number.min": "La cantidad debe ser al menos 1.",
+            "number.integer": "La cantidad debe ser un número entero.",
+            "number.min": "La cantidad mínima es 1.",
+            "number.max": "La cantidad máxima permitida es 1.000.000.",
             "any.required": "La cantidad es obligatoria."
         }),
     description: joi.string()
@@ -32,10 +36,14 @@ export const createInventoryValidation = joi.object({
         }),
     unitPrice: joi.number()
         .required()
-        .min(0)
+        .min(1)
+        .max(100000000)
+        .precision(2)
         .messages({
             "number.base": "El precio unitario debe ser un número.",
-            "number.min": "El precio unitario no puede ser negativo.",
+            "number.min": "El precio unitario mínimo es $1.",
+            "number.max": "El precio unitario máximo permitido es $100.000.000.",
+            "number.precision": "El precio unitario no puede tener más de 2 decimales.",
             "any.required": "El precio unitario es obligatorio."
         })
 });
@@ -50,10 +58,14 @@ export const updateInventoryValidation = joi.object({
             "string.max": "El nombre del artículo no puede exceder los 100 caracteres."
         }),
     quantity: joi.number()
+        .integer()
         .min(0)
+        .max(1000000)
         .messages({
             "number.base": "La cantidad debe ser un número.",
-            "number.min": "la cantidad no puede ser negativa."
+            "number.integer": "La cantidad debe ser un número entero.",
+            "number.min": "La cantidad no puede ser negativa.",
+            "number.max": "La cantidad máxima permitida es 1.000.000."
         }),
     description: joi.string()
         .min(5)
@@ -64,10 +76,14 @@ export const updateInventoryValidation = joi.object({
             "string.max": "La descripción no puede exceder los 255 caracteres."
         }),
     unitPrice: joi.number()
-        .min(0)
+        .min(1)
+        .max(100000000)
+        .precision(2)
         .messages({
             "number.base": "El precio unitario debe ser un número.",
-            "number.min": "El precio unitario no puede ser negativo."
+            "number.min": "El precio unitario mínimo es $1.",
+            "number.max": "El precio unitario máximo permitido es $100.000.000.",
+            "number.precision": "El precio unitario no puede tener más de 2 decimales."
         })
 }).or("itemName", "quantity", "description", "unitPrice").messages({
     "object.missing": "Al menos uno de los campos (itemName, quantity, description, unitPrice) debe ser proporcionado para actualizar."

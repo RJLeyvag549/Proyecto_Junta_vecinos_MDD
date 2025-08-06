@@ -63,12 +63,34 @@ const Inventory = () => {
     if (value === '') {
       return '';
     }
+    
     const numValue = parseInt(value);
+    
+    // Verificar si es un número válido
     if (isNaN(numValue)) {
       return 'La cantidad debe ser un número válido.';
-    } else if (numValue < 0) {
+    }
+    
+    // Verificar que no sea negativo
+    if (numValue < 0) {
       return 'La cantidad no puede ser negativa.';
     }
+    
+    // Verificar cantidad mínima para crear (solo en creación, no en edición)
+    if (value !== '' && numValue === 0) {
+      return 'La cantidad mínima es 1 para crear un item.';
+    }
+    
+    // Verificar cantidad máxima
+    if (numValue > 1000000) {
+      return 'La cantidad máxima permitida es 1.000.000.';
+    }
+    
+    // Verificar que sea un número entero
+    if (!Number.isInteger(numValue)) {
+      return 'La cantidad debe ser un número entero.';
+    }
+    
     return '';
   };
 
@@ -76,29 +98,89 @@ const Inventory = () => {
     if (value === '') {
       return '';
     }
+    
     const numValue = parseFloat(value);
+    
+    // Verificar si es un número válido
     if (isNaN(numValue)) {
       return 'El precio debe ser un número válido.';
-    } else if (numValue <= 0) {
-      return 'El precio debe ser mayor a 0.';
     }
+    
+    // Verificar precio mínimo
+    if (numValue < 1) {
+      return 'El precio mínimo es $1.';
+    }
+    
+    // Verificar precio máximo
+    if (numValue > 100000000) {
+      return 'El precio máximo permitido es $100.000.000.';
+    }
+    
+    // Verificar que no tenga más de 2 decimales
+    const decimalCount = (value.split('.')[1] || '').length;
+    if (decimalCount > 2) {
+      return 'El precio no puede tener más de 2 decimales.';
+    }
+    
     return '';
   };
 
   // manejar cambios en los campos del formulario
   const handleInputChange = (field, value) => {
-    setFormData({ ...formData, [field]: value });
-    
-    // validar el campo especifico
-    if (field === 'itemName') {
-      const error = validateItemName(value);
-      setValidationErrors(prev => ({ ...prev, itemName: error }));
-    } else if (field === 'quantity') {
-      const error = validateQuantity(value);
+    // Para el campo quantity, filtrar y validar
+    if (field === 'quantity') {
+      // Remover caracteres no numéricos
+      const cleanValue = value.replace(/[^0-9]/g, '');
+      
+      // Limitar longitud (evitar números demasiado largos)
+      if (cleanValue.length > 7) {
+        return;
+      }
+      
+      setFormData({ ...formData, [field]: cleanValue });
+      
+      // Validar el campo específico
+      const error = validateQuantity(cleanValue);
       setValidationErrors(prev => ({ ...prev, quantity: error }));
-    } else if (field === 'unitPrice') {
-      const error = validateUnitPrice(value);
+    } 
+    // Para el campo unitPrice, filtrar y validar
+    else if (field === 'unitPrice') {
+      // Remover caracteres no numéricos excepto punto decimal
+      const cleanValue = value.replace(/[^0-9.]/g, '');
+      
+      // Limitar a un solo punto decimal
+      const parts = cleanValue.split('.');
+      if (parts.length > 2) {
+        return; // No permitir múltiples puntos decimales
+      }
+      
+      // Limitar decimales a 2 dígitos
+      if (parts[1] && parts[1].length > 2) {
+        parts[1] = parts[1].substring(0, 2);
+      }
+      
+      const finalValue = parts.join('.');
+      
+      // Limitar longitud total
+      if (finalValue.length > 12) {
+        return;
+      }
+      
+      setFormData({ ...formData, [field]: finalValue });
+      
+      // Validar el campo específico
+      const error = validateUnitPrice(finalValue);
       setValidationErrors(prev => ({ ...prev, unitPrice: error }));
+    } 
+    // Para otros campos (itemName, description)
+    else {
+      setFormData({ ...formData, [field]: value });
+      
+      // Validar el campo específico
+      if (field === 'itemName') {
+        const error = validateItemName(value);
+        setValidationErrors(prev => ({ ...prev, itemName: error }));
+      }
     }
   };
 
@@ -371,12 +453,16 @@ const Inventory = () => {
                   <input
                     type="number"
                     id="quantity"
-                    min="0"
+                    min="1"
+                    max="1000000"
                     value={formData.quantity}
                     onChange={(e) => handleInputChange('quantity', e.target.value)}
                     required
                     placeholder="Ej: 10"
                   />
+                  <small className="input-hint">
+                    Cantidad mínima: 1 - Máxima: 1.000.000 (números enteros)
+                  </small>
                   {validationErrors.quantity && (
                     <div className="validation-error">{validationErrors.quantity}</div>
                   )}
@@ -399,12 +485,16 @@ const Inventory = () => {
                     type="number"
                     id="unitPrice"
                     step="0.01"
-                    min="0.01"
+                    min="1"
+                    max="100000000"
                     value={formData.unitPrice}
                     onChange={(e) => handleInputChange('unitPrice', e.target.value)}
                     required
                     placeholder="Ej: 5000.00"
                   />
+                  <small className="input-hint">
+                    Precio mínimo: $1 - Máximo: $100.000.000
+                  </small>
                   {validationErrors.unitPrice && (
                     <div className="validation-error">{validationErrors.unitPrice}</div>
                   )}

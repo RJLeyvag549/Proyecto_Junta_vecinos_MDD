@@ -18,15 +18,26 @@ const ModalDocument = ({ visible, onClose, url }) => {
         {isPDF ? (
           <iframe
             src={url}
-            width='100%'
-            height='500px'
+            className='modal-iframe'
             title='Documento PDF'
+            style={{
+              width: '100%',
+              height: '460px',
+              borderRadius: '8px',
+              border: 'none',
+            }}
           />
         ) : (
           <img
             src={url}
             alt='Documento'
-            style={{ maxWidth: '100%', maxHeight: '500px' }}
+            className='modal-image'
+            style={{
+              maxWidth: '100%',
+              maxHeight: '400px',
+              borderRadius: '8px',
+              objectFit: 'contain',
+            }}
           />
         )}
       </div>

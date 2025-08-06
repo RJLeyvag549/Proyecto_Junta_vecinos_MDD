@@ -60,26 +60,63 @@ const Transactions = () => {
     if (value === '') {
       return '';
     }
+    
     const numValue = parseFloat(value);
+    
     if (isNaN(numValue)) {
       return 'El monto debe ser un número válido.';
-    } else if (numValue < 0) {
+    }
+    
+    if (numValue < 0) {
       return 'El monto no puede ser negativo.';
     }
+    
+    if (numValue > 0 && numValue < 1) {
+      return 'El monto mínimo es $1.';
+    }
+    
+    if (numValue > 100000000) { 
+      return 'El monto máximo permitido es $100.000.000.';
+    }
+    
+    const decimalCount = (value.split('.')[1] || '').length;
+    if (decimalCount > 2) {
+      return 'El monto no puede tener más de 2 decimales.';
+    }
+    
     return '';
   };
 
-  // manejar cambios en los campos del formulario
+
   const handleInputChange = (field, value) => {
-    setFormData({ ...formData, [field]: value });
-    
-    // validar el campo especifico
-    if (field === 'description') {
-      const error = validateDescription(value);
-      setValidationErrors(prev => ({ ...prev, description: error }));
-    } else if (field === 'amount') {
-      const error = validateAmount(value);
+    if (field === 'amount') {
+      const cleanValue = value.replace(/[^0-9.]/g, '');
+      const parts = cleanValue.split('.');
+      if (parts.length > 2) {
+        return;
+      }
+      
+      if (parts[1] && parts[1].length > 2) {
+        parts[1] = parts[1].substring(0, 2);
+      }
+      
+      const finalValue = parts.join('.');
+      
+      if (finalValue.length > 12) {
+        return;
+      }
+      
+      setFormData({ ...formData, [field]: finalValue });
+      
+      const error = validateAmount(finalValue);
       setValidationErrors(prev => ({ ...prev, amount: error }));
+    } else {
+      setFormData({ ...formData, [field]: value });
+      
+      if (field === 'description') {
+        const error = validateDescription(value);
+        setValidationErrors(prev => ({ ...prev, description: error }));
+      }
     }
   };
 
@@ -110,7 +147,7 @@ const Transactions = () => {
     let success = false;
 
     if (editingTransaction) {
-      // Para edicion, enviar todos los campos incluyendo status
+      // Para edicion
       const dataToSend = {
         ...formData,
         amount: parseFloat(formData.amount)
@@ -118,7 +155,7 @@ const Transactions = () => {
       const response = await handleEditTransaction(editingTransaction.id, dataToSend);
       success = !!response;
     } else {
-      // para creacion, NO enviar status (solo amount y description)
+      // para creacion
       const dataToSend = {
         amount: parseFloat(formData.amount),
         description: formData.description
@@ -342,10 +379,16 @@ const Transactions = () => {
                   type="number"
                   id="amount"
                   step="0.01"
+                  min="1"
+                  max="100000000"
                   value={formData.amount}
                   onChange={(e) => handleInputChange('amount', e.target.value)}
+                  placeholder="Ejemplo: 25000"
                   required
                 />
+                <small className="input-hint">
+                  Monto mínimo: $1 - Máximo: $100.000.000
+                </small>
                 {validationErrors.amount && (
                   <div className="validation-error">{validationErrors.amount}</div>
                 )}
