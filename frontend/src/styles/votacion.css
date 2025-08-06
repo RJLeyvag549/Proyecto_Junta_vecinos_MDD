@@ -24,9 +24,11 @@ body::before {
 .votaciones-container {
   padding-top: 130px;
   min-height: 100vh;
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
   margin-left: 290px;
+  
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,14 +83,15 @@ body::before {
 
 .votaciones-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* tarjetas más anchas */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.2rem;
-  width: 80%;
+  width: 100%;
   margin-top: 20px;
   max-width: 1600px; 
-  padding: 40px 60px;
+  padding: 40px 90px;
   justify-content: center;
 }
+
 
 .votaciones-card {
   background: #e9f5db;
