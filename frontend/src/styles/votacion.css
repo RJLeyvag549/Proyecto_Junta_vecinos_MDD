@@ -1,4 +1,4 @@
-html, body {
+ body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -6,6 +6,7 @@ html, body {
   background: transparent; /* importante */
   overflow-x: hidden;
   position: relative;
+
 }
 
 body::before {
@@ -16,7 +17,8 @@ body::before {
   z-index: -1;
   width: 100%;
   height: 100%;
-  background: url('login.png') center center / cover no-repeat;
+    background: url('login.png') center center / cover no-repeat;
+  
 }
 
 .votaciones-container {
@@ -28,6 +30,7 @@ body::before {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: url('login.png');
 }
 
 .boton-volver {

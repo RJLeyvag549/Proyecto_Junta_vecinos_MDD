@@ -8,6 +8,7 @@ import "../styles/Navbar.css";
 const HomeAdmin = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // ✅ Definimos las funciones de hover
   const handleSidebarHover = () => setSidebarOpen(true);
   const handleSidebarLeave = () => setSidebarOpen(false);
 

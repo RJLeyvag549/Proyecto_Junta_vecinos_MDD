@@ -5,7 +5,7 @@ import Joi from "joi";
 export const createValidation = Joi.object({
   titulo: Joi.string()
     .min(5)
-    .max(50)
+    .max(100)
     .required()
     .messages({
       "string.pattern.base": "El título solo puede contener letras, números y espacios",

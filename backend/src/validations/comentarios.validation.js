@@ -4,7 +4,7 @@ import Joi from "joi";
 export const createComentarioValidation = Joi.object({
   contenido: Joi.string()
     .min(3)
-    .max(300)
+    .max(1000)
     .required()
     .messages({
       "string.min": "El comentario debe tener al menos 3 caracteres",
@@ -16,7 +16,7 @@ export const createComentarioValidation = Joi.object({
 export const updateComentarioValidation = Joi.object({
   contenido: Joi.string()
     .min(3)
-    .max(300)
+    .max(1000)
     .required()
     .messages({
       "string.min": "El comentario debe tener al menos 3 caracteres",

@@ -301,9 +301,11 @@ const guardarEdicionComentario = async (idComentario, idPublicacion) => {
                 <p className="sin-publicaciones"> ❌ No hay publicaciones aún.</p>
 
               ) : (
-                publicaciones.map((pub) => {
-                  const id = pub._id || pub.id_publicacion;
-                  return (
+                [...publicaciones]
+  .sort((a, b) => new Date(b.fecha_publicacion) - new Date(a.fecha_publicacion))
+  .map((pub) => {
+    const id = pub._id || pub.id_publicacion;
+    return (
                     <div key={id} className="publicacion">
                         <div className="cabecera-publicacion">
                           <div className="titulo-con-tipo">

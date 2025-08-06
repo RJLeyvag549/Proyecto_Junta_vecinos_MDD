@@ -3,6 +3,7 @@
 html, body {
   height: auto;
   overflow: auto;
+  margin-left: 10px;
 }
 
 #root {
