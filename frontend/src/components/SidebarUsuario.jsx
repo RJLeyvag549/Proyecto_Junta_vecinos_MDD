@@ -93,7 +93,6 @@ const SidebarUsuario = ({ isOpen }) => {
             }`}
         >
           <div className='sidebar-usuario__sub-links'>
-            <NavLink to='/actividades'>Actividades comunitarias</NavLink>
             <NavLink to='/votaciones'>Votaciones vecinales</NavLink>
           </div>
         </div>

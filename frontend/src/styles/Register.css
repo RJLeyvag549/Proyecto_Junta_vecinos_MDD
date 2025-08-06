@@ -107,6 +107,7 @@ input[type='file'] {
   justify-content: center;
   white-space: nowrap;
   gap: 8px;
+  margin-left: -10px;
   width: 100%;
 }
 
@@ -122,6 +123,7 @@ input[type='file'] {
   font-size: 14px;
   color: #87986a;
   cursor: pointer;
+  margin-top: 10px;
   text-align: center;
 }
 .custom-file-button:hover {

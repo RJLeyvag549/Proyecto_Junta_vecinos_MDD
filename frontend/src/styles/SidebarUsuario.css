@@ -3,7 +3,7 @@
   position: fixed;
   top: 9vh; /* <-- ESTE ES EL CAMBIO CLAVE */
   left: 0;
-  width: 60px;
+  width: 75px;
   height: calc(100vh - 9vh); /* ocupa el resto de la pantalla */
   background-color: #718355;
   padding: 20px 10px;

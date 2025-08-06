@@ -37,28 +37,29 @@ const HomeUsuario = () => {
           </h2>
         </section>
 
-        <section className="contenido-extra-usuario">
-          <div className="servicios-contenido-usuario">
-            <h2 className="titulo-beneficios-usuario">
-              SERVICIOS EXCLUSIVOS AL ASOCIARSE<br />
-              A LA JUNTA DE VECINOS
-            </h2>
+      <section className="contenido-extra-usuario">
+  <div className="servicios-contenido-usuario">
+    <h2 className="titulo-beneficios-usuario">
+      SERVICIOS EXCLUSIVOS AL ASOCIARSE<br />
+      A LA JUNTA DE VECINOS
+    </h2>
 
-            <div className="beneficios-lista-usuario">
-              <ul>
-                <li>Monitoreo 24/7</li>
-                <li>Auto de acompañamiento</li>
-                <li>Patrullaje adicional para eventos</li>
-                <li>Descuentos exclusivos para upgrade de sus alarmas</li>
-              </ul>
-              <ul>
-                <li>Acceso a grabaciones de las cámaras de vigilancia</li>
-                <li>Certificados de residencia sin costo para asociados</li>
-                <li>Ejecutiva exclusiva</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+    <ul className="beneficios-lista-usuario">
+      <li>✅ Monitoreo 24/7</li>
+      <li>✅ Auto de acompañamiento</li>
+      <li>✅ Patrullaje adicional para eventos</li>
+      <li>✅ Descuentos exclusivos para upgrade de sus alarmas</li>
+      <li>✅ Acceso a grabaciones de las cámaras de vigilancia</li>
+      <li>✅ Certificados de residencia sin costo para asociados</li>
+      <li>✅ Ejecutiva exclusiva</li>
+    </ul>
+  </div>
+</section>
+
+
+
+
+
       </main>
     </div>
   );
