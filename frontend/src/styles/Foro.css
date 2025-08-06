@@ -87,11 +87,6 @@ html, body {
   pointer-events: none; /* permite interactuar con el contenido encima */
 }
 
-/* Asegura que el contenido del foro esté encima */
-.foro-container > * {
-  position: relative;
-  z-index: 1;
-}
 
 
 
@@ -99,11 +94,12 @@ html, body {
 .foro-titulo {
   top: 5vh;
   font-size: 5rem;
-  margin-right: auto;
-  margin-bottom: 0.1rem;
-  color:#ffffff;
+  margin: 0 auto 0.1rem auto; /* Centra horizontalmente */
+  color: #ffffff;
   text-align: center;
-  font-family: 'Poppins';
+  width: 110%; /* o 100% si prefieres que ocupe todo */
+  font-family: 'Poppins', sans-serif;
+  position: relative;
 }
 
 .fecha-publicacion {
@@ -123,7 +119,7 @@ html, body {
   padding: 1.8rem;
   margin-bottom: 2rem;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-  width: 100%;
+  width: 1000%;
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
@@ -135,7 +131,7 @@ html, body {
   padding: 12px;
   border-radius: 14px;
   margin-top: 1.2rem;
-  width: 98%;
+  width: 100%;
   box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.1);
 }
 
@@ -339,8 +335,8 @@ html, body {
 
 /* ÁREA DE TEXTO PARA ESCRIBIR UN COMENTARIO */
 .comentario-input {
-  width: 97%;
-  height: 80px;
+  width: 100%;
+  height: 70px;
   margin-top: 12px;
   padding: 12px;
   resize: vertical;
@@ -604,7 +600,7 @@ html, body {
   font-weight: bold;
   cursor: pointer;
   margin-top: 50px;
-  margin-left: 690px;
+  margin-left: 830px;
   display: flex;
   align-items: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
