@@ -584,11 +584,6 @@ html, body {
   transition: background-color 0.3s ease;
 }
 
-.btn-crear-publicacion:hover {
-  background-color: #388e3c;
-}
-
-
 /* Botón flotante (crear nueva publicación) */
 .btn-flotante-crear {
   background-color: #4caf50;
@@ -600,7 +595,7 @@ html, body {
   font-weight: bold;
   cursor: pointer;
   margin-top: 50px;
-  margin-left: 790px;
+  margin-left: 670px;
   display: flex;
   align-items: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);

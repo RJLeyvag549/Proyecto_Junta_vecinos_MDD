@@ -398,31 +398,29 @@ const guardarEdicionComentario = async (idComentario, idPublicacion) => {
         </div>
 
         {/* CONTENEDOR DE BOTONES */}
-        <div className="contenedor-botones-comentario">
-          {/* Botón de editar SOLO si es su propio comentario */}
-          {(esPropio || role === 'administrator') && !estaEditando && (
-            <button
-              className="btn-icono-editar"
-              title="Editar"
-              onClick={() => iniciarEdicionComentario(comentario)}
-            >
-              <img src={iconoEditar} alt="Editar" />
-            </button>
-          )}
+      <div className="contenedor-botones-comentario">
+        {/* Botón de editar: si es su comentario o si es admin */}
+        {(esPropio || role === 'administrator') && !estaEditando && (
+          <button
+            className="btn-icono-editar"
+            title="Editar"
+            onClick={() => iniciarEdicionComentario(comentario)}
+          >
+            <img src={iconoEditar} alt="Editar" />
+          </button>
+        )}
 
-          {/* Botón de eliminar SOLO si es admin */}
-          {role === 'administrator' && (
-            <button
-              onClick={() =>
-                eliminarComentario(comentario.id_comentario, pub.id_publicacion)
-              }
-              className="btn-icono-eliminar"
-              title="Eliminar"
-            >
-              <img src={iconoEliminar} alt="Eliminar" />
-            </button>
-          )}
-        </div>
+        {/* Botón de eliminar: si es su comentario o si es admin */}
+        {(esPropio || role === 'administrator') && (
+          <button
+            className="btn-icono-eliminar"
+            title="Eliminar"
+            onClick={() => eliminarComentario(comentario.id_comentario, pub.id_publicacion)}
+          >
+            <img src={iconoEliminar} alt="Eliminar" />
+          </button>
+        )}
+      </div>
       </div>
     </div>
   );
