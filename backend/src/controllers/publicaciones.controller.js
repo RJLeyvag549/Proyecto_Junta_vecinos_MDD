@@ -32,10 +32,11 @@ export async function createPublicaciones(req, res) {
 
     const { error } = createValidation.validate(req.body);
     if (error)
-      return res.status(400).json({
-        message: "Error al crear una publicación",
-        error,
-      });
+  return res.status(400).json({
+    message: error.details?.[0]?.message || "Error de validación",
+    campo: error.details?.[0]?.context?.key,
+  });
+
 
     //  Asegúrate que el JWT esté decodificado en req.user
     const autor = req.user?.fullName || 'Administrator';

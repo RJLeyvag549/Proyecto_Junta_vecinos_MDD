@@ -57,9 +57,9 @@ html, body {
 
 /* TITULO */
 .foro-titulo {
-    top: 7vh;
+  top: 5vh;
   font-size: 5rem;
-  margin-left: auto;
+  margin-left: 75px;
   margin-right: auto;
   margin-bottom: 0.1rem;
   color:#ffffff;
@@ -72,76 +72,152 @@ html, body {
   width: 100%;
   max-width: 1000px;
   margin-bottom: 0.5rem; /* opcional */
+ 
 }
 
-/* PUBLICACION */
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
+
+/* CONTENEDOR DE CADA PUBLICACIÓN */
 .publicacion {
-  background: #17472bbd;
-  border-radius: 12px;
-  padding: 1.5rem;
+  background: linear-gradient(to right, #034920b7, #267a52af);
+  border-radius: 16px;
+  padding: 1.8rem;
   margin-bottom: 2rem;
-  box-shadow: 0 6px 30px rgb(13, 43, 13);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
   width: 100%;
   max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Cuadro externo */
+/* CONTENEDOR EXTERNO DEL CONTENIDO */
 .contenido-publicacion-externo {
-  background-color: #5d8d7669;
-  padding: 10px;
-  border-radius: 15px;
-  margin: 15px 0;
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 12px;
+  border-radius: 14px;
+  margin-top: 1.2rem;
   width: 98%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.1);
 }
 
-/* Cuadro interno */
+.foro-publicaciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centra horizontalmente */
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 820px; /* ajusta el ancho máximo */
+}
+
+
+/* CONTENEDOR INTERNO BLANCO DEL TEXTO */
 .contenido-publicacion-interno {
-  background-color: rgb(242, 250, 244);
-   padding: 0.3rem 0.9rem; /* casi sin espacio */
+  background-color: #ffffffee;
   border-radius: 10px;
-  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
-  font-size: 1rem;
+  padding: 1rem 1.4rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-size: 1.05rem;
+  line-height: 1.6;
   color: #333;
-  line-height: 1.5;
-  box-sizing: border-box;
-   word-wrap: break-word;      /* permite cortar palabras largas */
-  overflow-wrap: break-word;  /* soporte para navegadores modernos */
-  white-space: normal;     
- 
-    text-align: left;
+  font-family: 'Nunito', sans-serif;
+  overflow-wrap: break-word;
 }
 
+
+/* PÁRRAFOS DENTRO DEL CONTENIDO */
 .contenido-publicacion-interno p {
   margin: 0;
-  padding: 0.2rem 0.4rem; /* opcional, para que no esté pegado al borde */
+  padding: 0.2rem 0;
 }
-
-.cabecera-publicacion {
+.titulo-con-tipo {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
   align-items: center;
-  color: white;
 }
 
+.cabecera-publicacion h2 {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  margin: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+.cabecera-publicacion h2 {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  margin: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  
+  /* 🔧 claves para evitar desborde */
+  display: block;
+  width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+
+}
+
+
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
+
+/* Etiqueta tipo de publicación */
 .badge-tipo-publicacion {
   display: inline-block;
-  padding: 0.3rem 0.6rem;
-  background-color: #18dbb1;    /* fondo suave verde */
-  color: #067568;               /* texto verde oscuro */
-  border: 1px solid #80cbc4;    /* borde verde medio */
-  border-radius: 6px;           /* esquinas redondeadas */
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-left: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background-color: #ffffff33;
+  color: #ffffff;
+  margin: 0;
+  white-space: nowrap; /* evita que el badge se corte en varias líneas */
+}
+.badge-educativos {
+  background: linear-gradient(135deg, #c5cae9, #606db8);
+  color: #000000;
+  border: none;
 }
 
+.badge-medioambiente {
+  background: linear-gradient(135deg, #b2dfdb, #3bb345);
+  color: #004d40;
+  border: none;
+}
 
+.badge-bienestar {
+  background: linear-gradient(135deg, #dcedc8, #aed581);
+  color: #33691e;
+  border: none;
+}
+
+.badge-arte {
+  background: linear-gradient(135deg, #f8bbd0, #f48fb1);
+  color: #880e4f;
+  border: none;
+}
+
+.badge-entretenimiento {
+  background: linear-gradient(135deg, #ffe0b2, #e7b66b);
+  color: #e65100;
+  border: none;
+}
+
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
+/* TEXTO FINAL DE LA PUBLICACIÓN (como fecha o autor) */
 .contenido-publicacion {
-  color: #ffffff; /* o el color que prefieras */
+  color: #eeeeee;
   font-size: 1rem;
   line-height: 1.6;
+  margin-top: 0.6rem;
+  font-family: 'Nunito', sans-serif;
 }
 
 .cabecera-publicacion h2 {
@@ -155,28 +231,6 @@ html, body {
   display: inline-block;     /* para que el fondo se ajuste al texto */
 }
 
-
-/* Colores por tipo 
-.tipo-bienestar-fisico {
-  background-color: #28a745;
-}
-
-.tipo-medioambiente {
-  background-color: #2ecc71;
-}
-
-.tipo-educativos {
-  background-color: #1e90ff;
-}
-
-.tipo-arte-y-creatividad {
-  background-color: #e91e63;
-}
-
-.tipo-entretenimiento {
-  background-color: #ff9800;
-}
-*/
 .info-publicacion {
   font-size: 1.1rem;
   color: #ffffff;
@@ -191,7 +245,7 @@ html, body {
 .acciones-admin button {
   margin-right: 10px;
   padding: 5px 10px;
-  background: #ff6347;
+  background: #a0af5a;
   color: white;
   border: none;
   border-radius: 6px;
@@ -203,73 +257,189 @@ html, body {
 }
 /*???????????????????????????????????????????????????*/
 
-/* COMENTARIOS */
+/* CONTENEDOR DE COMENTARIOS */
 .comentarios {
-  margin-top: 1.2rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(2px);
 }
 
-.comentario {
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  padding: 0.7rem;
+/* TÍTULO DE LA SECCIÓN */
+.titulo-comentarios {
+  font-size: 1.6rem;
+  color: #ffffff;
+  font-family: 'Nunito', sans-serif;
   margin-bottom: 1rem;
-  position: relative;
+  border-bottom: 2px solid #81c784;
+  padding-bottom: 0.2rem;
+  display: inline-block;
 }
 
+/* CADA COMENTARIO */
+.comentario {
+  background-color: #f3fef5;
+  border-left: 5px solid #4caf50;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* CONTENIDO DENTRO DEL COMENTARIO */
 .contenido-comentario {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
+/* ÁREA DE TEXTO PARA ESCRIBIR UN COMENTARIO */
 .comentario-input {
-  width: 98%;
-  height: 60px;
-  margin-top: 10px;
-  padding: 10px;
-  resize: none;
+  width: 97%;
+  height: 80px;
+  margin-top: 12px;
+  padding: 12px;
+  resize: vertical;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #cce3d0;
+  background-color: #fff;
+  font-size: 1rem;
+  color: #2e7d32;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: border 0.3s ease;
 }
 
+.comentario-input:focus {
+  outline: none;
+  border: 1px solid #81c784;
+  box-shadow: 0 0 6px rgba(129, 199, 132, 0.3);
+}
+
+/* BOTÓN COMENTAR */
 .btn-comentar {
-  margin-top: 5px;
-  background-color: #2e8b57;
+  font-size: 1rem;
+  margin-top: 12px;
+  background-color: #4caf50;
   color: white;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
 .btn-comentar:hover {
-  background-color: #256d45;
+  background-color: #388e3c;
 }
+
 
 /* SIN PUBLICACIONES */
 .sin-publicaciones {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(7, 0, 0, 0.144);
   padding: 2rem;
   border-radius: 12px;
   text-align: center;
+  margin-left:60px ;
   margin-top: 2rem;
-  color: white;
+  color: rgb(255, 255, 255);
+  font-family: 'Nunito', sans-serif;
 }
 
-.btn-crear-publicacion {
-  margin-top: 1rem;
-  padding: 10px 16px;
-  background-color: #3a9c5d;
+.barra-inferior-publicacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin-top: 0.8rem;
   color: white;
+  font-size: 1.1rem;
+  font-family: 'Nunito', sans-serif;
+}
+
+.publicado-por,
+.fecha-publicacion {
+  margin: 0;
+}
+
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
+.btn-icono-editar {
+  background-color: #05524e; /* Verde agua claro */
   border: none;
-  border-radius: 8px;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  margin-left: 8px;
   cursor: pointer;
-  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.btn-crear-publicacion:hover {
-  background-color: #287847;
+.btn-icono-editar img {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease;
 }
+
+.btn-icono-editar:hover {
+  background-color: #26817a; /* más intenso al hover */
+  transform: scale(1.1);
+}
+
+.btn-icono-editar:hover img {
+  transform: scale(1.15);
+}
+
+.contenedor-botones-comentario {
+  display: flex;
+  gap: 10px; /* espacio entre los botones */
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
+.btn-icono-eliminar {
+  background-color: #af3447; /* Rojo claro */
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 8px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-icono-eliminar img {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease;
+}
+
+.btn-icono-eliminar:hover {
+  background-color: #ad2e3b; /* rojo más intenso al hover */
+  transform: scale(1.1);
+}
+
+.btn-icono-eliminar:hover img {
+  transform: scale(1.15);
+}
+
+
+
 /*???????????????????????????????????????????????????*/
 .modal-formulario {
   position: fixed;
@@ -293,7 +463,7 @@ html, body {
   max-width: 480px;
   box-shadow: 0 8px 20px rgba(0, 128, 0, 0.15);
   border: 1px solid #d1e7dd;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 .formulario-publicacion h3 {
@@ -308,7 +478,7 @@ html, body {
 .formulario-publicacion input,
 .formulario-publicacion textarea,
 .formulario-publicacion select {
-  width: 96%;
+  width: 100%;
   margin: 0.5rem 0 1rem;
   padding: 0.75rem;
   border: 1px solid #b2d8b2;
@@ -317,6 +487,19 @@ html, body {
   font-size: 1rem;
   color: #2e7d32;
   transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.formulario-publicacion input,
+.formulario-publicacion select {
+  height: 44px; /* altura uniforme */
+  line-height: 1.2;
+}
+
+.formulario-publicacion textarea {
+  min-height: 140px;
+  resize: vertical;
+  overflow-y: auto;
 }
 
 .formulario-publicacion input:focus,
@@ -327,14 +510,91 @@ html, body {
   box-shadow: 0 0 5px rgba(129, 199, 132, 0.4);
 }
 
+/* Contenedor de botones */
 .botones-formulario {
   display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 1.5rem;
 }
 
-.btn-crear-publicacion,
+/* Botón Publicar / Guardar */
+.btn-crear-publicacion {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-crear-publicacion:hover {
+  background-color: #388e3c;
+}
+
+/* Botón Cancelar */
 .btn-cancelar-publicacion {
+  background-color: transparent;
+  color: #4caf50;
+  border: 2px solid #4caf50;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-cancelar-publicacion:hover {
+  background-color: #e8f5e9;
+  color: #388e3c;
+  border-color: #388e3c;
+}
+
+/* Botón Guardar */
+.btn-crear-publicacion {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-crear-publicacion:hover {
+  background-color: #388e3c;
+}
+
+/* Botón Cancelar */
+.btn-cancelar-publicacion {
+  background-color: transparent;
+  color: #4caf50;
+  border: 2px solid #4caf50;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-cancelar-publicacion:hover {
+  background-color: #e8f5e9;
+  color: #388e3c;
+  border-color: #388e3c;
+}
+
+
+
+
+
+.btn-crear-publicacion {
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
   border-radius: 6px;
@@ -352,13 +612,15 @@ html, body {
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  margin: 3rem auto 2rem;
+  margin-top: 50px;
+  margin-left: 650px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
 }
+
 
 
 .btn-crear-publicacion:hover {
@@ -367,7 +629,7 @@ html, body {
 
 }
 
-.btn-cancelar-publicacion {
+.btn-cancelar {
   background-color: transparent;
   color: #4caf50;
   border: 2px solid #4caf50;
@@ -375,89 +637,19 @@ html, body {
   font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
   transition: all 0.3s ease;
 }
 
-.btn-cancelar-publicacion:hover {
+.btn-cancelar:hover {
   background-color: #e8f5e9;
   color: #388e3c;
   border-color: #388e3c;
 }
 
-/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
-.btn-eliminar-comentario {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 2px;
-  margin-left: 8px;
-  vertical-align: middle;
-  color: #d32f2f;
-  font-weight: bold;
-  transition: color 0.2s;
-}
-
-.btn-eliminar-comentario:hover {
-  color: #b71c1c;
-}
-
-
-/*???????????????????????????????????????????????????*/
-.icono-eliminar {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
 
 
 .texto-comentario {
   flex: 1;
   padding-right: 10px; /* para que no se pegue al ícono */
 }
-
-.btn-icono-eliminar {
-   width: 50px; /* puedes aumentar más si quieres */
-  height: 24px;
-  padding: 0;
-}
-
-.btn-icono-eliminar {
-  background-color: #ff4d4d; /* fondo rojo suave */
-  border: none;
-  padding: 5px;
-  border-radius: 100px;
-  cursor: pointer;
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-icono-eliminar img {
-  width: 16px;
-  height: 16px;
-}
-.btn-icono-eliminar:hover {
-  background-color: #e63946;
-}
-
-.foro-calendario-layout {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 40px;
-  margin-left: 70px; /* espacio para el sidebar */
-  padding: 2rem;
-  z-index: 1;
-}
-
-
-.calendario-container {
-  width: 300px;
-  background-color: #ffffffd8;
-  padding: 16px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
-}
-

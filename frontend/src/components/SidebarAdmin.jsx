@@ -41,7 +41,7 @@ const SidebarAdmin = ({ isOpen }) => {
         >
           <div className='sidebar-admin__sub-links'>
             <NavLink to='/foro'>Foro de Vecinos</NavLink>
-            <NavLink to='/calendario'>Calendario</NavLink>
+            
           </div>
         </div>
       </div>

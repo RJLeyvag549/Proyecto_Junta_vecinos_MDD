@@ -6,27 +6,25 @@ export const createComentarioValidation = Joi.object({
     .min(3)
     .max(300)
     .required()
-    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9.,;:¡!¿?'"()\n\s-]+$/)
     .messages({
-      "string.pattern.base": "El comentario solo puede contener texto y signos de puntuación válidos",
       "string.min": "El comentario debe tener al menos 3 caracteres",
       "string.max": "El comentario no debe superar los 300 caracteres",
       "string.empty": "El comentario es obligatorio",
     }),
 });
+
 export const updateComentarioValidation = Joi.object({
   contenido: Joi.string()
     .min(3)
     .max(300)
     .required()
-    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9.,;:¡!¿?'"()\n\s-]+$/)
     .messages({
-      "string.pattern.base": "El comentario solo puede contener texto y signos de puntuación válidos",
       "string.min": "El comentario debe tener al menos 3 caracteres",
       "string.max": "El comentario no debe superar los 300 caracteres",
       "string.empty": "El comentario es obligatorio",
     }),
 });
+
 
 // Validación para IDs numéricos (como en params)
 export const idParamValidation = Joi.object({
