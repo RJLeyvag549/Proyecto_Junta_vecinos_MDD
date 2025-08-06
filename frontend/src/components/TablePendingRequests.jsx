@@ -36,7 +36,7 @@ const TablePendingRequests = ({
             <th>CONTACTO</th>
             <th>DIRECCIÓN</th>
             <th>CÉDULA</th>
-            <th>RESIDENCIA</th>
+            <th>DOMICILIO</th>
             <th>ACCIONES</th>
           </tr>
         </thead>
