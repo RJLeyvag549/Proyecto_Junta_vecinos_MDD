@@ -75,22 +75,49 @@
   font-size: 0.95rem;
 }
 
-/* Botón de añadir opción */
-.crear-votacion-form button[type="button"] {
-  background-color: #8bc34a;
+/* Botón de quitar opción */
+.btn-quitar-opcion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #de6363; 
   color: white;
   border: none;
-  padding: 10px 16px;
-  border-radius: 999px;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease;
-  width: fit-content;
-  align-self: flex-start;
+  margin-left: 0.6rem;
+  margin-top: 15px;
+  transition: background-color 0.35s ease, transform 0.2s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
-.crear-votacion-form button[type="button"]:hover {
-  background-color: #689f38;
+.btn-quitar-opcion:hover {
+  background-color: #f28b82; 
+  transform: scale(1.15);
+}
+
+.btn-agregar-opcion {
+  display: block;                /* que ocupe toda la fila */
+  width: 100%;                   /* que se extienda al ancho del contenedor */
+  max-width: 400px;              /* limita el ancho máximo para que no sea exagerado */
+  background-color: #8bc34a;     /* verde llamativo */
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+  text-align: center;            /* centra el texto dentro del botón */
+  box-sizing: border-box;        /* incluye el padding en el ancho */
+  transition: background-color 0.3s ease;
+}
+
+.btn-agregar-opcion:hover {
+  background-color: #689f38;     /* color más oscuro al pasar el mouse */
 }
 
 /* Botón de enviar */
@@ -129,29 +156,6 @@
   height: 45px; 
 }
 
-/* Botón de quitar opción */
-.btn-quitar-opcion {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #8bc34a; /* tono verde para empezar */
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  margin-left: 0.6rem;
-  margin-top: 15px;
-  transition: background-color 0.35s ease, transform 0.2s ease;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-}
-
-.btn-quitar-opcion:hover {
-  background-color: #f28b82; 
-  transform: scale(1.15);
-}
 
 /* Mensajes de error / éxito */
 .mensaje-error,

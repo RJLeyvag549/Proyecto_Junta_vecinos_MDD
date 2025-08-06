@@ -24,12 +24,12 @@ const SidebarUsuario = ({ isOpen }) => {
       onMouseLeave={() => setOpenSection(null)}
     >
       {/* Comunicación y Participación */}
-      <div className='sidebar-usuariosection'>
+      <div className='sidebar-usuario__section'> 
         <div
-          className='sidebar-usuariosection-title'
+          className='sidebar-usuario__section-title' 
           onClick={() => toggleSection('comunicacion')}
         >
-          <div className='sidebar-usuarioicon-circle'>
+          <div className='sidebar-usuario__icon-circle'> 
             <FaComments />
           </div>
           <span>
@@ -37,9 +37,9 @@ const SidebarUsuario = ({ isOpen }) => {
           </span>
         </div>
         <div
-          className={`sidebar-usuariosub-links-wrapper ${
+          className={`sidebar-usuario__sub-links-wrapper ${  
             openSection === 'comunicacion' ? 'open' : ''
-          }`}
+            }`}
         >
           <div className='sidebar-usuario__sub-links'>
             <NavLink to='/foro'>Foro de Vecinos</NavLink>
@@ -63,9 +63,8 @@ const SidebarUsuario = ({ isOpen }) => {
           </span>
         </div>
         <div
-          className={`sidebar-usuario__sub-links-wrapper ${
-            openSection === 'tramites' ? 'open' : ''
-          }`}
+          className={`sidebar-usuario__sub-links-wrapper ${openSection === 'tramites' ? 'open' : ''
+            }`}
         >
           <div className='sidebar-usuario__sub-links'>
             <NavLink to='/certificate'>
@@ -90,9 +89,8 @@ const SidebarUsuario = ({ isOpen }) => {
           </span>
         </div>
         <div
-          className={`sidebar-usuario__sub-links-wrapper ${
-            openSection === 'participacion' ? 'open' : ''
-          }`}
+          className={`sidebar-usuario__sub-links-wrapper ${openSection === 'participacion' ? 'open' : ''
+            }`}
         >
           <div className='sidebar-usuario__sub-links'>
             <NavLink to='/actividades'>Actividades comunitarias</NavLink>

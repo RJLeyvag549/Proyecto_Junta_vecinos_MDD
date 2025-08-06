@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { createVotacion } from '../services/votacion.service.js';
 import Navbar from '../components/Navbar.jsx';
 import SidebarAdmin from '../components/SidebarAdmin.jsx';
-import '../styles/votacion.css';
 import '../styles/crearVotacion.css';
 import { FaTimes, FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -152,7 +151,9 @@ function CrearVotacion() {
                 )}
               </div>
             ))}
-            <button type="button" onClick={agregarOpcion}>+ Añadir otra opción</button>
+            <button type="button" className="btn-agregar-opcion" onClick={agregarOpcion}>
+              + Añadir otra opción
+            </button>
             <button type="submit" className="btn-submit-votacion">Crear votación</button>
           </form>
         </div>

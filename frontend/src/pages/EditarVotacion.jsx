@@ -200,9 +200,9 @@ function EditarVotacion() {
 
             <label>Opciones:</label>
 
-            <ul className="lista-opciones-editar">
+            <div className="opciones-editar">
               {form.opciones.map((opcion, index) => (
-                <li key={index} className="opcion-item-editar">
+                <div key={index} className="opcion-item-editar">
                   <span className="texto-opcion-editar">{opcion}</span>
                   <button
                     type="button"
@@ -211,9 +211,9 @@ function EditarVotacion() {
                   >
                     <FaTimes />
                   </button>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
 
             <label htmlFor="nuevaOpcion">Ingresar nueva opción:</label>
             <div className="nueva-opcion-editar">
@@ -223,7 +223,7 @@ function EditarVotacion() {
                 onChange={(e) => setNuevaOpcion(e.target.value)}
                 placeholder="Nueva opción"
               />
-              <button type="button" className="btn-agregar-opcion" onClick={agregarOpcion}>
+              <button type="button" className="btn-agregar-opcion-editar" onClick={agregarOpcion}>
                 <FaPlus />
               </button>
             </div>
