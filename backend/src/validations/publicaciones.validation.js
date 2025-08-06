@@ -4,28 +4,29 @@ import Joi from "joi";
 // Crear publicación
 export const createValidation = Joi.object({
   titulo: Joi.string()
-    .min(3)
+    .min(5)
     .max(50)
     .required()
-    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/)
+    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/)
     .messages({
-      "string.pattern.base": "El título solo puede contener letras y espacios",
-      "string.min": "El título debe tener más de 3 caracteres",
+      "string.pattern.base": "El título solo puede contener letras, números y espacios",
+      "string.min": "El título debe tener al menos 10 caracteres",
       "string.max": "El título debe tener menos de 50 caracteres",
       "string.empty": "El título es obligatorio",
     }),
 
-  contenido: Joi.string()
-    .min(3)
-    .max(300)
-    .required()
-    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9.,;:¡!¿?'"()\-\s]+$/)
-    .messages({
-      "string.pattern.base": "El contenido solo puede contener letras, números y puntuación válida",
-      "string.min": "El contenido debe tener más de 3 caracteres",
-      "string.max": "El contenido debe tener menos de 300 caracteres",
-      "string.empty": "El contenido es obligatorio",
-    }),
+contenido: Joi.string()
+  .min(3)
+  .max(300)
+  .required()
+  .pattern(/^[\s\S]{3,300}$/)
+  .messages({
+    "string.pattern.base": "El contenido puede incluir letras, números, signos, emojis y saltos de línea",
+    "string.min": "El contenido debe tener más de 3 caracteres",
+    "string.max": "El contenido debe tener menos de 300 caracteres",
+    "string.empty": "El contenido es obligatorio",
+  }),
+
 
   tipo_de_publicacion: Joi.string()
     .valid("Bienestar físico", "Medioambiente", "Educativos", "Arte y creatividad", "Entretenimiento")
@@ -39,7 +40,7 @@ export const createValidation = Joi.object({
 // Actualizar publicación
 export const updateValidation = Joi.object({
   titulo: Joi.string()
-    .min(3)
+    .min(15)
     .max(50)
     .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/)
     .messages({
@@ -52,7 +53,7 @@ export const updateValidation = Joi.object({
   contenido: Joi.string()
     .min(3)
     .max(300)
-    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9.,;:¡!¿?'"()\-\n\s]+$/)
+    .pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9.,;:¡!¿?'"()\-\s\n]+$/)
     .messages({
       "string.pattern.base": "El contenido solo puede contener letras, números y puntuación válida",
       "string.min": "El contenido debe tener más de 3 caracteres",
