@@ -405,6 +405,14 @@
   margin-right: 0.5rem;
 }
 
+.input-hint {
+  display: block;
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
+  font-style: italic;
+}
+
 .form-group input:invalid {
   border-color: #f44336;
 }
