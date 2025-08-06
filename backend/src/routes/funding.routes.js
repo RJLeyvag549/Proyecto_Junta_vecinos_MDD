@@ -7,7 +7,7 @@ import { uploadComprobanteSingle, handleFileSizeLimit } from "../middleware/uplo
 
 const router = Router();
 
-// Ruta pública para archivos (sin autenticación)
+
 router.get("/file/:filename", getComprobanteFile);
 
 router.use(authenticateJwt);
@@ -15,7 +15,7 @@ router.use(isAdmin);
 
 router.post("/create", uploadComprobanteSingle, handleFileSizeLimit, createFunding);
 router.get("/get", getFunding);
-router.put("/update/:id", updateFunding);
+router.put("/update/:id", uploadComprobanteSingle, handleFileSizeLimit, updateFunding);
 router.delete("/delete/:id", deleteFunding);
 router.get("/planilla", exportFundingSheet);
 

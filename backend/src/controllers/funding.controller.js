@@ -15,7 +15,7 @@ export async function createFunding(req, res) {
     const comprobante = req.file ? `upload/${req.file.filename}` : null;
     const newFunding = fundingRepository.create({name, amount, date, status, comprobante});
     if (!req.file) {
-      return res.status(400).json({ message: "Debe adjuntar un comprobante de la acreditación aceptada." });
+      return res.status(400).json({ message: "Debe adjuntar un comprobante de la acreditación." });
     }
     console.log("Datos a guardar:", { name, amount, date, status, comprobante });
     await fundingRepository.save(newFunding);
@@ -54,12 +54,16 @@ export async function updateFunding(req, res) {
       return res.status(400).json({ message: error.details[0].message });
     }
 
-    const { name, amount, date, status, comprobante } = value;
+    const { name, amount, date, status } = value;
     funding.name = name || funding.name;
     funding.amount = amount || funding.amount;
     funding.date = date || funding.date;
     funding.status = status || funding.status;
-    funding.comprobante = comprobante || funding.comprobante;
+    
+
+    if (req.file) {
+      funding.comprobante = `upload/${req.file.filename}`;
+    }
 
     await fundingRepository.save(funding);
 
@@ -95,15 +99,14 @@ export async function getComprobanteFile(req, res) {
     const path = await import('path');
     const fs = await import('fs');
     
-    // Construir la ruta del archivo de forma segura
+
     const filePath = path.join(process.cwd(), 'src', 'upload', filename);
     
-    // Verificar si el archivo existe
+
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ message: "Archivo no encontrado" });
     }
     
-    // Enviar el archivo
     res.sendFile(filePath);
   } catch (error) {
     console.error("Error en funding.controller.js -> getComprobanteFile(): ", error);
