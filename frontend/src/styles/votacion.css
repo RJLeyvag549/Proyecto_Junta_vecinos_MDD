@@ -1,37 +1,28 @@
- body {
-  height: 100%;
-  margin: 0;
+.body-votacion,html {
+  min-height: 100vh;
   padding: 0;
   font-family: "Nunito", sans-serif;
-  background: transparent; /* importante */
   overflow-x: hidden;
   position: relative;
 
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-    background: url('login.png') center center / cover no-repeat;
-  
+  background-image: url('login.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
 }
 
 .votaciones-container {
-  padding-top: 130px;
-  min-height: 100vh;
-  width: 60%;
-  margin: 0 auto;
+  padding-top: 100px;
+  min-height: calc(100vh - 100px);
+  width: calc(100% - 290px);
   margin-left: 290px;
-  
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: url('login.png');
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .boton-volver {
@@ -87,8 +78,10 @@ body::before {
   width: 100%;
   margin-top: 20px;
   max-width: 1600px; 
-  padding: 40px 90px;
-  justify-content: center;
+  padding: 40px 5%;
+box-sizing: border-box;
+  justify-content: center
+ 
 }
 
 
@@ -185,7 +178,8 @@ body::before {
   }
 
   .votaciones-banner {
-    font-size: 2rem;
+    font-size: 2.5rem;
+  font-weight: 900px;
     padding: 30px 20px;
   }
 

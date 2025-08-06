@@ -82,6 +82,7 @@ function Register() {
   };
 
   return (
+     <div className='body-register'>
     <div className='register-background'>
       <div className='boton-volver-wrapper-register'>
         <button
@@ -305,6 +306,7 @@ function Register() {
 
         <button type='submit'>ENVIAR SOLICITUD</button>
       </form>
+    </div>
     </div>
   );
 }

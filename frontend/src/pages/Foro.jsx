@@ -274,7 +274,9 @@ const guardarEdicionComentario = async (idComentario, idPublicacion) => {
 
     return (
       <>
+      
         <Navbar />
+       
         <div className="foro-layout">
           <aside className="foro-sidebar">
             {role === 'administrator' ? <SidebarAdmin /> : <SidebarUsuario />}
@@ -515,6 +517,7 @@ const guardarEdicionComentario = async (idComentario, idPublicacion) => {
 
           </div>
         </div>
+        
       )}
     </>
   );

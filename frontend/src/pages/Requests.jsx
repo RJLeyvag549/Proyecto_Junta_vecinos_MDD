@@ -35,6 +35,7 @@ const handleReject = async (id) => {
 };
 
   return (
+    <div className='body-Request'>
     <div className='requests-page'>
       <SidebarAdmin />
       <div className='main-content'>
@@ -56,6 +57,7 @@ const handleReject = async (id) => {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 };

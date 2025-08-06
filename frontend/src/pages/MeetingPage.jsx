@@ -121,6 +121,7 @@ function MeetingPage() {
   };
 
   return (
+    <div className="body-meetings">
     <div className="app-layout">
       <Navbar />
       <div className="main-content">
@@ -240,6 +241,7 @@ function MeetingPage() {
         </div>
       </div>
     </div>
+  </div>
   );
 }
 

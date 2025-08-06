@@ -28,6 +28,7 @@ const UserList = () => {
   const handleClosePopup = () => setSelectedId(null);
 
   return (
+    <div className='body-UserList'>
     <div className='user-list-page'>
       <SidebarAdmin />
       <div className='main-content'>
@@ -57,6 +58,7 @@ const UserList = () => {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 };

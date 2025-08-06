@@ -1,8 +1,7 @@
 /* ------------------ General Layout ------------------ */
-body {
+.body-meetings {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #437415;
   color: rgb(24, 61, 23);
 }
 
@@ -525,7 +524,7 @@ table.dataTable tbody tr:hover {
 }
 
 .dataTables_paginate .paginate_button.current {
-  background-color: #437415;
+  background-color: #8fb56c;
   color: white !important;
   border: 1px solid #365c10;
 }

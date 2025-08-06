@@ -42,7 +42,7 @@ function Votacion() {
   return (
     <div className="votacion-layout">
       <Navbar />
-      <div className="votacion-body">
+      <div className="body-votacion">
         <SidebarUsuario />
         <div className="votaciones-container">
           <header className="votaciones-banner">
