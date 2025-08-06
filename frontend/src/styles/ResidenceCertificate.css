@@ -1,26 +1,48 @@
+.residence-page {
+  min-height: 100vh;
+  background-image: url('/ResidenceCertificate.jpg');
+  background-size: cover;
+  background-position: center;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+}
+
+/* Mantener layout */
+.residence-main {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+/* Contenedor negro semitransparente */
 .residence-container {
   padding: 2rem;
   max-width: 700px;
-  margin: 0 auto;
-  background-color: #fff;
+  margin: 3rem auto 0 auto; /* <-- este es el cambio */
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
+
+/* Títulos */
 .residence-container h1 {
   font-size: 1.8rem;
   margin-bottom: 1rem;
+  color: #f8f8f8;
 }
 
-.residence-container ul {
-  list-style-type: none;
-  padding: 0;
-  margin-bottom: 1.5rem;
+.residence-info {
+  line-height: 2;
+  margin-top: 1.8rem;
+  color: white;
 }
 
-.residence-container li {
-  margin-bottom: 0.5rem;
-}
-
+/* Botón */
 .residence-container button {
   padding: 10px 20px;
   font-weight: bold;
@@ -29,8 +51,14 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
+.residence-container button:hover {
+  background-color: #002244;
+}
+
+/* PDF */
 .pdf-preview {
   margin-top: 2rem;
 }
@@ -39,4 +67,6 @@
   display: inline-block;
   margin-top: 1rem;
   font-weight: bold;
+  color: #00d4ff;
+  text-decoration: underline;
 }

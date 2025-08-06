@@ -1,3 +1,6 @@
+import { useNavigate } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
+
 import { useState, useRef } from 'react';
 import { register } from '../services/auth.service';
 import '../styles/register.css';
@@ -11,6 +14,7 @@ import homeAddressIcon from '../assets/register6-icon.png';
 import uploadArchiveIcon from '../assets/register7-icon.png';
 
 function Register() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: '',
     rut: '',
@@ -40,10 +44,10 @@ function Register() {
     setErrors({});
 
     if (!formData.docIdentity || !formData.docResidence) {
-    alert(
-      'Debes adjuntar la cédula de identidad y el comprobante de domicilio antes de enviar la solicitud de registro.'
-    );
-    return;
+      alert(
+        'Debes adjuntar la cédula de identidad y el comprobante de domicilio antes de enviar la solicitud de registro.'
+      );
+      return;
     }
 
     try {
@@ -79,6 +83,14 @@ function Register() {
 
   return (
     <div className='register-background'>
+      <div className='boton-volver-wrapper-register'>
+        <button
+          className='boton-volver-register'
+          onClick={() => navigate(-1)}
+        >
+          <FaArrowLeft />
+        </button>
+      </div>
       <form
         className='register-container'
         onSubmit={handleSubmit}
@@ -227,7 +239,12 @@ function Register() {
 
         <div className='documents-upload'>
           <div>
-            <label>CÉDULA IDENTIDAD</label>
+            <label>
+              CÉDULA
+              <br />
+              IDENTIDAD
+            </label>
+
             <button
               type='button'
               className='custom-file-button'
@@ -254,7 +271,11 @@ function Register() {
             )}
           </div>
           <div>
-            <label>COMPROBANTE DOMICILIO</label>
+            <label>
+              COMPROBANTE
+              <br />
+              DOMICILIO
+            </label>
             <button
               type='button'
               className='custom-file-button'

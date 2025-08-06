@@ -180,16 +180,58 @@ export async function updateRequestStatus(req, res) {
         ? '¡Tu solicitud fue aprobada!'
         : 'Tu solicitud fue rechazada';
 
-    const message =
+//////////////////////////////////////////////////
+    const messageText =
       requestStatus === 'aprobado'
-        ? `Hola ${user.fullName}, tu solicitud de registro ha sido aprobada. Ya puedes ingresar al sistema.`
-        : `Hola ${user.fullName}, lamentamos informarte que tu solicitud de registro fue rechazada.`;
+        ? `Hola ${user.fullName},\n\n` +
+          `¡Te damos la bienvenida a la Junta Vecinal Parque Ecuador!\n\n` +
+          `Nos complace informarte que tu solicitud de registro ha sido aprobada exitosamente. A partir de ahora, puedes acceder al sistema y participar activamente en las actividades, solicitudes y gestiones vecinales que ofrecemos.\n\n` +
+          `Tu participación es muy importante para fortalecer nuestra comunidad. No dudes en contactarnos si tienes dudas o necesitas apoyo.\n\n` +
+          `Saludos cordiales,\nJunta Vecinal Parque Ecuador`
+        : `Hola ${user.fullName},\n\n` +
+          `Lamentamos informarte que tu solicitud de registro en la Junta Vecinal Parque Ecuador no ha sido aprobada.\n\n` +
+          `Esto puede deberse a que los datos entregados no fueron suficientes o no cumplen con los requisitos actuales. Si consideras que se trata de un error o deseas volver a postular, te invitamos a revisar tu información y comunicarte con nosotros para más detalles.\n\n` +
+          `Gracias por tu interés en ser parte de nuestra comunidad.\n\n` +
+          `Atentamente,\nJunta Vecinal Parque Ecuador`;
+
+    const messageHtml =
+      requestStatus === 'aprobado'
+        ? `
+      <p>Hola ${user.fullName},</p>
+      <p><strong>¡Te damos la bienvenida a la Junta Vecinal Parque Ecuador!</strong></p>
+      <p>
+        Nos complace informarte que tu solicitud de registro ha sido aprobada exitosamente.
+        A partir de ahora, puedes acceder al sistema y participar activamente en las actividades,
+        solicitudes y gestiones vecinales que ofrecemos.
+      </p>
+      <p>
+        Tu participación es muy importante para fortalecer nuestra comunidad.
+        No dudes en contactarnos si tienes dudas o necesitas apoyo.
+      </p>
+      <p>Saludos cordiales,<br><strong>Junta Vecinal Parque Ecuador</strong></p>
+    `
+        : `
+      <p>Hola ${user.fullName},</p>
+      <p>
+        Lamentamos informarte que tu solicitud de registro en la <strong>Junta Vecinal Parque Ecuador</strong> no ha sido aprobada.
+      </p>
+      <p>
+        Esto puede deberse a que los datos entregados no fueron suficientes o no cumplen con los requisitos actuales.
+        Si consideras que se trata de un error o deseas volver a postular,
+        te invitamos a revisar tu información y comunicarte con nosotros para más detalles.
+      </p>
+      <p>
+        Gracias por tu interés en ser parte de nuestra comunidad.
+      </p>
+      <p>Atentamente,<br><strong>Junta Vecinal Parque Ecuador</strong></p>
+    `;
+    //////////////////////////////////////////////////
 
     if (requestStatus === 'rechazado') {
       await userRepository.remove(user);
     }
 
-    await sendEmail(user.email, subject, message, `<p>${message}</p>`);
+await sendEmail(user.email, subject, messageText, messageHtml);
 
     res.status(200).json({
       message: `Solicitud actualizada a: ${requestStatus}`,

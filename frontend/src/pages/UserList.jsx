@@ -32,15 +32,15 @@ const UserList = () => {
       <SidebarAdmin />
       <div className='main-content'>
         <Navbar />
-        <div className='content-container'>
+        <div className='content-container-UserList'>
           <h1 className='page-title'>PADRÓN DE VECINOS</h1>
 
           <TableUserList
             users={users}
-            onViewProfile={setSelectedId} 
+            onViewProfile={setSelectedId}
           />
 
-          {selectedId && ( 
+          {selectedId && (
             <UserPopup
               user={user}
               loading={loading}

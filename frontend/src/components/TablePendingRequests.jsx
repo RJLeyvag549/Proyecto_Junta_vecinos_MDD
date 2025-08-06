@@ -30,14 +30,14 @@ const TablePendingRequests = ({
       <table className='requests-table'>
         <thead>
           <tr>
-            <th>Nombre</th>
+            <th>NOMBRE</th>
             <th>RUT</th>
-            <th>Correo electrónico</th>
-            <th>Número de contacto</th>
-            <th>Dirección</th>
-            <th>Cédula</th>
-            <th>Residencia</th>
-            <th>Acciones</th>
+            <th>CORREO ELECTRÓNICO</th>
+            <th>CONTACTO</th>
+            <th>DIRECCIÓN</th>
+            <th>CÉDULA</th>
+            <th>RESIDENCIA</th>
+            <th>ACCIONES</th>
           </tr>
         </thead>
         <tbody>
@@ -49,26 +49,35 @@ const TablePendingRequests = ({
                 <td>{user.email}</td>
                 <td>{user.contact}</td>
                 <td>{user.homeAddress}</td>
+
                 <td>
-                  <button onClick={() => openModal(user.docIdentity)}>
+                  <button
+                    onClick={() => openModal(user.docIdentity)}
+                    className='btn-action btn-view'
+                  >
                     Ver
                   </button>
                 </td>
+
                 <td>
-                  <button onClick={() => openModal(user.docResidence)}>
+                  <button
+                    onClick={() => openModal(user.docResidence)}
+                    className='btn-action btn-view'
+                  >
                     Ver
                   </button>
                 </td>
+
                 <td>
                   <button
                     onClick={() => handleAccept(user.id)}
-                    className='btn-accept'
+                    className='btn-action btn-accept'
                   >
                     Aceptar
                   </button>
                   <button
                     onClick={() => handleReject(user.id)}
-                    className='btn-reject'
+                    className='btn-action btn-reject'
                   >
                     Rechazar
                   </button>
