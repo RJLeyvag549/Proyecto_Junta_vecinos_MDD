@@ -34,27 +34,23 @@ const HomeAdmin = () => {
           </h2>
         </section>
 
-        <section className="contenido-extra-admin">
-          <div className="servicios-contenido-admin">
-            <h2 className="titulo-beneficios-admin">
-              FUNCIONES DISPONIBLES PARA ADMINISTRADORES
-            </h2>
+              <section className="contenido-extra-admin">
+              <div className="servicios-contenido-admin">
+                <h2 className="titulo-beneficios-admin">
+                  SERVICIOS EXCLUSIVOS AL ASOCIARSE<br />
+                  A LA JUNTA DE VECINOS
+                </h2>
 
-            <div className="beneficios-lista-admin">
-              <ul>
-                <li>Gestión de usuarios y solicitudes</li>
-                <li>Supervisión de eventos y actividades</li>
-                <li>Control de presupuestos y pagos</li>
-                <li>Revisión de documentos oficiales</li>
-              </ul>
-              <ul>
-                <li>Acceso a reportes y estadísticas</li>
-                <li>Notificaciones a vecinos</li>
-                <li>Configuración de roles y permisos</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+                <ul className="beneficios-lista-admin">
+                  <li>✅ Formulario de creación con campos dinámicos y validación de archivos.</li>
+                  <li>✅ Subida de comprobante obligatorio para confirmar acreditación.</li>
+                  <li>✅ Tabla de gestión con acciones de editar, eliminar y visualizar <br></br>comprobante.</li>
+                  <li>✅ Mensajes dinámicos de confirmación y error.</li>
+                  <li>✅ Botón para descargar todas las acreditaciones.</li>
+                </ul>
+              </div>
+            </section>
+
       </main>
     </div>
   );
