@@ -1,3 +1,8 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: auto; /* Cambiado de hidden a auto para que el contenido sea desplazable */
+}
 
 .navbar {
   position: fixed;
@@ -9,56 +14,85 @@
   z-index: 1000;
 }
 
-
-html, body {
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-}
-
 .foro-container {
+  position: relative; /* necesario para posicionar ::before */
   flex: 1;
   margin: 0;
   padding: 2rem;
   min-height: calc(100vh - 9vh);
-  background-image: url('/Foro.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  position: relative;
+  z-index: 0;
+  display: block;
 }
-
-
-.foro-container > * {
-  position: relative;
-  z-index: 1;
-}
-
 
 .foro-container::before {
   content: "";
-  position: fixed;
+  position: fixed; /* Se mantiene fijo mientras se hace scroll */
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-image: url('/Foro.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  z-index: -1;
-  opacity: 1;
+  z-index: -1; /* detrás del contenido */
+  opacity: 1; /* Ajusta si quieres ver el contenido más */
+  pointer-events: none; /* permite interactuar con el contenido encima */
 }
 
-
-
-/* Asegura que el contenido esté por encima del overlay */
+/* Asegura que el contenido del foro esté encima */
 .foro-container > * {
   position: relative;
   z-index: 1;
 }
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: auto; /* Cambiado de hidden a auto para que el contenido sea desplazable */
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 9vh;
+  width: 100%;
+  background-color: #718355;
+  z-index: 1000;
+}
+
+.foro-container {
+  position: relative; /* necesario para posicionar ::before */
+  flex: 1;
+  margin: 0;
+  padding: 2rem;
+  min-height: calc(100vh - 9vh);
+  z-index: 0;
+  display: block;
+}
+
+.foro-container::before {
+  content: "";
+  position: fixed; /* Se mantiene fijo mientras se hace scroll */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/Foro.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1; /* detrás del contenido */
+  opacity: 1; /* Ajusta si quieres ver el contenido más */
+  pointer-events: none; /* permite interactuar con el contenido encima */
+}
+
+/* Asegura que el contenido del foro esté encima */
+.foro-container > * {
+  position: relative;
+  z-index: 1;
+}
+
 
 
 /* TITULO */
@@ -570,7 +604,7 @@ html, body {
   font-weight: bold;
   cursor: pointer;
   margin-top: 50px;
-  margin-left: 610px;
+  margin-left: 690px;
   display: flex;
   align-items: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
