@@ -394,9 +394,6 @@ html, body {
   transform: scale(1.1);
 }
 
-.btn-icono-editar:hover img {
-  transform: scale(1.15);
-}
 
 .contenedor-botones-comentario {
   display: flex;
@@ -510,7 +507,7 @@ html, body {
   box-shadow: 0 0 5px rgba(129, 199, 132, 0.4);
 }
 
-/* Contenedor de botones */
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
 .botones-formulario {
   display: flex;
   justify-content: flex-end;
@@ -518,24 +515,6 @@ html, body {
   margin-top: 1.5rem;
 }
 
-/* Botón Publicar / Guardar */
-.btn-crear-publicacion {
-  background-color: #4caf50;
-  color: white;
-  padding: 0.6rem 1.4rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.btn-crear-publicacion:hover {
-  background-color: #388e3c;
-}
-
-/* Botón Cancelar */
 .btn-cancelar-publicacion {
   background-color: transparent;
   color: #4caf50;
@@ -553,6 +532,8 @@ html, body {
   color: #388e3c;
   border-color: #388e3c;
 }
+
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
 
 /* Botón Guardar */
 .btn-crear-publicacion {
@@ -571,38 +552,8 @@ html, body {
   background-color: #388e3c;
 }
 
-/* Botón Cancelar */
-.btn-cancelar-publicacion {
-  background-color: transparent;
-  color: #4caf50;
-  border: 2px solid #4caf50;
-  padding: 0.6rem 1.4rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
 
-.btn-cancelar-publicacion:hover {
-  background-color: #e8f5e9;
-  color: #388e3c;
-  border-color: #388e3c;
-}
-
-
-
-
-
-.btn-crear-publicacion {
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
+/* Botón flotante (crear nueva publicación) */
 .btn-flotante-crear {
   background-color: #4caf50;
   color: white;
@@ -616,40 +567,20 @@ html, body {
   margin-left: 650px;
   display: flex;
   align-items: center;
-  
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
 }
 
-
-
-.btn-crear-publicacion:hover {
+.btn-flotante-crear:hover {
   background-color: #388e3c;
-
-
-}
-
-.btn-cancelar {
-  background-color: transparent;
-  color: #4caf50;
-  border: 2px solid #4caf50;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
-.btn-cancelar:hover {
-  background-color: #e8f5e9;
-  color: #388e3c;
-  border-color: #388e3c;
 }
 
 
+/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/
 
 .texto-comentario {
   flex: 1;
   padding-right: 10px; /* para que no se pegue al ícono */
 }
+
+
