@@ -165,7 +165,7 @@ export async function updateComentario(req, res) {
     if (!comentario)
       return res.status(404).json({ message: "Comentario no encontrado" });
 
-    if (comentario.user.id !== id_usuario)
+    if (comentario.user.id !== id_usuario && req.user.role !== 'administrator')
       return res.status(403).json({ message: "No autorizado para editar este comentario" });
 
     comentario.contenido = contenido;
