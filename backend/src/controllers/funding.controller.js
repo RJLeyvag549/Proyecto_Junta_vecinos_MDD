@@ -54,12 +54,16 @@ export async function updateFunding(req, res) {
       return res.status(400).json({ message: error.details[0].message });
     }
 
-    const { name, amount, date, status, comprobante } = value;
+    const { name, amount, date, status } = value;
     funding.name = name || funding.name;
     funding.amount = amount || funding.amount;
     funding.date = date || funding.date;
     funding.status = status || funding.status;
-    funding.comprobante = comprobante || funding.comprobante;
+    
+    // Manejar archivo si se envía uno nuevo
+    if (req.file) {
+      funding.comprobante = `upload/${req.file.filename}`;
+    }
 
     await fundingRepository.save(funding);
 

@@ -72,8 +72,11 @@ function FundingPage() {
       setForm({ name: "", amount: "", date: "", status: "", comprobante: "" });
       await fetchFundings();
     } catch (err) {
+      console.error("Error completo:", err);
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
+      } else if (err.message) {
+        setError(err.message);
       } else {
         setError("Error al procesar la solicitud");
       }
@@ -146,7 +149,7 @@ function FundingPage() {
             </select>
             {/* Custom file input */}
             <label className="custom-file-label">
-              Subir comprobante
+              {editingId ? "Cambiar comprobante (opcional)" : "Subir comprobante"}
               <input
                 name="comprobante"
                 type="file"

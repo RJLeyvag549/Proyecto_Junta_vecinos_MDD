@@ -15,7 +15,7 @@ router.use(isAdmin);
 
 router.post("/create", uploadComprobanteSingle, handleFileSizeLimit, createFunding);
 router.get("/get", getFunding);
-router.put("/update/:id", updateFunding);
+router.put("/update/:id", uploadComprobanteSingle, handleFileSizeLimit, updateFunding);
 router.delete("/delete/:id", deleteFunding);
 router.get("/planilla", exportFundingSheet);
 
